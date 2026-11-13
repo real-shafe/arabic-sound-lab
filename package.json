@@ -1,0 +1,14 @@
+{
+  "name": "arabic-sound-lab",
+  "private": true,
+  "type": "module",
+  "description": "Interactive guide to the sounds of Modern Standard Arabic, voiced with ElevenLabs",
+  "scripts": {
+    "audio": "node --env-file=.env.local scripts/generate-audio.mjs",
+    "audio:check": "node --env-file=.env.local scripts/check-audio.mjs",
+    "dev": "node scripts/serve.mjs"
+  },
+  "dependencies": {
+    "@elevenlabs/elevenlabs-js": "^2.78.0"
+  }
+}

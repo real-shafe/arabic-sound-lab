@@ -1,0 +1,369 @@
+{
+ "voice": {
+  "id": "G1HOkzin3NMwRHSq60UI",
+  "name": "Chaouki"
+ },
+ "model": "eleven_v4",
+ "clips": {
+  "بَا": {
+   "src": "audio/52dff1df97.mp3",
+   "fp": "b3666eacb2"
+  },
+  "بَاب": {
+   "src": "audio/6233226749.mp3",
+   "fp": "b3666eacb2"
+  },
+  "مَا": {
+   "src": "audio/cf093c097b.mp3",
+   "fp": "b3666eacb2"
+  },
+  "مَاء": {
+   "src": "audio/a9381776c5.mp3",
+   "fp": "b3666eacb2"
+  },
+  "فَا": {
+   "src": "audio/459c62a3fe.mp3",
+   "fp": "b3666eacb2"
+  },
+  "فِيل": {
+   "src": "audio/f4cac43d7d.mp3",
+   "fp": "cfae03f8c5"
+  },
+  "وَا": {
+   "src": "audio/55c9f617cd.mp3",
+   "fp": "b3666eacb2"
+  },
+  "وَلَد": {
+   "src": "audio/52e03dce73.mp3",
+   "fp": "b3666eacb2"
+  },
+  "ثَا": {
+   "src": "audio/09046f6ac7.mp3",
+   "fp": "b3666eacb2"
+  },
+  "ثَلْج": {
+   "src": "audio/55e116762a.mp3",
+   "fp": "b3666eacb2"
+  },
+  "ذَا": {
+   "src": "audio/107fd195f2.mp3",
+   "fp": "b3666eacb2"
+  },
+  "ذَهَب": {
+   "src": "audio/4e1a1acdac.mp3",
+   "fp": "b3666eacb2"
+  },
+  "ظَا": {
+   "src": "audio/4aa7a799ab.mp3",
+   "fp": "b3666eacb2"
+  },
+  "ظِلّ": {
+   "src": "audio/0b5de3092c.mp3",
+   "fp": "b3666eacb2"
+  },
+  "تَا": {
+   "src": "audio/63a1e74a55.mp3",
+   "fp": "b3666eacb2"
+  },
+  "تِين": {
+   "src": "audio/ca228e7958.mp3",
+   "fp": "b3666eacb2"
+  },
+  "دَا": {
+   "src": "audio/f841b7402b.mp3",
+   "fp": "b3666eacb2"
+  },
+  "دَار": {
+   "src": "audio/64b14691ae.mp3",
+   "fp": "b3666eacb2"
+  },
+  "طَا": {
+   "src": "audio/88e75a0bff.mp3",
+   "fp": "b3666eacb2"
+  },
+  "طِين": {
+   "src": "audio/1d7a0ef198.mp3",
+   "fp": "b3666eacb2"
+  },
+  "ضَا": {
+   "src": "audio/fcc2128525.mp3",
+   "fp": "b3666eacb2"
+  },
+  "ضَوْء": {
+   "src": "audio/bc6966522d.mp3",
+   "fp": "b3666eacb2"
+  },
+  "سَا": {
+   "src": "audio/75e26210d3.mp3",
+   "fp": "b3666eacb2"
+  },
+  "سَيْف": {
+   "src": "audio/562b07feab.mp3",
+   "fp": "b3666eacb2"
+  },
+  "صَا": {
+   "src": "audio/bce98aeeb2.mp3",
+   "fp": "b3666eacb2"
+  },
+  "صَيْف": {
+   "src": "audio/2de76673fd.mp3",
+   "fp": "b3666eacb2"
+  },
+  "زَا": {
+   "src": "audio/a73c5f8077.mp3",
+   "fp": "b3666eacb2"
+  },
+  "زَيْت": {
+   "src": "audio/4bb0293e95.mp3",
+   "fp": "b3666eacb2"
+  },
+  "نَا": {
+   "src": "audio/1bb231a52c.mp3",
+   "fp": "b3666eacb2"
+  },
+  "نُور": {
+   "src": "audio/9a1a4a349f.mp3",
+   "fp": "b3666eacb2"
+  },
+  "لَا": {
+   "src": "audio/2e27e0c972.mp3",
+   "fp": "b3666eacb2"
+  },
+  "لَيْل": {
+   "src": "audio/385149be00.mp3",
+   "fp": "15db3b13b3"
+  },
+  "رَا": {
+   "src": "audio/0bd9a20ac3.mp3",
+   "fp": "b3666eacb2"
+  },
+  "رَأْس": {
+   "src": "audio/0999667659.mp3",
+   "fp": "b3666eacb2"
+  },
+  "شَا": {
+   "src": "audio/3b84308009.mp3",
+   "fp": "b3666eacb2"
+  },
+  "شَمْس": {
+   "src": "audio/cf920f893d.mp3",
+   "fp": "b3666eacb2"
+  },
+  "جَا": {
+   "src": "audio/5df830d766.mp3",
+   "fp": "b3666eacb2"
+  },
+  "جَمَل": {
+   "src": "audio/a752b0452e.mp3",
+   "fp": "b3666eacb2"
+  },
+  "يَا": {
+   "src": "audio/43f41f7a68.mp3",
+   "fp": "b3666eacb2"
+  },
+  "يَد": {
+   "src": "audio/d1a4397fd5.mp3",
+   "fp": "b3666eacb2"
+  },
+  "كَا": {
+   "src": "audio/c2522affe5.mp3",
+   "fp": "b3666eacb2"
+  },
+  "كَلْب": {
+   "src": "audio/795bcb2248.mp3",
+   "fp": "b3666eacb2"
+  },
+  "قَا": {
+   "src": "audio/21f68fc36a.mp3",
+   "fp": "b3666eacb2"
+  },
+  "قَلْب": {
+   "src": "audio/ab0f753b77.mp3",
+   "fp": "b3666eacb2"
+  },
+  "خَا": {
+   "src": "audio/ed6564c827.mp3",
+   "fp": "b3666eacb2"
+  },
+  "خُبْز": {
+   "src": "audio/50dfd99a39.mp3",
+   "fp": "b3666eacb2"
+  },
+  "غَا": {
+   "src": "audio/0ff3cd582c.mp3",
+   "fp": "b3666eacb2"
+  },
+  "غَرْب": {
+   "src": "audio/e13062e653.mp3",
+   "fp": "892e223f8f"
+  },
+  "حَا": {
+   "src": "audio/b831568acb.mp3",
+   "fp": "b3666eacb2"
+  },
+  "حُبّ": {
+   "src": "audio/1f182c8731.mp3",
+   "fp": "b3666eacb2"
+  },
+  "عَا": {
+   "src": "audio/d557948ff2.mp3",
+   "fp": "b3666eacb2"
+  },
+  "عَيْن": {
+   "src": "audio/51e3758284.mp3",
+   "fp": "b3666eacb2"
+  },
+  "أَا": {
+   "src": "audio/a778e16ab7.mp3",
+   "fp": "b3666eacb2"
+  },
+  "سُؤَال": {
+   "src": "audio/d75da3fdca.mp3",
+   "fp": "b3666eacb2"
+  },
+  "هَا": {
+   "src": "audio/c3f9210524.mp3",
+   "fp": "b3666eacb2"
+  },
+  "هَوَاء": {
+   "src": "audio/d5e5b16bab.mp3",
+   "fp": "b3666eacb2"
+  },
+  "دَلَّ": {
+   "src": "audio/5e0527b63a.mp3",
+   "fp": "b3666eacb2"
+  },
+  "ضَلَّ": {
+   "src": "audio/04624a4b8b.mp3",
+   "fp": "b3666eacb2"
+  },
+  "ذَلَّ": {
+   "src": "audio/8a4527db97.mp3",
+   "fp": "b3666eacb2"
+  },
+  "ظَلَّ": {
+   "src": "audio/13ed4e6e2c.mp3",
+   "fp": "b3666eacb2"
+  },
+  "هَرَم": {
+   "src": "audio/b7327e661f.mp3",
+   "fp": "b3666eacb2"
+  },
+  "حَرَم": {
+   "src": "audio/5be2d43ad7.mp3",
+   "fp": "b3666eacb2"
+  },
+  "حَال": {
+   "src": "audio/f03fc5ee3b.mp3",
+   "fp": "b3666eacb2"
+  },
+  "خَال": {
+   "src": "audio/ffbe4e255d.mp3",
+   "fp": "b3666eacb2"
+  },
+  "أَلَم": {
+   "src": "audio/1e2ef51ee0.mp3",
+   "fp": "b3666eacb2"
+  },
+  "عَلَم": {
+   "src": "audio/6f59d1d38f.mp3",
+   "fp": "b3666eacb2"
+  },
+  "عَالِي": {
+   "src": "audio/cb22b15314.mp3",
+   "fp": "b3666eacb2"
+  },
+  "غَالِي": {
+   "src": "audio/45fc3c61a7.mp3",
+   "fp": "b3666eacb2"
+  },
+  "سَارَ": {
+   "src": "audio/7b8c7a223e.mp3",
+   "fp": "b3666eacb2"
+  },
+  "ثَارَ": {
+   "src": "audio/6542be0c21.mp3",
+   "fp": "b3666eacb2"
+  },
+  "زَلَّ": {
+   "src": "audio/6015e6982d.mp3",
+   "fp": "b3666eacb2"
+  },
+  "كَتَبَ": {
+   "src": "audio/1a31c3cbb8.mp3",
+   "fp": "b3666eacb2"
+  },
+  "كَاتَبَ": {
+   "src": "audio/d78d2c09e1.mp3",
+   "fp": "b3666eacb2"
+  },
+  "جَمَال": {
+   "src": "audio/1fd0e6d5cf.mp3",
+   "fp": "b3666eacb2"
+  },
+  "دَرَسَ": {
+   "src": "audio/a534bf110d.mp3",
+   "fp": "b3666eacb2"
+  },
+  "دَرَّسَ": {
+   "src": "audio/cfdca62007.mp3",
+   "fp": "b3666eacb2"
+  },
+  "قَلَم": {
+   "src": "audio/d339e2317b.mp3",
+   "fp": "b3666eacb2"
+  },
+  "بِنْت": {
+   "src": "audio/8c9051214c.mp3",
+   "fp": "b3666eacb2"
+  },
+  "أُمّ": {
+   "src": "audio/d81f386701.mp3",
+   "fp": "b3666eacb2"
+  },
+  "بَيْت": {
+   "src": "audio/b4766f858f.mp3",
+   "fp": "b3666eacb2"
+  },
+  "يَوْم": {
+   "src": "audio/5b7ab118f4.mp3",
+   "fp": "b3666eacb2"
+  },
+  "صَارَ": {
+   "src": "audio/7b27e31415.mp3",
+   "fp": "b3666eacb2"
+  },
+  "تَابَ": {
+   "src": "audio/7031e71617.mp3",
+   "fp": "b3666eacb2"
+  },
+  "طَابَ": {
+   "src": "audio/014fa0caa3.mp3",
+   "fp": "b3666eacb2"
+  },
+  "الشَّمْس": {
+   "src": "audio/1250cdd533.mp3",
+   "fp": "b3666eacb2"
+  },
+  "الْقَمَر": {
+   "src": "audio/03b9e7a092.mp3",
+   "fp": "b3666eacb2"
+  },
+  "النُّور": {
+   "src": "audio/fd825c97eb.mp3",
+   "fp": "b3666eacb2"
+  },
+  "الْبَيْت": {
+   "src": "audio/e8741bd519.mp3",
+   "fp": "b3666eacb2"
+  },
+  "الدَّار": {
+   "src": "audio/f9ee7e8f08.mp3",
+   "fp": "b3666eacb2"
+  },
+  "الْكَلْب": {
+   "src": "audio/516ce18620.mp3",
+   "fp": "b3666eacb2"
+  }
+ }
+}
