@@ -1,0 +1,9 @@
+// Static-files Worker: serves public/ at arabic-sound-lab.shafe.dev
+{
+  "name": "arabic-sound-lab",
+  "compatibility_date": "2025-07-15",
+  "assets": { "directory": "./public" },
+  "routes": [
+    { "pattern": "arabic-sound-lab.shafe.dev", "custom_domain": true }
+  ]
+}

@@ -13,6 +13,8 @@ npm run dev        # http://localhost:5173
 
 The clips are committed under `public/audio/`, so the page plays without an ElevenLabs key.
 
+Live at https://arabic-sound-lab.shafe.dev, served by a static-assets Cloudflare Worker (`wrangler.jsonc`). Deploy with `npx wrangler deploy`; only `public/` is uploaded.
+
 ## Regenerate the audio
 
 You only need this after changing the words or the voice.
