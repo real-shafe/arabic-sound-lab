@@ -1,436 +1,95 @@
 <!doctype html>
-<html lang="en">
+<html lang="en" dir="ltr">
 <head>
 <meta charset="utf-8">
-<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>Arabic Sound Lab</title>
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Amiri:wght@400;700&family=IBM+Plex+Sans:wght@400;500;600&family=Noto+Sans:wght@400;600&display=swap">
-<style>
-/* Layout: a single reading column; consonants run front-of-mouth to throat, top to bottom, mirrored by the articulation strip */
-:root {
-  --bg: #F2F5F4;
-  --surface: #FFFFFF;
-  --ink: #15201F;
-  --muted: #586664;
-  --line: #D4DCDA;
-  --accent: #0B6E63;
-  --accent-soft: #DDEFEB;
-  --emph: #A3304A;
-  --emph-soft: #F7E2E6;
-  --warn-bg: #FFF4D6;
-  --warn-ink: #6B4B00;
-  --font-ar: "Amiri", "Noto Naskh Arabic", "Geeza Pro", "Traditional Arabic", serif;
-  --font-ui: "IBM Plex Sans", system-ui, -apple-system, "Segoe UI", sans-serif;
-  --font-ipa: "Noto Sans", "Charis SIL", "Gentium Plus", "Lucida Sans Unicode", sans-serif;
-  --r: 10px;
-}
-@media (prefers-color-scheme: dark) {
-  :root:not([data-theme="light"]) {
-    --bg: #0F1514; --surface: #162020; --ink: #E5EDEB; --muted: #93A3A0; --line: #2A3735;
-    --accent: #52C2AF; --accent-soft: #15322E; --emph: #EA7D93; --emph-soft: #3A1E25;
-    --warn-bg: #3A2F12; --warn-ink: #F3D58A; color-scheme: dark;
-  }
-}
-:root[data-theme="dark"] {
-  --bg: #0F1514; --surface: #162020; --ink: #E5EDEB; --muted: #93A3A0; --line: #2A3735;
-  --accent: #52C2AF; --accent-soft: #15322E; --emph: #EA7D93; --emph-soft: #3A1E25;
-  --warn-bg: #3A2F12; --warn-ink: #F3D58A; color-scheme: dark;
-}
-* { box-sizing: border-box; }
-body { margin: 0; background: var(--bg); color: var(--ink); font-family: var(--font-ui); font-size: 15px; line-height: 1.55; }
-.wrap { max-width: 960px; margin: 0 auto; padding-block: 28px 64px; padding-left: max(16px, env(safe-area-inset-left, 0px)); padding-right: max(16px, env(safe-area-inset-right, 0px)); display: flex; flex-direction: column; gap: 48px; }
-h1, h2, h3 { margin: 0; text-wrap: balance; font-weight: 600; line-height: 1.2; }
-h1 { font-size: clamp(28px, 5vw, 40px); letter-spacing: -0.01em; }
-h2 { font-size: 22px; }
-h3 { font-size: 13px; text-transform: uppercase; letter-spacing: 0.08em; color: var(--muted); font-weight: 600; }
-p { margin: 0; max-width: 65ch; }
-.ar { font-family: var(--font-ar); direction: rtl; unicode-bidi: isolate; }
-.ipa { font-family: var(--font-ipa); }
-.muted { color: var(--muted); }
-button { font: inherit; color: inherit; cursor: pointer; }
-button:focus-visible, select:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+<meta name="description" content="Train your ear for the Arabic sounds English doesn't have: hear a word, pick which one it was, and see where in the mouth each sound is made. Synthetic speech in two voices.">
+<link rel="canonical" href="https://arabic-sound-lab.shafe.dev/">
+<meta name="color-scheme" content="dark">
+<meta name="theme-color" content="#17181b">
 
-/* Header */
-header { display: flex; flex-direction: column; gap: 14px; }
-.title-row { display: flex; align-items: baseline; gap: 16px; flex-wrap: wrap; }
-.title-row .ar { font-size: clamp(30px, 6vw, 44px); color: var(--accent); line-height: 1; }
-.controls { display: flex; flex-wrap: wrap; gap: 10px 16px; align-items: center; padding: 12px 14px; background: var(--surface); border: 1px solid var(--line); border-radius: var(--r); }
-.seg { display: inline-flex; border: 1px solid var(--line); border-radius: 8px; overflow: hidden; }
-.seg button { background: transparent; border: 0; padding: 6px 12px; font-size: 13px; }
-.seg button[aria-pressed="true"] { background: var(--accent); color: var(--surface); }
-.ctl-label { font-size: 12px; text-transform: uppercase; letter-spacing: 0.07em; color: var(--muted); font-weight: 600; }
-select { font: inherit; font-size: 13px; padding: 5px 8px; border-radius: 8px; border: 1px solid var(--line); background: var(--surface); color: var(--ink); max-width: 100%; }
-.status { font-size: 13px; color: var(--muted); flex: 1 1 220px; min-width: 0; }
-.warn { background: var(--warn-bg); color: var(--warn-ink); padding: 10px 14px; border-radius: var(--r); font-size: 14px; }
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Arabic Sound Lab">
+<meta property="og:title" content="Arabic Sound Lab">
+<meta property="og:description" content="Train your ear for the Arabic sounds English doesn't have, and see where in the mouth each one is made.">
+<meta property="og:url" content="https://arabic-sound-lab.shafe.dev/">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="https://arabic-sound-lab.shafe.dev/og.png">
+<meta property="og:image:type" content="image/png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="Arabic Sound Lab: two Arabic words that differ by one sound, and a diagram of the mouth marking where each sound is made">
+<meta name="twitter:card" content="summary_large_image">
 
-section { display: flex; flex-direction: column; gap: 18px; }
-.sec-head { display: flex; flex-direction: column; gap: 6px; }
+<link rel="icon" href="favicon.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="apple-touch-icon.png">
+<link rel="manifest" href="site.webmanifest">
 
-/* Articulation strip */
-.strip { position: relative; display: grid; grid-template-columns: repeat(8, 1fr); padding-top: 4px; }
-.strip::before { content: ""; position: absolute; left: 6.25%; right: 6.25%; top: 13px; height: 2px; background: var(--line); }
-.stop { position: relative; display: flex; flex-direction: column; align-items: center; gap: 6px; background: none; border: 0; padding: 0 2px; min-width: 0; }
-.stop .dot { width: 20px; height: 20px; border-radius: 50%; background: var(--bg); border: 2px solid var(--line); transition: background .15s, border-color .15s, transform .15s; }
-.stop .lbl { font-size: 12px; color: var(--muted); text-align: center; line-height: 1.2; }
-.stop.active .dot { background: var(--accent); border-color: var(--accent); transform: scale(1.15); }
-.stop.active .lbl { color: var(--ink); font-weight: 600; }
-.strip-ends { display: flex; justify-content: space-between; font-size: 12px; color: var(--muted); margin-top: -8px; }
+<link rel="stylesheet" href="css/fonts.css">
+<link rel="stylesheet" href="css/app.css">
+<link rel="stylesheet" href="css/mouth.css">
+<link rel="stylesheet" href="css/offline.css">
 
-/* Detail panel */
-.detail { display: grid; grid-template-columns: auto 1fr; gap: 20px 28px; background: var(--surface); border: 1px solid var(--line); border-radius: var(--r); padding: 22px; align-items: start; }
-.detail .big { font-size: 96px; line-height: 1; color: var(--ink); min-width: 1.1em; text-align: center; padding-top: 6px; }
-.detail.is-emph .big { color: var(--emph); }
-.d-body { display: flex; flex-direction: column; gap: 12px; min-width: 0; }
-.d-name { display: flex; align-items: baseline; gap: 12px; flex-wrap: wrap; }
-.d-name h2 { font-size: 24px; }
-.d-name .ipa { font-size: 22px; color: var(--accent); }
-.chips { display: flex; flex-wrap: wrap; gap: 6px; }
-.chip { font-size: 12px; padding: 2px 9px; border-radius: 99px; background: var(--accent-soft); color: var(--ink); }
-.chip.emph { background: var(--emph-soft); color: var(--emph); font-weight: 600; }
-.actions { display: flex; flex-wrap: wrap; gap: 8px; }
-.play { display: inline-flex; align-items: center; gap: 10px; padding: 8px 14px 8px 10px; border-radius: 99px; border: 1px solid var(--line); background: var(--bg); text-align: left; }
-.play:hover { border-color: var(--accent); }
-.play .ic { width: 26px; height: 26px; border-radius: 50%; background: var(--accent); flex: none; position: relative; }
-.play .ic::after { content: ""; position: absolute; left: 10px; top: 8px; border-left: 8px solid var(--surface); border-top: 5px solid transparent; border-bottom: 5px solid transparent; }
-.play.playing .ic { animation: pulse 0.9s ease-in-out infinite; }
-.play .ar { font-size: 22px; line-height: 1.1; }
-.play small { font-size: 12px; color: var(--muted); display: block; line-height: 1.2; }
-@keyframes pulse { 50% { transform: scale(1.18); } }
-
-/* Consonant rows */
-.rows { display: flex; flex-direction: column; border-top: 1px solid var(--line); }
-.row { display: grid; grid-template-columns: 170px 1fr; gap: 14px; padding: 12px 0; border-bottom: 1px solid var(--line); align-items: center; }
-.row-label strong { display: block; font-size: 14px; font-weight: 600; }
-.row-label span { font-size: 12px; color: var(--muted); line-height: 1.35; display: block; }
-.tiles { display: flex; flex-wrap: wrap; gap: 8px; }
-.tile { width: 66px; height: 74px; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 0; border-radius: var(--r); border: 1px solid var(--line); background: var(--surface); padding: 0; transition: border-color .12s, transform .12s; }
-.tile:hover { border-color: var(--accent); transform: translateY(-1px); }
-.tile .ar { font-size: 34px; line-height: 1.15; }
-.tile .ipa { font-size: 13px; color: var(--muted); }
-.tile.emph .ar { color: var(--emph); }
-.tile[aria-pressed="true"] { border-color: var(--accent); box-shadow: 0 0 0 2px var(--accent) inset; }
-.legend { display: flex; gap: 16px; flex-wrap: wrap; font-size: 13px; color: var(--muted); }
-.legend i { display: inline-block; width: 10px; height: 10px; border-radius: 3px; margin-right: 6px; vertical-align: middle; }
-
-/* Pairs */
-.pair-group { display: flex; flex-direction: column; gap: 10px; }
-.pairs { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 12px; }
-.pair { background: var(--surface); border: 1px solid var(--line); border-radius: var(--r); padding: 14px; display: flex; flex-direction: column; gap: 10px; min-width: 0; }
-.pair-top { display: flex; justify-content: space-between; align-items: center; gap: 8px; }
-.pair-top strong { font-size: 14px; font-weight: 600; }
-.both { font-size: 12px; padding: 4px 10px; border-radius: 99px; border: 1px solid var(--accent); background: transparent; color: var(--accent); font-weight: 600; white-space: nowrap; }
-.both.playing { background: var(--accent); color: var(--surface); }
-.words { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
-.word { display: flex; flex-direction: column; align-items: center; gap: 2px; padding: 10px 6px; border-radius: 8px; border: 1px solid var(--line); background: var(--bg); }
-.word:hover { border-color: var(--accent); }
-.word.playing { border-color: var(--accent); background: var(--accent-soft); }
-.word .ar { font-size: 30px; line-height: 1.3; }
-.word .tr { font-size: 14px; font-family: var(--font-ipa); }
-.word .gl { font-size: 12px; color: var(--muted); }
-.pair p { font-size: 13px; color: var(--muted); }
-
-/* Vowels */
-.vgrid { display: grid; grid-template-columns: repeat(auto-fill, minmax(140px, 1fr)); gap: 10px; }
-.vcell { display: flex; flex-direction: column; gap: 4px; padding: 12px; border-radius: var(--r); border: 1px solid var(--line); background: var(--surface); text-align: left; }
-.vcell:hover { border-color: var(--accent); }
-.vcell.playing { border-color: var(--accent); background: var(--accent-soft); }
-.vcell .ipa { font-size: 20px; color: var(--accent); font-weight: 600; }
-.vcell .ar { font-size: 28px; line-height: 1.3; }
-.vcell small { color: var(--muted); font-size: 12px; }
-
-/* Dialect table */
-.tbl-wrap { overflow-x: auto; border: 1px solid var(--line); border-radius: var(--r); background: var(--surface); }
-table { border-collapse: collapse; width: 100%; font-size: 14px; min-width: 520px; }
-th, td { padding: 10px 14px; text-align: left; border-bottom: 1px solid var(--line); }
-th { font-size: 12px; text-transform: uppercase; letter-spacing: 0.07em; color: var(--muted); font-weight: 600; }
-tr:last-child td { border-bottom: 0; }
-td .ar { font-size: 22px; }
-td.ipa { font-size: 14px; }
-
-footer { font-size: 13px; color: var(--muted); }
-
-@media (max-width: 640px) {
-  .detail { grid-template-columns: 1fr; padding: 18px; }
-  .detail .big { font-size: 80px; text-align: right; }
-  .row { grid-template-columns: 1fr; gap: 8px; }
-  .stop .lbl { font-size: 10px; }
-  .tile { width: 60px; height: 68px; }
-}
-@media (prefers-reduced-motion: reduce) {
-  * { transition: none !important; animation: none !important; }
-}
-</style>
+<link rel="modulepreload" href="js/ui.js">
+<link rel="modulepreload" href="js/text.js">
+<link rel="modulepreload" href="js/audio.js">
+<link rel="modulepreload" href="data.js">
+<link rel="modulepreload" href="js/mouth.js">
+<link rel="modulepreload" href="js/sounds.js">
+<link rel="modulepreload" href="js/views.js">
+<script type="module" src="js/app.js"></script>
 </head>
-<body>
+<body data-mode="pairs">
+<div class="stage">
+  <h1>Arabic Sound Lab<span lang="ar" dir="rtl">أصوات</span></h1>
 
-<div class="wrap">
-  <header>
-    <div class="title-row">
-      <h1>Arabic Sound Lab</h1>
-      <span class="ar" lang="ar">الأصوات العربية</span>
+  <div class="bar">
+    <div class="modes" role="group" aria-label="Activity">
+      <button type="button" data-mode="pairs" aria-pressed="true">Ear quiz</button>
+      <button type="button" data-mode="place" aria-pressed="false">Mouth quiz</button>
+      <button type="button" data-mode="browse" aria-pressed="false">All sounds</button>
     </div>
-    <p class="muted">Tap any letter or word to hear it. The consonants are laid out the way Arabic is built: from the lips at the top to the throat at the bottom. Every clip is spoken by a native Modern Standard Arabic voice, so it sounds the same on any device.</p>
-    <div class="controls">
-      <span class="ctl-label">Speed</span>
-      <div class="seg" role="group" aria-label="Speech speed">
-        <button aria-pressed="true" data-speed="normal">Normal</button>
-        <button aria-pressed="false" data-speed="slow">Slow</button>
-      </div>
-      <span class="status" id="status">Loading audio…</span>
-    </div>
-    <div class="warn" id="warn" hidden></div>
-  </header>
+  </div>
 
-  <section aria-labelledby="cons-h">
-    <div class="sec-head">
-      <h2 id="cons-h">Consonants, from lips to throat</h2>
-      <p class="muted">Pick a letter to see where it's made and hear it in a syllable and a word. More than a third of Arabic's consonants are made behind the point where English stops.</p>
-    </div>
+  <!-- The two quizzes: a card and the picture under it. app.js builds each quiz's parts once. -->
+  <section class="card" id="card" data-answered="false" aria-label="Question"></section>
+  <div class="surface" id="surface"></div>
 
-    <div>
-      <div class="strip" id="strip" role="group" aria-label="Place of articulation"></div>
-      <div class="strip-ends" style="margin-top:8px"><span>← front of the mouth</span><span>back of the throat →</span></div>
-    </div>
+  <!-- All sounds: the list first, the chosen sound right under it (a sheet on phones). -->
+  <div class="picker" id="picker" data-ui="picker" role="group" aria-label="All sounds, from the lips to the voice box"></div>
+  <p class="tip" id="tip"></p>
+  <section class="detail" id="detail" aria-label="The chosen sound"></section>
 
-    <div class="detail" id="detail" aria-live="polite"></div>
-
-    <div class="legend">
-      <span><i style="background:var(--ink)"></i>Plain consonant</span>
-      <span><i style="background:var(--emph)"></i>Emphatic: tongue root pulled back, darkens nearby vowels</span>
-    </div>
-    <div class="rows" id="rows"></div>
-  </section>
-
-  <section aria-labelledby="pairs-h">
-    <div class="sec-head">
-      <h2 id="pairs-h">Contrasts that change meaning</h2>
-      <p class="muted">Each card is a minimal pair: two words that differ by one sound. Play both back to back and listen for the single difference.</p>
-    </div>
-    <div id="pair-groups" style="display:flex;flex-direction:column;gap:26px"></div>
-  </section>
-
-  <section aria-labelledby="vow-h">
-    <div class="sec-head">
-      <h2 id="vow-h">Vowels: only three, but length matters</h2>
-      <p class="muted">Arabic has three vowel qualities, each short or long, plus two diphthongs. Short vowels are usually left unwritten, so reading depends on knowing the word.</p>
-    </div>
-    <div class="vgrid" id="vowels"></div>
-    <div class="pair-group">
-      <h3>The vowel a changes color next to emphatics</h3>
-      <div class="pairs" id="vcolor"></div>
-    </div>
-  </section>
-
-  <section aria-labelledby="sun-h">
-    <div class="sec-head">
-      <h2 id="sun-h">Sun and moon letters</h2>
-      <p class="muted">The l of the article <span class="ar" lang="ar">ال</span> "the" blends into a following consonant made with the tongue tip (sun letters), which then doubles. Before other consonants (moon letters) the l is pronounced. The spelling never changes.</p>
-    </div>
-    <div class="pairs" id="sun"></div>
-  </section>
-
-  <section aria-labelledby="dia-h">
-    <div class="sec-head">
-      <h2 id="dia-h">How the dialects shift these sounds</h2>
-      <p class="muted">The audio above is standard Arabic. Spoken dialects replace some sounds in regular ways. This table is for reading only.</p>
-    </div>
-    <div class="tbl-wrap">
-      <table>
-        <thead><tr><th>Word</th><th>Standard</th><th>Cairo</th><th>Beirut / Damascus</th><th>Gulf</th></tr></thead>
-        <tbody>
-          <tr><td><span class="ar" lang="ar">قلب</span> heart</td><td class="ipa">qalb</td><td class="ipa">ʔalb</td><td class="ipa">ʔalb</td><td class="ipa">galb</td></tr>
-          <tr><td><span class="ar" lang="ar">جمل</span> camel</td><td class="ipa">jamal</td><td class="ipa">gamal</td><td class="ipa">ʒamal</td><td class="ipa">jamal / yamal</td></tr>
-          <tr><td><span class="ar" lang="ar">ثلاثة</span> three</td><td class="ipa">θalāθa</td><td class="ipa">talāta</td><td class="ipa">tlēte</td><td class="ipa">θalāθa</td></tr>
-          <tr><td><span class="ar" lang="ar">بيت</span> house</td><td class="ipa">bayt</td><td class="ipa">bēt</td><td class="ipa">bēt</td><td class="ipa">bēt</td></tr>
-        </tbody>
-      </table>
-    </div>
-  </section>
-
-  <footer>The audio is synthetic speech from ElevenLabs in the voice of Chaouki, a native Modern Standard Arabic speaker from the ElevenLabs Voice Library, made with the Eleven v4 model. Slow plays the same recording at three-quarter speed. It is far closer to a real speaker than older synthesizers, but single syllables said in isolation can still sound a little unnatural. Native recordings, such as those on Forvo, remain the best reference.</footer>
+  <!-- Last in the page for the keyboard, drawn in the title row: the quiz comes first. -->
+  <div class="prefs">
+    <label title="Synthetic speech made with ElevenLabs; not checked by a fluent speaker"><span class="pref-label">AI voice</span> <select id="voice" aria-label="AI voice"><option value="mix">Both AI voices</option><option value="chaouki">Male AI voice</option><option value="asmaa">Female AI voice</option></select></label>
+    <label><input type="checkbox" id="slow"> Slow</label>
+  </div>
 </div>
 
-<script type="module">
-import { PLACES, C, PAIRS, GROUPS, VOWELS, VCOLOR, SUN } from "./data.js";
+<footer>
+  <p>The audio is synthetic speech made with ElevenLabs in two voices, Chaouki and Asmaa. It has not been checked by a fluent Arabic speaker; recordings of real people, such as those on <a href="https://forvo.com/languages/ar/" target="_blank" rel="noopener">Forvo</a>, remain the best reference.</p>
+  <div id="latin-key"></div>
+  <details>
+    <summary>Marks, spelling and sources</summary>
+    <div id="about"></div>
+  </details>
+  <div id="offline-root"></div>
+  <p><a href="https://github.com/real-shafe/arabic-sound-lab" target="_blank" rel="noopener">Source code</a> · <a href="https://shafe.dev">shafe.dev</a></p>
+</footer>
 
-/* ---------- Speech ----------
-   Every playable string has a clip generated ahead of time with ElevenLabs by
-   scripts/generate-audio.mjs and listed in audio/manifest.json. Slow plays the
-   same clip at 75% speed with the pitch kept, so both speeds say the same thing. */
-const SLOW_RATE = 0.75;
-const statusEl = document.getElementById("status");
-const warnEl = document.getElementById("warn");
-let speed = "normal";
-let clips = {};
+<dialog class="sheet" id="sheet" data-ui="sheet" aria-label="About this sound">
+  <div class="sheet-head">
+    <button type="button" class="sheet-btn" data-ui="sheet-prev" aria-label="Previous sound" title="Previous sound">‹</button>
+    <button type="button" class="sheet-btn" data-ui="sheet-next" aria-label="Next sound" title="Next sound">›</button>
+    <span class="grow" id="sheet-pos"></span>
+    <button type="button" class="sheet-btn" data-ui="sheet-close" aria-label="Close" title="Close (Esc)">✕</button>
+  </div>
+  <div class="sheet-body" id="sheet-body"></div>
+</dialog>
 
-fetch("audio/manifest.json")
-  .then(r => { if (!r.ok) throw new Error(`HTTP ${r.status}`); return r.json(); })
-  .then(m => {
-    clips = m.clips || {};
-    statusEl.textContent = `Voice: ${m.voice?.name || "ElevenLabs"}, Modern Standard Arabic, generated with ElevenLabs.`;
-  })
-  .catch(() => {
-    statusEl.textContent = "No audio loaded.";
-    warnEl.textContent = "The audio clips are missing. Run npm run audio to generate them with ElevenLabs.";
-    warnEl.hidden = false;
-  });
-
-document.querySelectorAll("[data-speed]").forEach(b => b.addEventListener("click", () => {
-  speed = b.dataset.speed;
-  document.querySelectorAll("[data-speed]").forEach(x => x.setAttribute("aria-pressed", String(x === b)));
-}));
-
-const clipFor = text => clips[text]?.src || null;
-
-let playingEls = [];
-function clearPlaying() { playingEls.forEach(e => e.classList.remove("playing")); playingEls = []; }
-
-let token = 0;
-let curAudio = null;
-function stopAll() {
-  token++;
-  if (curAudio) { curAudio.pause(); curAudio = null; }
-  clearPlaying();
-}
-
-/* items: array of { text, el } played in order; whole: element lit for the whole sequence */
-function speak(items, whole) {
-  stopAll();
-  const my = token;
-  if (whole) { whole.classList.add("playing"); playingEls.push(whole); }
-  const next = i => {
-    if (my !== token) return;
-    if (i >= items.length) { clearPlaying(); return; }
-    const it = items[i];
-    const src = clipFor(it.text);
-    if (!src) { next(i + 1); return; }
-    const a = new Audio(src);
-    curAudio = a;
-    a.preservesPitch = true;
-    a.defaultPlaybackRate = a.playbackRate = speed === "slow" ? SLOW_RATE : 1;
-    if (it.el) { it.el.classList.add("playing"); playingEls.push(it.el); }
-    let finished = false;
-    const done = () => {
-      if (finished) return;
-      finished = true;
-      if (it.el) it.el.classList.remove("playing");
-      setTimeout(() => next(i + 1), speed === "slow" ? 550 : 350);
-    };
-    a.onended = done;
-    a.onerror = done;
-    a.play().catch(done);
-  };
-  next(0);
-}
-
-/* ---------- Consonants ---------- */
-const strip = document.getElementById("strip");
-const rowsEl = document.getElementById("rows");
-const detail = document.getElementById("detail");
-
-strip.innerHTML = PLACES.map(p => `<button class="stop" data-place="${p.id}" aria-label="${p.name}"><span class="dot"></span><span class="lbl">${p.short}</span></button>`).join("");
-rowsEl.innerHTML = PLACES.map(p => `
-  <div class="row">
-    <div class="row-label"><strong>${p.name}</strong><span>${p.desc}</span></div>
-    <div class="tiles">${C.filter(c => c.place === p.id).map(c => `
-      <button class="tile${c.emph ? " emph" : ""}" data-ch="${c.ch}" aria-pressed="false" aria-label="${c.name}, ${c.ipa}">
-        <span class="ar" lang="ar">${c.ch}</span><span class="ipa">/${c.ipa}/</span>
-      </button>`).join("")}</div>
-  </div>`).join("");
-
-function playBtn(ar, sub, attrs) {
-  return `<button class="play" ${attrs}><span class="ic"></span><span><span class="ar" lang="ar">${ar}</span><small>${sub}</small></span></button>`;
-}
-
-function select(ch, play) {
-  const c = C.find(x => x.ch === ch);
-  if (!c) return;
-  const place = PLACES.find(p => p.id === c.place);
-  document.querySelectorAll(".tile").forEach(t => t.setAttribute("aria-pressed", String(t.dataset.ch === ch)));
-  document.querySelectorAll(".stop").forEach(s => s.classList.toggle("active", s.dataset.place === c.place));
-  const pr = c.pair ? PAIRS[c.pair] : null;
-  detail.classList.toggle("is-emph", !!c.emph);
-  detail.innerHTML = `
-    <div class="big ar" lang="ar">${c.ch}</div>
-    <div class="d-body">
-      <div class="d-name"><h2>${c.name}</h2><span class="ipa">/${c.ipa}/</span></div>
-      <div class="chips">
-        <span class="chip">${place.name}</span>
-        <span class="chip">${c.v ? "Voiced" : "Voiceless"}</span>
-        ${c.emph ? '<span class="chip emph">Emphatic</span>' : ""}
-      </div>
-      <p>${c.d}</p>
-      <div class="actions">
-        ${playBtn(c.syl, "Syllable", 'data-say="syl"')}
-        ${playBtn(c.w, `${c.wt} · ${c.g}`, 'data-say="word"')}
-        ${pr ? playBtn(pr.a[0] + " · " + pr.b[0], `Contrast ${pr.label}`, 'data-say="pair"') : ""}
-      </div>
-    </div>`;
-  detail.querySelector('[data-say="syl"]').onclick = e => speak([{ text: c.syl }], e.currentTarget);
-  detail.querySelector('[data-say="word"]').onclick = e => speak([{ text: c.w }], e.currentTarget);
-  const pb = detail.querySelector('[data-say="pair"]');
-  if (pb) pb.onclick = e => speak([{ text: pr.a[0] }, { text: pr.b[0] }], e.currentTarget);
-  if (play) speak([{ text: c.syl }], detail.querySelector('[data-say="syl"]'));
-}
-
-rowsEl.addEventListener("click", e => {
-  const t = e.target.closest(".tile");
-  if (t) select(t.dataset.ch, true);
-});
-strip.addEventListener("click", e => {
-  const s = e.target.closest(".stop");
-  if (!s) return;
-  const first = C.find(c => c.place === s.dataset.place);
-  if (first) select(first.ch, true);
-});
-
-/* ---------- Pair cards ---------- */
-function wordBtn(w) {
-  return `<button class="word" data-text="${w[0]}"><span class="ar" lang="ar">${w[0]}</span><span class="tr">${w[1]}</span><span class="gl">${w[2]}</span></button>`;
-}
-function pairCard(p) {
-  return `<div class="pair">
-    <div class="pair-top"><strong>${p.label}</strong><button class="both">Play both</button></div>
-    <div class="words">${wordBtn(p.a)}${wordBtn(p.b)}</div>
-    <p>${p.n}</p>
-  </div>`;
-}
-function wirePairs(root) {
-  root.addEventListener("click", e => {
-    const w = e.target.closest(".word");
-    if (w) { speak([{ text: w.dataset.text, el: w }]); return; }
-    const b = e.target.closest(".both");
-    if (b) {
-      const words = b.closest(".pair").querySelectorAll(".word");
-      speak([...words].map(el => ({ text: el.dataset.text, el })), b);
-    }
-  });
-}
-
-const pg = document.getElementById("pair-groups");
-pg.innerHTML = GROUPS.map(g => `<div class="pair-group"><h3>${g.title}</h3><div class="pairs">${g.ids.map(id => pairCard(PAIRS[id])).join("")}</div></div>`).join("");
-wirePairs(pg);
-
-const vc = document.getElementById("vcolor");
-vc.innerHTML = VCOLOR.map(pairCard).join("");
-wirePairs(vc);
-
-const sun = document.getElementById("sun");
-sun.innerHTML = SUN.map(pairCard).join("");
-wirePairs(sun);
-
-/* ---------- Vowels ---------- */
-const vEl = document.getElementById("vowels");
-vEl.innerHTML = VOWELS.map(v => `<button class="vcell" data-text="${v.w}"><span class="ipa">/${v.ipa}/</span><span class="ar" lang="ar">${v.w}</span><small>${v.wt} · ${v.g}</small></button>`).join("");
-vEl.addEventListener("click", e => {
-  const b = e.target.closest(".vcell");
-  if (b) speak([{ text: b.dataset.text, el: b }]);
-});
-
-/* Initial state: show ʿayn, the most distinctive sound, without auto-playing */
-select("ع", false);
-</script>
+<div id="announcer" class="visually-hidden" aria-live="polite" aria-atomic="true"></div>
+<noscript><p class="noscript">This page needs JavaScript to play sounds.</p></noscript>
 </body>
 </html>

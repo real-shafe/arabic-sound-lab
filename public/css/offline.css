@@ -1,0 +1,109 @@
+/* "Save audio for offline use" box in the footer (js/offline.js). Prefix: off- */
+
+.off {
+  display: grid;
+  gap: 10px;
+  max-width: 65ch;
+  margin-top: 24px;
+  padding: 16px;
+  border: 1px solid var(--line);
+  border-radius: var(--r);
+  background: var(--surface);
+  color: var(--ink);
+}
+
+.off-title {
+  margin: 0;
+  font-size: 17px;
+  line-height: 1.3;
+}
+
+.off-desc,
+.off-status {
+  margin: 0;
+  font-size: 15px;
+  line-height: 1.5;
+}
+
+.off-row {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 8px 14px;
+}
+
+.off-btn {
+  min-height: 44px;
+  min-width: 44px;
+}
+
+/* js/offline.js switches the button off with aria-disabled, so it keeps focus;
+   this matches base.css's .btn:disabled look. */
+.off-btn:disabled,
+.off-btn[aria-disabled="true"] {
+  cursor: default;
+}
+
+.off-btn[aria-disabled="true"] {
+  opacity: .55;
+}
+
+.off .off-btn[aria-disabled="true"]:hover {
+  border-color: var(--line);
+}
+
+.off-size,
+.off-count {
+  font-size: 14px;
+  line-height: 1.4;
+  font-variant-numeric: tabular-nums;
+}
+
+.off-count {
+  color: var(--muted);
+}
+
+.off-progress {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 6px 12px;
+}
+
+.off [hidden] {
+  display: none;
+}
+
+.off-bar {
+  -webkit-appearance: none;
+  appearance: none;
+  width: min(320px, 100%);
+  height: 10px;
+  border: 0;
+  border-radius: 99px;
+  background: var(--accent-soft);
+  box-shadow: inset 0 0 0 1px var(--line);
+  color: var(--accent);
+  overflow: hidden;
+}
+
+.off-bar::-webkit-progress-bar {
+  background: var(--accent-soft);
+  border-radius: 99px;
+}
+
+.off-bar::-webkit-progress-value {
+  background: var(--accent);
+  border-radius: 99px;
+}
+
+.off-bar::-moz-progress-bar {
+  background: var(--accent);
+  border-radius: 99px;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .off-bar::-webkit-progress-value {
+    transition: width 0.2s ease;
+  }
+}

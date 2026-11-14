@@ -1,0 +1,14 @@
+# Cloudflare static-assets headers. Rules whose paths overlap are merged, so
+# no path below is matched by two rules that set the same header.
+
+# Clip files are named by a hash of their bytes, and font files only change
+# when their names change, so both can be cached for a year.
+/clips/*
+  Cache-Control: public, max-age=31536000, immutable
+
+/fonts/*
+  Cache-Control: public, max-age=31536000, immutable
+
+# The service worker must be revalidated on every check, so updates arrive.
+/sw.js
+  Cache-Control: no-cache

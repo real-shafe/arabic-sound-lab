@@ -1,0 +1,198 @@
+/* Mouth diagram (mouth.js), prefix mo-. A schematic side view of the vocal tract, head facing left.
+   Colors come only from the base.css tokens, mapped to local --mo-* variables so the drawing follows
+   the light and dark themes. The airway is cut out of the head, so it shows the container background;
+   set --mo-air to that background (default --surface, for cards) so label halos and tints match, and
+   --mo-max to change the maximum width. Label text is 15.5 units in a 300-unit-wide viewBox, which
+   stays at or above 12 CSS px down to a rendered width of 240 px. */
+
+.mo {
+  --mo-air: var(--surface);           /* the container background (shows through the airway) */
+  --mo-skin: var(--bg);               /* head tissue */
+  --mo-bone: var(--line);             /* palate and cartilage */
+  --mo-flesh: var(--emph-soft);       /* tongue and lips */
+  --mo-tooth: var(--surface);
+  --mo-stroke: var(--muted);          /* main outlines */
+  --mo-stroke-soft: var(--line);      /* secondary detail */
+  --mo-mark: var(--muted);            /* idle markers */
+  --mo-accent: var(--accent);
+  --mo-accent-soft: var(--accent-soft);
+  --mo-label: var(--ink);
+  --mo-focus: var(--focus, var(--accent));
+  --mo-good: var(--good, #5cc08a);
+  --mo-bad: var(--bad, #e2665c);
+  --mo-badge-ink: var(--accent-ink, #1b1408);
+  --mo-badge-quiet: var(--key, #3a3b41);
+  display: block;
+  width: 100%;
+  max-width: var(--mo-max, 340px);
+  height: auto;
+  overflow: visible;
+  font-family: var(--font-ui, system-ui, sans-serif);
+  -webkit-tap-highlight-color: transparent;
+}
+
+@supports (color: color-mix(in srgb, red 50%, blue)) {
+  .mo {
+    --mo-skin: color-mix(in srgb, var(--ink) 5%, var(--mo-air));
+    --mo-bone: color-mix(in srgb, var(--ink) 12%, var(--mo-air));
+    --mo-flesh: color-mix(in srgb, var(--emph) 17%, var(--mo-air));
+    --mo-tooth: var(--mo-air);
+    --mo-stroke: color-mix(in srgb, var(--ink) 60%, var(--mo-air));
+    --mo-stroke-soft: color-mix(in srgb, var(--ink) 30%, var(--mo-air));
+  }
+}
+
+.mo--sm { --mo-max: 260px; }
+.mo--md { --mo-max: 340px; }
+.mo--lg { --mo-max: 440px; }
+
+/* Anatomy */
+.mo-anatomy path,
+.mo-anatomy ellipse,
+.mo-anatomy rect { stroke-linecap: round; stroke-linejoin: round; }
+.mo-head { fill: var(--mo-skin); stroke: none; }
+.mo-head-line { fill: none; stroke: var(--mo-stroke-soft); stroke-width: 1.6; }
+.mo-face { fill: none; stroke: var(--mo-stroke); stroke-width: 2; }
+.mo-wall { fill: none; stroke: var(--mo-stroke); stroke-width: 1.8; }
+.mo-fine { fill: none; stroke: var(--mo-stroke-soft); stroke-width: 1.4; }
+.mo-palate { fill: var(--mo-bone); stroke: var(--mo-stroke); stroke-width: 1.8; }
+.mo-tongue { stroke: none; }  /* fill is a gradient: --mo-flesh fading out toward the floor of the mouth */
+.mo-stop-flesh { stop-color: var(--mo-flesh); stop-opacity: 1; }
+.mo-stop-fade { stop-color: var(--mo-flesh); stop-opacity: 0; }
+.mo-tongue-top { fill: none; stroke: var(--mo-stroke); stroke-width: 2; }
+.mo-lip { fill: var(--mo-flesh); stroke: var(--mo-stroke); stroke-width: 1.8; }
+.mo-tooth { fill: var(--mo-tooth); stroke: var(--mo-stroke); stroke-width: 1.5; }
+.mo-concha { fill: var(--mo-skin); stroke: var(--mo-stroke-soft); stroke-width: 1.2; }
+.mo-cart { fill: var(--mo-bone); stroke: var(--mo-stroke-soft); stroke-width: 1.2; }
+.mo-epiglottis { fill: var(--mo-bone); stroke: var(--mo-stroke); stroke-width: 1.5; }
+.mo-larynx-back { fill: var(--mo-skin); stroke: var(--mo-stroke); stroke-width: 1.6; }
+.mo-fold { fill: var(--mo-stroke); stroke: none; }
+
+/* Highlighted segment of the lit place */
+.mo-hl {
+  opacity: 0;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  pointer-events: none;
+  transition: opacity 0.22s ease;
+}
+.mo-hl.mo-on { opacity: 1; }
+.mo-hl-line { fill: none; stroke: var(--mo-accent); stroke-width: 4.2; }
+.mo-hl-shape { fill: var(--mo-accent-soft); stroke: var(--mo-accent); stroke-width: 2.6; }
+.mo-hl-solid { fill: var(--mo-accent); stroke: var(--mo-accent); stroke-width: 1.2; }
+
+/* Short label with a leader line; the halo matches whatever is behind the label */
+.mo-callout {
+  --mo-halo: var(--mo-air);
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.22s ease;
+}
+.mo-callout.mo-inside { --mo-halo: var(--mo-skin); }
+.mo-callout.mo-on { opacity: 1; }
+.mo-leader-halo { fill: none; stroke: var(--mo-halo); stroke-width: 5; stroke-linecap: round; stroke-linejoin: round; }
+.mo-leader { fill: none; stroke: var(--mo-accent); stroke-width: 1.6; stroke-linecap: round; stroke-linejoin: round; }
+.mo-label {
+  font-family: var(--font-ui, system-ui, sans-serif);
+  font-size: 15.5px;
+  font-weight: 600;
+  letter-spacing: 0.01em;
+  fill: var(--mo-label);
+  stroke: var(--mo-halo);
+  stroke-width: 5px;
+  stroke-linejoin: round;
+  paint-order: stroke fill;
+}
+
+/* Markers: small and muted when idle; accent-colored, larger and haloed when lit */
+.mo-mk { outline: none; }
+.mo-mk-hit { fill: transparent; stroke: none; }
+.mo-mk-halo {
+  fill: var(--mo-accent);
+  opacity: 0;
+  transform: scale(0.4);
+  transform-box: fill-box;
+  transform-origin: center;
+  transition: opacity 0.25s ease, transform 0.3s ease;
+}
+.mo-mk-dot {
+  fill: var(--mo-mark);
+  stroke: var(--mo-air);
+  stroke-width: 2;
+  transform: scale(0.6);
+  transform-box: fill-box;
+  transform-origin: center;
+  transition: transform 0.2s ease, fill 0.2s ease;
+}
+.mo-mk.mo-on .mo-mk-halo { opacity: 0.24; transform: scale(1); }
+.mo-mk.mo-on .mo-mk-dot { fill: var(--mo-accent); transform: scale(1); }
+.mo-mk-focus { fill: none; stroke: var(--mo-focus); stroke-width: 2.5; opacity: 0; }
+
+/* Interactive markers (createMouth({ interactive: true })) */
+.mo.mo-interactive .mo-mk { cursor: pointer; }
+.mo.mo-interactive .mo-mk:hover .mo-mk-dot { transform: scale(0.85); }
+.mo.mo-interactive .mo-mk.mo-on:hover .mo-mk-dot { transform: scale(1); }
+.mo.mo-interactive .mo-mk:focus-visible .mo-mk-focus { opacity: 1; }
+
+@media (prefers-reduced-motion: reduce) {
+  .mo-hl,
+  .mo-callout,
+  .mo-mk-halo,
+  .mo-mk-dot { transition: none; }
+}
+
+@media (forced-colors: active) {
+  .mo-head, .mo-tongue, .mo-tooth, .mo-lip, .mo-palate, .mo-concha, .mo-cart,
+  .mo-epiglottis, .mo-larynx-back, .mo-hl-shape { fill: Canvas; }
+  .mo-face, .mo-wall, .mo-fine, .mo-head-line, .mo-tongue-top, .mo-lip, .mo-tooth, .mo-palate,
+  .mo-concha, .mo-cart, .mo-epiglottis, .mo-larynx-back { stroke: CanvasText; }
+  .mo-fold, .mo-mk-dot { fill: CanvasText; }
+  .mo-hl-line, .mo-hl-shape, .mo-leader { stroke: Highlight; }
+  .mo-hl-solid, .mo-mk.mo-on .mo-mk-dot, .mo-mk-halo { fill: Highlight; }
+  .mo-callout { --mo-halo: Canvas; }
+  .mo-label { fill: CanvasText; }
+  .mo-mk-focus { stroke: CanvasText; }
+}
+
+/* A second, fainter place (setPlace(id, { also })), e.g. the pulled-back tongue root of an emphatic */
+.mo-hl.mo-also { opacity: 0.45; }
+
+/* Numbered badges (setMarks): a circle with a numeral, joined to its place by a leader line.
+   idle = accent, quiet = grey (place not lit), right = green, wrong = red. */
+.mo.mo-has-marks .mo-callout { display: none; }
+.mo-lead { fill: none; stroke: var(--mo-accent); stroke-width: 1.8; stroke-linecap: round; stroke-linejoin: round; pointer-events: none; }
+.mo-lead.mo-s-quiet { stroke: var(--mo-stroke-soft); stroke-width: 1.2; }
+.mo-lead.mo-s-right { stroke: var(--mo-good); }
+.mo-lead.mo-s-wrong { stroke: var(--mo-bad); }
+.mo-lead-extra { stroke-dasharray: 3 4; }
+.mo-badge circle { fill: var(--mo-accent); stroke: var(--mo-air); stroke-width: 2; }
+.mo-badge text {
+  font-family: var(--font-ui, system-ui, sans-serif);
+  font-size: 18px;
+  font-weight: 700;
+  fill: var(--mo-badge-ink);
+  text-anchor: middle;
+  pointer-events: none;
+}
+.mo-badge.mo-s-quiet circle { fill: var(--mo-badge-quiet); stroke: var(--mo-stroke-soft); stroke-width: 1.2; }
+.mo-badge.mo-s-quiet text { fill: var(--mo-label); }
+.mo-badge.mo-s-right circle { fill: var(--mo-good); }
+.mo-badge.mo-s-wrong circle { fill: var(--mo-bad); }
+/* The second place of the same mark: hollow, with a dashed leader. */
+.mo-badge-extra circle { fill: var(--mo-air); stroke: var(--mo-accent); stroke-width: 2; }
+.mo-badge-extra text { fill: var(--mo-accent); }
+.mo-badge-extra.mo-s-right circle { fill: var(--mo-air); stroke: var(--mo-good); }
+.mo-badge-extra.mo-s-right text { fill: var(--mo-good); }
+.mo-badge-extra.mo-s-wrong circle { fill: var(--mo-air); stroke: var(--mo-bad); }
+.mo-badge-extra.mo-s-wrong text { fill: var(--mo-bad); }
+
+/* The lit place follows its mark's state. */
+.mo-hl-line.mo-s-right { stroke: var(--mo-good); }
+.mo-hl-line.mo-s-wrong { stroke: var(--mo-bad); }
+.mo-hl-shape.mo-s-right { stroke: var(--mo-good); fill: color-mix(in srgb, var(--mo-good) 30%, transparent); }
+.mo-hl-shape.mo-s-wrong { stroke: var(--mo-bad); fill: color-mix(in srgb, var(--mo-bad) 30%, transparent); }
+.mo-hl-solid.mo-s-right { fill: var(--mo-good); stroke: var(--mo-good); }
+.mo-hl-solid.mo-s-wrong { fill: var(--mo-bad); stroke: var(--mo-bad); }
+.mo-hl.mo-extra { opacity: 0.6; }
+.mo-mk.mo-on.mo-s-right .mo-mk-dot, .mo-mk.mo-on.mo-s-right .mo-mk-halo { fill: var(--mo-good); }
+.mo-mk.mo-on.mo-s-wrong .mo-mk-dot, .mo-mk.mo-on.mo-s-wrong .mo-mk-halo { fill: var(--mo-bad); }

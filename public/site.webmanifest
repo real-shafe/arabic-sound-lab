@@ -1,0 +1,18 @@
+{
+  "id": "/",
+  "name": "Arabic Sound Lab",
+  "short_name": "Sound Lab",
+  "description": "Ear training for the sounds of Modern Standard Arabic: hear a word, pick which one it was, and see where in the mouth each sound is made. Synthetic speech from ElevenLabs.",
+  "lang": "en",
+  "dir": "ltr",
+  "start_url": "/",
+  "scope": "/",
+  "display": "standalone",
+  "background_color": "#17181b",
+  "theme_color": "#17181b",
+  "categories": ["education"],
+  "icons": [
+    { "src": "favicon.svg", "type": "image/svg+xml", "sizes": "any", "purpose": "any" },
+    { "src": "apple-touch-icon.png", "type": "image/png", "sizes": "180x180", "purpose": "any" }
+  ]
+}

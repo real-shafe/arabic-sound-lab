@@ -1,0 +1,413 @@
+/* Arabic Sound Lab. A sibling of the Arabic Keyboard Drill: dark, one amber accent, a card and a
+   picture. Three rules shape every line here (tests/ui.test.mjs measures them):
+     1. Fixed frames: a region never changes size when its content does (app.js reserves the
+        height each text slot can need).
+     2. Control first, result next to it: nothing a tap changes is ever off-screen.
+     3. One screen per quiz: the stage is no taller than the screen and only the picture shrinks. */
+:root {
+  --bg: #17181b;
+  --panel: #222327;
+  --panel-2: #2b2b2d;
+  --key: #3a3b41;
+  --key-hi: #4a4b52;
+  --line: #3a3b40;
+  --fg: #ecebe6;
+  --ink: #ecebe6;
+  --muted: #a3a2a7;
+  --accent: #e3b35a;
+  --accent-ink: #1b1408;
+  --accent-soft: color-mix(in srgb, #e3b35a 30%, transparent);
+  --good: #5cc08a;
+  --bad: #e2665c;
+  --emph: #e3b35a;
+  --emph-soft: #6b5a3a;
+  --surface: var(--panel);
+  --focus: var(--accent);
+  --ar: "Amiri", "Geeza Pro", "Noto Naskh Arabic", serif;
+  --font-ui: "IBM Plex Sans", system-ui, sans-serif;
+  --tr: "Noto Sans", "IBM Plex Sans", system-ui, sans-serif;
+  --gap: 16px;
+  --r: 10px;
+  color-scheme: dark;
+}
+* { box-sizing: border-box; }
+[hidden] { display: none !important; }
+html { scrollbar-gutter: stable; }
+html.sheet-open { overflow: hidden; }
+html, body { margin: 0; background: var(--bg); color: var(--fg); }
+body {
+  font-family: var(--font-ui);
+  font-size: 16px;
+  line-height: 1.4;
+  padding: 0 max(16px, env(safe-area-inset-right, 0px)) 0 max(16px, env(safe-area-inset-left, 0px));
+  -webkit-text-size-adjust: 100%;
+}
+button, select, input { font: inherit; color: inherit; }
+button { cursor: pointer; -webkit-tap-highlight-color: transparent; }
+a { color: var(--accent); }
+p { margin: 0; }
+:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+/* top/left: pinned to the page's corner, so it never adds a pixel of scrolling under a one-screen quiz */
+.visually-hidden { position: absolute; top: 0; left: 0; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); clip-path: inset(50%); white-space: nowrap; }
+.muted { color: var(--muted); }
+.ar { font-family: var(--ar); font-weight: 400; }
+.tr { font-family: var(--tr); }
+/* A single Arabic letter in running text, with its Latin symbol after it */
+.lt { white-space: nowrap; }
+.lt .ar { font-size: 1.25em; line-height: 0; }
+.lt .tr { margin-inline-start: 0.25em; }
+.lt .numtag { margin-inline: 0 0.3em; }
+
+/* ---------- the stage: title, mode bar, then the mode's own parts ---------- */
+.stage { max-width: 760px; margin: 0 auto; display: flex; flex-direction: column; gap: var(--gap); padding-block: var(--top) 12px; position: relative; --top: 20px; }
+/* A quiz is never taller than the screen: when there is less room, only the picture shrinks. */
+body[data-mode="pairs"] .stage, body[data-mode="place"] .stage { max-height: 100dvh; min-height: 560px; }
+body[data-mode="browse"] #card, body[data-mode="browse"] #surface { display: none; }
+body:not([data-mode="browse"]) #picker, body:not([data-mode="browse"]) #detail, body:not([data-mode="browse"]) .tip { display: none; }
+
+h1 { font-size: 1.4rem; line-height: 1.2; margin: 0; font-weight: 600; letter-spacing: -0.01em; flex: none; min-height: 40px; display: flex; align-items: center; }
+h1 span { font-family: var(--ar); color: var(--accent); font-weight: 400; margin-left: 0.4em; font-size: 1.15em; line-height: 1; }
+
+.bar { display: flex; justify-content: space-between; align-items: center; gap: 12px; flex: none; }
+.modes { display: flex; gap: 6px; }
+.modes button {
+  font-weight: 500; font-size: 0.9rem; line-height: 1.15; border-radius: 8px; border: 1px solid var(--line);
+  background: transparent; padding: 8px 14px; min-height: 40px;
+}
+.modes button:hover { border-color: var(--muted); }
+.modes button[aria-pressed="true"] { background: var(--accent); color: var(--accent-ink); border-color: var(--accent); }
+/* Voice and speed sit in the title row, top right (they come last in the page for the keyboard). */
+.prefs { position: absolute; top: var(--top); right: 0; height: 40px; display: flex; align-items: center; gap: 14px; font-size: 0.88rem; color: var(--muted); }
+.prefs label { display: flex; align-items: center; gap: 8px; min-height: 40px; }
+select {
+  background: var(--panel); border: 1px solid var(--line); border-radius: 8px; padding: 0 8px 0 10px; height: 40px;
+  color: var(--fg); max-width: 100%; min-width: 0; text-overflow: ellipsis;
+}
+.card select { background: var(--panel-2); }
+input[type="checkbox"] { accent-color: var(--accent); width: 18px; height: 18px; margin: 0; }
+
+/* ---------- quiz card ---------- */
+.card { background: var(--panel); border-radius: 14px; padding: 16px 18px; flex: none; }
+.frame { display: flex; flex-direction: column; gap: 12px; }
+.q-top { display: grid; grid-template-columns: auto minmax(0, 1fr); gap: 14px; align-items: center; }
+.q-text { display: flex; flex-direction: column; gap: 4px; min-width: 0; }
+.q-head { display: flex; align-items: center; gap: 10px; min-width: 0; }
+/* The Sounds menu, labelled inside its own box */
+.field { display: flex; align-items: center; min-width: 0; flex: 0 1 auto; border: 1px solid var(--line); border-radius: 8px; background: var(--panel-2); }
+.field > span { padding-inline: 10px 2px; font-size: 0.8rem; color: var(--muted); white-space: nowrap; }
+.field select { border: 0; background: transparent; font-weight: 500; flex: 1 1 auto; padding-inline-start: 6px; }
+.field:focus-within { outline: 2px solid var(--accent); outline-offset: 2px; }
+.field select:focus-visible { outline: none; }
+.score { margin-inline-start: auto; font-size: 0.85rem; color: var(--muted); font-variant-numeric: tabular-nums; white-space: nowrap; flex: none; }
+.q-line { display: flex; align-items: baseline; gap: 12px; }
+.status { font-size: 0.95rem; flex: 1 1 auto; min-width: 0; }
+/* Only where there is a keyboard to press */
+.keys-hint { display: none; font-size: 0.78rem; color: var(--muted); white-space: nowrap; flex: none; }
+@media (hover: hover) and (pointer: fine) and (min-width: 641px) { .keys-hint { display: inline; } }
+.status .ok { color: var(--good); font-weight: 600; }
+.status .no { color: var(--bad); font-weight: 600; }
+.status.err { color: var(--bad); }
+.status button.retry { background: none; border: 0; padding: 0; color: var(--accent); text-decoration: underline; }
+
+.play {
+  width: 60px; height: 60px; border-radius: 50%; border: 0; background: var(--accent); color: var(--accent-ink);
+  display: grid; place-items: center; flex: none; transition: box-shadow 0.15s;
+}
+.play svg { width: 24px; height: 24px; }
+.play.is-playing, .play.is-loading { box-shadow: 0 0 0 6px var(--accent-soft); }
+
+.choices { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 10px; }
+.choice {
+  position: relative; padding: 8px 10px 10px; border-radius: 10px; border: 1px solid var(--line); background: transparent;
+  display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center;
+  transition: background 0.15s, border-color 0.15s;
+}
+.choice:hover { border-color: var(--muted); }
+.choice .ar { font-size: 2.1rem; line-height: 1.5; }
+.choice .sub { color: var(--muted); font-size: 0.85rem; line-height: 1.25; display: block; align-self: stretch; }
+.choice .sub .tr { color: var(--fg); }
+.choice .sub .l1 { display: block; }
+.choice .sub .who { color: var(--muted); }
+.choice .sub .gl { display: block; }
+/* No underline: it would sit on the dot under ḥ. */
+.diff { color: var(--accent); font-weight: 700; font-size: 1.3em; line-height: 1; }
+.blk.diff { font-size: 1.05rem; }
+.numtag { display: inline-grid; place-items: center; width: 1.25em; height: 1.25em; border-radius: 50%; background: var(--accent); color: var(--accent-ink); font-family: var(--font-ui); font-weight: 700; font-size: 0.72em; line-height: 1; margin-inline-start: 0.3em; vertical-align: 0.1em; }
+.badge {
+  position: absolute; top: 8px; left: 8px; width: 24px; height: 24px; border-radius: 50%; background: var(--accent);
+  color: var(--accent-ink); font-weight: 700; font-size: 0.85rem; line-height: 1; display: grid; place-items: center;
+}
+.spk { position: absolute; top: 9px; right: 9px; width: 20px; height: 20px; color: var(--muted); visibility: hidden; }
+.spk svg { width: 100%; height: 100%; display: block; }
+.card[data-answered="true"] .spk { visibility: visible; }
+.choice.right { border-color: var(--good); background: color-mix(in srgb, var(--good) 16%, transparent); }
+.choice.right .badge { background: var(--good); }
+.choice.wrong { border-color: var(--bad); background: color-mix(in srgb, var(--bad) 16%, transparent); }
+.choice.wrong .badge { background: var(--bad); }
+.choice.is-playing { box-shadow: 0 0 0 2px var(--accent); }
+
+/* Mouth quiz: the letter is the play button */
+.p-top { display: grid; grid-template-columns: auto minmax(0, 1fr); gap: 14px; align-items: center; }
+.say-letter {
+  display: flex; align-items: center; gap: 8px; min-width: 76px; height: 64px; padding: 0 12px 0 14px; border-radius: 12px;
+  border: 1px solid var(--line); background: transparent; transition: box-shadow 0.15s, border-color 0.15s;
+}
+.say-letter:hover { border-color: var(--muted); }
+.say-letter .glyph { font-family: var(--ar); font-size: 2.6rem; line-height: 1; color: var(--accent); min-width: 34px; text-align: center; }
+.say-letter .ic { width: 22px; height: 22px; color: var(--muted); flex: none; }
+.say-letter .ic svg { width: 100%; height: 100%; display: block; }
+.say-letter.is-playing, .say-letter.is-loading { border-color: var(--accent); box-shadow: 0 0 0 3px var(--accent-soft); }
+.p-name { font-weight: 600; font-size: 1.05rem; }
+.p-word { font-size: 0.9rem; color: var(--muted); }
+.p-word .ar { font-size: 1.25rem; line-height: 1; color: var(--fg); margin-right: 6px; }
+
+/* ---------- the picture panel ---------- */
+.surface { background: var(--panel-2); border-radius: 14px; padding: 12px 14px; flex: 0 1 auto; min-height: 0; display: flex; flex-direction: column; }
+.surface .frame { gap: 8px; flex: 0 1 auto; min-height: 0; }
+.pic { flex: 0 1 340px; min-height: 150px; position: relative; }
+.pic > svg.mo { position: absolute; inset: 0; width: 100%; height: 100%; max-width: none; --mo-air: var(--panel-2); }
+/* In the mouth quiz the numbers on the picture answer too (the buttons under it are the big targets). */
+.surface[data-pick] .mo-mk, .surface[data-pick] .mo-badge { cursor: pointer; }
+
+/* Two words whose difference is length, not place: blocks on a timeline */
+.strips { position: absolute; inset: 0; display: flex; flex-direction: column; justify-content: center; gap: 14px; padding: 0 4px; }
+.strip { display: flex; align-items: center; gap: 10px; }
+.strip .badge { position: static; flex: none; }
+.strip.right .badge { background: var(--good); }
+.strip.wrong .badge { background: var(--bad); }
+.blocks { display: flex; gap: 4px; flex: 1 1 auto; min-width: 0; max-width: 520px; }
+.blk {
+  flex: 1 1 0; min-width: 0; height: 44px; border-radius: 7px; background: var(--key); display: grid; place-items: center;
+  font-family: var(--tr); font-size: 1.05rem;
+}
+.blk.long { flex-grow: 2.2; }
+.blk.diff { background: var(--accent); color: var(--accent-ink); font-weight: 700; }
+
+.places { display: grid; grid-template-columns: repeat(8, minmax(0, 1fr)); gap: 6px; flex: none; }
+.pl {
+  display: flex; align-items: center; justify-content: center; gap: 6px; min-height: 44px; padding: 2px 4px; border-radius: 8px;
+  border: 1px solid var(--line); background: var(--panel); font-size: 0.8rem; line-height: 1.1; text-align: start;
+  transition: background 0.15s, border-color 0.15s;
+}
+.pl:hover { border-color: var(--muted); }
+.pl .n { flex: none; width: 20px; height: 20px; border-radius: 50%; background: var(--key); display: grid; place-items: center; font-weight: 700; font-size: 0.75rem; }
+.pl.right { border-color: var(--good); background: color-mix(in srgb, var(--good) 20%, var(--panel)); }
+.pl.right .n { background: var(--good); color: var(--accent-ink); }
+.pl.wrong { border-color: var(--bad); background: color-mix(in srgb, var(--bad) 20%, var(--panel)); }
+.pl.wrong .n { background: var(--bad); color: var(--accent-ink); }
+.pl.look { border-color: var(--accent); }
+.pl.look .n { background: var(--accent); color: var(--accent-ink); }
+
+.under { display: grid; grid-template-columns: minmax(0, 1fr) auto; grid-template-areas: "cap next" "more next"; gap: 2px 14px; align-items: center; flex: none; }
+.caption { grid-area: cap; font-size: 0.92rem; }
+.caption.quiet { color: var(--muted); }
+.more { grid-area: more; font-size: 0.85rem; color: var(--muted); min-height: 1.4em; }
+.more a { padding: 11px 9px; margin-inline: -5px; text-underline-offset: 3px; white-space: nowrap; }
+.more a .ar { font-size: 1.1em; }
+/* One box for Skip and Next, so the button never changes size. */
+.next { grid-area: next; background: var(--accent); color: var(--accent-ink); border: 1px solid var(--accent); font-weight: 600; font-size: 0.95rem; padding: 0; width: 96px; height: 44px; border-radius: 8px; }
+.next[data-off] { visibility: hidden; }
+
+/* ---------- All sounds: the list first, the chosen sound right under it ---------- */
+.picker { background: var(--panel-2); border-radius: 14px; padding: 8px 12px 12px; display: grid; grid-template-columns: repeat(14, minmax(0, 1fr)); gap: 6px 4px; align-items: end; flex: none; }
+.grp { grid-column: span var(--n); display: flex; flex-direction: column; gap: 3px; min-width: 0; }
+.grp.vowels { grid-column: span 8; }
+.grp .lab { font-size: 0.7rem; color: var(--muted); line-height: 1.15; padding-inline-start: 2px; text-wrap: balance; }
+.keys { display: grid; grid-template-columns: repeat(var(--n), minmax(0, 1fr)); gap: 4px; }
+.vowels .keys { grid-template-columns: repeat(8, minmax(0, 1fr)); }
+.k {
+  appearance: none; border: 0; border-radius: 7px; background: var(--key); color: var(--fg); height: 48px; padding: 0; min-width: 0;
+  display: flex; flex-direction: column; align-items: center; justify-content: center; transition: background 0.15s, box-shadow 0.15s;
+}
+.k:hover { background: var(--key-hi); }
+.k .ar { font-size: 1.4rem; line-height: 1.05; }
+.vowels .k .ar { font-size: 1.25rem; line-height: 1.2; }
+.k .t { font-family: var(--tr); font-size: 0.7rem; color: var(--muted); line-height: 1; margin-top: 3px; }
+.k[aria-pressed="true"] { background: color-mix(in srgb, var(--accent) 34%, var(--key)); box-shadow: 0 0 0 2px var(--accent); }
+.k:focus-visible { outline: 2px solid var(--fg); outline-offset: 2px; }
+.k.is-playing, .k.is-loading { background: var(--key-hi); box-shadow: 0 0 0 2px var(--accent); }
+.tip { font-size: 0.88rem; color: var(--muted); text-align: center; }
+.tip.err { color: var(--bad); }
+
+.detail { background: var(--panel); border-radius: 14px; padding: 16px 18px; }
+.d { display: flex; flex-direction: column; gap: 12px; }
+/* The words sit beside the mouth, under the description, so they are on screen with the letter. */
+.d-main { display: grid; grid-template-columns: minmax(0, 1fr) 240px; grid-template-areas: "info mouth" "desc mouth" "words mouth"; grid-template-rows: auto auto 1fr; gap: 10px 18px; align-items: start; }
+.d-info { grid-area: info; }
+.d-desc { grid-area: desc; }
+.d-main > .words { grid-area: words; }
+.d-info { display: flex; flex-direction: column; gap: 10px; min-width: 0; }
+.eyebrow { font-size: 0.72rem; text-transform: uppercase; letter-spacing: 0.1em; color: var(--muted); }
+.d-head { display: flex; align-items: center; gap: 14px; }
+.d-glyph { font-family: var(--ar); font-size: 3.2rem; line-height: 1.7; color: var(--accent); }
+.d-name { font-size: 1.3rem; font-weight: 600; line-height: 1.2; }
+.d-sym { display: block; font-size: 0.85rem; font-weight: 400; color: var(--muted); }
+.d-pic { grid-area: mouth; width: 240px; justify-self: end; }
+.d-mouth { width: 100%; aspect-ratio: 300 / 304; position: relative; }
+.d-also { font-size: 0.78rem; color: var(--muted); text-align: center; margin-top: 2px; }
+.d-main:not(:has(.d-mouth)) { grid-template-columns: minmax(0, 1fr); grid-template-areas: "info" "desc" "words"; }
+.d-mouth > svg.mo { position: absolute; inset: 0; width: 100%; height: 100%; max-width: none; --mo-air: var(--panel); }
+.words { display: flex; flex-wrap: wrap; gap: 8px; }
+.word {
+  display: inline-flex; align-items: center; gap: 10px; text-align: start; border: 1px solid var(--line); background: transparent;
+  border-radius: 8px; padding: 4px 12px 4px 10px; min-height: 48px; transition: border-color 0.15s;
+}
+.word:hover { border-color: var(--muted); }
+.word .ic { width: 22px; height: 22px; border-radius: 50%; border: 1px solid currentColor; display: grid; place-items: center; flex: none; color: var(--accent); }
+.word .ic svg { width: 10px; height: 10px; }
+.word .ar { font-size: 1.4rem; line-height: 1.6; }
+.word small { display: block; color: var(--muted); font-size: 0.8rem; line-height: 1.25; }
+.word.is-playing, .word.is-loading { border-color: var(--accent); }
+.d-more { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px 24px; border-top: 1px solid var(--line); padding-top: 12px; align-items: start; }
+.d-col { display: flex; flex-direction: column; gap: 14px; min-width: 0; }
+.d-col:empty { display: none; }
+.d-more:has(.d-col:empty) { grid-template-columns: minmax(0, 1fr); }
+.d-col > div { min-width: 0; display: flex; flex-direction: column; gap: 6px; align-items: flex-start; }
+.d-sub { font-size: 0.72rem; text-transform: uppercase; letter-spacing: 0.1em; color: var(--muted); }
+.d-more p { font-size: 0.9rem; }
+.d-note { font-size: 0.9rem; color: var(--muted); }
+.forms { display: flex; gap: 6px; flex-wrap: wrap; }
+.form { text-align: center; min-width: 44px; padding: 0 4px; }
+.form .ar { font-size: 1.5rem; line-height: 1.4; display: block; }
+.form small { font-size: 0.7rem; color: var(--muted); }
+.chips { display: flex; flex-wrap: wrap; gap: 6px; }
+.chip { border: 1px solid var(--line); background: transparent; border-radius: 999px; padding: 0 14px; min-height: 40px; font-size: 0.88rem; display: inline-flex; align-items: center; gap: 6px; }
+.chip:hover { border-color: var(--accent); }
+.chip .ar { font-size: 1.15rem; line-height: 1; }
+.chip .vs { color: var(--muted); font-size: 0.8rem; }
+.regions { display: flex; flex-wrap: wrap; gap: 2px 14px; font-size: 0.85rem; color: var(--muted); }
+.regions b { color: var(--fg); font-weight: 500; font-family: var(--tr); }
+
+/* ---------- the letter sheet ---------- */
+/* One size for every sound, so stepping through them never moves the sheet's buttons. */
+dialog.sheet {
+  border: 0; padding: 0; color: var(--fg); background: var(--panel); border-radius: 16px; width: min(620px, calc(100vw - 32px));
+  max-width: none; height: min(86dvh, 680px); max-height: none; overflow: hidden;
+}
+dialog.sheet[open] { display: flex; flex-direction: column; }
+dialog.sheet::backdrop { background: rgba(0, 0, 0, 0.55); }
+.sheet-head { display: flex; align-items: center; gap: 6px; padding: 8px 8px 0 12px; flex: none; }
+.sheet-head .grow { flex: 1 1 auto; font-size: 0.8rem; color: var(--muted); padding-inline-start: 6px; }
+.sheet-btn { width: 44px; height: 44px; border-radius: 50%; border: 1px solid var(--line); background: transparent; display: grid; place-items: center; font-size: 1.3rem; line-height: 1; }
+.sheet-btn:hover { border-color: var(--muted); }
+.sheet-btn svg { width: 18px; height: 18px; }
+.sheet-body { padding: 6px 18px 34px; overflow-y: auto; overscroll-behavior: contain; flex: 1 1 auto; min-height: 0; }
+.sheet-body:focus-visible { outline: 2px solid var(--accent); outline-offset: -3px; }
+/* A fade at the bottom edge says there is more to scroll to. */
+dialog.sheet::after { content: ""; position: absolute; left: 0; right: 0; bottom: 0; height: 30px; background: linear-gradient(transparent, var(--panel)); pointer-events: none; border-radius: 0 0 16px 16px; }
+.sheet-body .d-main { grid-template-columns: minmax(0, 1fr) 220px; }
+.sheet-body .d-pic { width: 220px; }
+/* Opened from a quiz it is about one letter: no stepping through the list. */
+dialog.sheet[data-from="quiz"] [data-ui="sheet-prev"], dialog.sheet[data-from="quiz"] [data-ui="sheet-next"], dialog.sheet[data-from="quiz"] .grow { visibility: hidden; }
+.sheet-body .d-more { grid-template-columns: 1fr; gap: 14px; }
+
+/* ---------- footer ---------- */
+/* The quizzes are one screen and nothing else; the notes live under All sounds. */
+body:not([data-mode="browse"]) footer { display: none; }
+.lkey { display: grid; grid-template-columns: repeat(auto-fill, minmax(190px, 1fr)); gap: 4px 16px; }
+.lkey b { color: var(--fg); font-weight: 600; display: inline-block; min-width: 1.4em; }
+.lkey .ar { font-size: 1.2em; color: var(--fg); }
+footer { max-width: 760px; margin: 0 auto; color: var(--muted); font-size: 0.85rem; display: flex; flex-direction: column; gap: 10px; padding: 16px 0 40px; }
+footer summary { cursor: pointer; color: var(--fg); min-height: 40px; display: flex; align-items: center; }
+footer summary::before { content: "▸"; margin-inline-end: 8px; color: var(--muted); }
+footer details[open] summary::before { content: "▾"; }
+#about { display: flex; flex-direction: column; gap: 10px; padding-top: 4px; }
+#latin-key { display: flex; flex-direction: column; gap: 8px; }
+#latin-key h3, #about h3 { font-size: 0.85rem; color: var(--fg); margin: 8px 0 0; font-weight: 600; }
+#about ul { margin: 0; padding-inline-start: 18px; }
+.marks { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 8px 16px; }
+.mark { display: grid; grid-template-columns: 44px minmax(0, 1fr); gap: 4px 10px; align-items: start; }
+.mark .m-glyph { font-family: var(--ar); font-size: 1.8rem; line-height: 1.3; color: var(--fg); text-align: center; }
+.mark b { color: var(--fg); font-weight: 600; }
+.mark .word { margin-top: 4px; }
+.dtable { border-collapse: collapse; font-size: 0.8rem; width: 100%; }
+.dtable th, .dtable td { text-align: start; padding: 4px 8px 4px 0; border-bottom: 1px solid var(--line); vertical-align: top; }
+.dtable th { color: var(--fg); font-weight: 500; }
+.dtable td { font-family: var(--tr); }
+.dscroll { overflow-x: auto; }
+#offline-root.off { margin-top: 0; background: var(--panel); border-color: var(--line); color: var(--fg); max-width: none; }
+#offline-root .off-title { font-size: 0.95rem; }
+#offline-root .off-desc, #offline-root .off-status { font-size: 0.85rem; }
+#offline-root .btn { border-radius: 8px; border: 1px solid var(--line); background: transparent; padding: 0 14px; font-weight: 500; font-size: 0.9rem; }
+.noscript { text-align: center; color: var(--muted); }
+
+/* ---------- phones ---------- */
+@media (max-width: 640px) {
+  :root { --gap: 10px; }
+  .stage { --top: 8px; padding-bottom: 8px; }
+  body[data-mode="pairs"] .stage, body[data-mode="place"] .stage { min-height: 600px; }
+  h1 { font-size: 1.05rem; }
+  h1 span { margin-left: 0.3em; }
+  .prefs { gap: 8px; font-size: 0.82rem; }
+  .prefs label { gap: 6px; }
+  .pref-label { display: none; }
+  .prefs select { height: 36px; padding: 0 2px 0 6px; font-size: 0.82rem; max-width: 118px; }
+  .bar { display: contents; }
+  .modes { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); order: 1; flex: none; }
+  .modes button { padding: 4px 6px; min-height: 44px; font-size: 0.88rem; }
+  .card { order: 2; padding: 12px; }
+  .frame { gap: 8px; }
+  .surface, .picker { order: 3; }
+  .surface { padding: 10px 12px 12px; }
+  .tip { order: 4; }
+  .detail { order: 4; }
+  .q-top, .p-top { gap: 10px; }
+  .play { width: 52px; height: 52px; }
+  .field { flex: 1 1 auto; }
+  .field > span { font-size: 0.72rem; padding-inline: 8px 0; }
+  .field select { font-size: 0.85rem; padding-inline: 4px 0; }
+  .status { font-size: 0.9rem; }
+  .choice { padding: 6px 6px 8px; }
+  .choice .ar { font-size: 1.8rem; line-height: 1.45; }
+  .choice .sub { font-size: 0.8rem; }
+  .badge { top: 6px; left: 6px; width: 22px; height: 22px; font-size: 0.8rem; }
+  .spk { top: 7px; right: 7px; width: 18px; height: 18px; }
+  .say-letter { height: 60px; min-width: 70px; padding: 0 8px 0 10px; }
+  .say-letter .glyph { font-size: 2.3rem; }
+  .places { grid-template-columns: repeat(4, minmax(0, 1fr)); }
+  .pl { min-height: 40px; }
+  .under { grid-template-columns: minmax(0, 1fr) auto; grid-template-areas: "cap cap" "more next"; gap: 6px 10px; }
+  .caption { font-size: 0.88rem; }
+  .more { min-height: 44px; display: flex; align-items: center; }
+  .blk { height: 40px; font-size: 0.95rem; }
+  .picker { grid-template-columns: repeat(7, minmax(0, 1fr)); padding: 8px 10px 12px; }
+  .grp.vowels { grid-column: span 7; }
+  .vowels .keys { grid-template-columns: repeat(4, minmax(0, 1fr)); grid-template-rows: repeat(2, auto); grid-auto-flow: column; }
+  .k { height: 46px; }
+  dialog.sheet {
+    width: 100vw; max-width: 100vw; margin: auto 0 0 0; border-radius: 16px 16px 0 0; height: 86dvh;
+  }
+  body[data-mode="browse"] #detail { display: none; }
+  .sheet-body { padding: 6px 14px calc(16px + env(safe-area-inset-bottom, 0px)); }
+  /* name, how it is made, hear it, see where */
+  .sheet-body .d-main { grid-template-columns: minmax(0, 1fr); grid-template-areas: "info" "desc" "words" "mouth"; }
+  .sheet-body .d-main:not(:has(.d-mouth)) { grid-template-areas: "info" "desc" "words"; }
+  .sheet-body .d-pic { width: 240px; justify-self: center; }
+  .d-glyph { font-size: 2.8rem; }
+  .marks { grid-template-columns: 1fr; }
+}
+/* The list stays in reach while a long letter is read (where the window is tall enough to spare the room). */
+@media (min-width: 641px) and (min-height: 760px) {
+  /* The ring of page colour hides what scrolls past above and below it. */
+  .picker { position: sticky; top: 8px; z-index: 3; box-shadow: 0 0 0 10px var(--bg); }
+}
+/* small phones: tighter, and the meaning of the two words waits for the answer line */
+@media (max-width: 640px) and (max-height: 700px) {
+  :root { --gap: 8px; }
+  .stage { --top: 6px; padding-bottom: 6px; }
+  .card { padding: 10px 12px; }
+  .surface { padding: 8px 12px 10px; }
+  .choice { padding: 4px 6px 6px; }
+  .choice .ar { line-height: 1.35; }
+  .caption { font-size: 0.85rem; line-height: 1.35; }
+}
+/* very narrow phones: the title gives its Arabic word to the settings */
+@media (max-width: 379px) { h1 span { display: none; } }
+/* short, wide windows (laptops): tighter */
+@media (min-width: 641px) and (max-height: 720px) {
+  :root { --gap: 12px; }
+  .stage { --top: 10px; padding-bottom: 8px; }
+}
+@media (prefers-reduced-motion: reduce) {
+  * { transition: none !important; }
+}

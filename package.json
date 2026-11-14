@@ -2,13 +2,28 @@
   "name": "arabic-sound-lab",
   "private": true,
   "type": "module",
-  "description": "Interactive guide to the sounds of Modern Standard Arabic, voiced with ElevenLabs",
+  "description": "Ear training for the sounds of Modern Standard Arabic, voiced with ElevenLabs",
   "scripts": {
-    "audio": "node --env-file=.env.local scripts/generate-audio.mjs",
-    "audio:check": "node --env-file=.env.local scripts/check-audio.mjs",
-    "dev": "node scripts/serve.mjs"
+    "dev": "node scripts/serve.mjs",
+    "test": "node --test tests/*.test.mjs",
+    "audio": "node scripts/generate-audio.mjs",
+    "audio:check": "node scripts/check-audio.mjs",
+    "fonts": "node scripts/copy-fonts.mjs",
+    "deploy": "npm test && npx wrangler deploy",
+    "test:ui": "node --test tests/ui.test.mjs"
   },
   "dependencies": {
     "@elevenlabs/elevenlabs-js": "^2.78.0"
+  },
+  "devDependencies": {
+    "@breezystack/lamejs": "^1.2.7",
+    "@fontsource/amiri": "^5.3.0",
+    "@fontsource/ibm-plex-sans": "^5.3.0",
+    "@fontsource/noto-sans": "^5.3.0",
+    "playwright-core": "^1.65.1"
+  },
+  "license": "MIT",
+  "engines": {
+    "node": ">=20.12"
   }
 }

@@ -1,0 +1,675 @@
+{
+  "version": 2,
+  "model": "eleven_v4",
+  "voices": [
+    {"key":"chaouki","id":"G1HOkzin3NMwRHSq60UI","name":"Chaouki","gender":"male"},
+    {"key":"asmaa","id":"qi4PkV9c01kb869Vh7Su","name":"Asmaa","gender":"female"}
+  ],
+  "speeds": {"normal":1,"slow":0.75},
+  "clips": {
+    "بَا": {
+      "chaouki": {"normal":"clips/chaouki/7e8a976dc229.mp3","slow":"clips/chaouki/e73d29ae3169.mp3","fp":"3208d55439","lufs":-18},
+      "asmaa": {"normal":"clips/asmaa/1c1d5a226ae9.mp3","slow":"clips/asmaa/fa55aa2cf583.mp3","fp":"60bfe4ca2e","lufs":-18}
+    },
+    "بَحْر": {
+      "chaouki": {"normal":"clips/chaouki/e8162d8444fb.mp3","slow":"clips/chaouki/c6af80e18c4e.mp3","fp":"3208d55439","lufs":-18},
+      "asmaa": {"normal":"clips/asmaa/711c5f1caa85.mp3","slow":"clips/asmaa/81ac9c4db1f8.mp3","fp":"60bfe4ca2e","lufs":-18}
+    },
+    "خُبْز": {
+      "chaouki": {"normal":"clips/chaouki/c12d1c68472e.mp3","slow":"clips/chaouki/85eb8834b326.mp3","fp":"3208d55439","lufs":-18},
+      "asmaa": {"normal":"clips/asmaa/08a66c72eddb.mp3","slow":"clips/asmaa/d4c62f1ddf1f.mp3","fp":"60bfe4ca2e","lufs":-18}
+    },
+    "كِتَاب": {
+      "chaouki": {"normal":"clips/chaouki/d0de474782e9.mp3","slow":"clips/chaouki/1166204c1f37.mp3","fp":"3208d55439","lufs":-18},
+      "asmaa": {"normal":"clips/asmaa/9b9297584221.mp3","slow":"clips/asmaa/556da57b09ec.mp3","fp":"60bfe4ca2e","lufs":-18}
+    },
+    "فَا": {
+      "chaouki": {"normal":"clips/chaouki/902ed54a0e87.mp3","slow":"clips/chaouki/67b2418febb1.mp3","fp":"3208d55439","lufs":-18},
+      "asmaa": {"normal":"clips/asmaa/71b13b785fec.mp3","slow":"clips/asmaa/1a7360f49cb3.mp3","fp":"60bfe4ca2e","lufs":-18}
+    },
+    "فِيل": {
+      "chaouki": {"normal":"clips/chaouki/cf4eb9e5bb37.mp3","slow":"clips/chaouki/1f6e57b318c4.mp3","fp":"cc61970dc5","lufs":-18},
+      "asmaa": {"normal":"clips/asmaa/007d4df3cb1c.mp3","slow":"clips/asmaa/2028e623f82e.mp3","fp":"60bfe4ca2e","lufs":-18}
+    },
+    "سَفَر": {
+      "chaouki": {"normal":"clips/chaouki/79a41c099f09.mp3","slow":"clips/chaouki/55b9e8be8fcc.mp3","fp":"3208d55439","lufs":-18},
+      "asmaa": {"normal":"clips/asmaa/a1012af33fc3.mp3","slow":"clips/asmaa/1f49caeea424.mp3","fp":"58e85ab2cf","lufs":-18}
+    },
+    "خَرُوف": {
+      "chaouki": {"normal":"clips/chaouki/2453f812a931.mp3","slow":"clips/chaouki/92753384967e.mp3","fp":"3208d55439","lufs":-18},
+      "asmaa": {"normal":"clips/asmaa/c3d407100c2a.mp3","slow":"clips/asmaa/7a2605ae8437.mp3","fp":"60bfe4ca2e","lufs":-18}
+    },
+    "مَا": {
+      "chaouki": {"normal":"clips/chaouki/755aba4d4ae0.mp3","slow":"clips/chaouki/f0ec38b54a4a.mp3","fp":"3208d55439","lufs":-18},
+      "asmaa": {"normal":"clips/asmaa/f4824a1c3927.mp3","slow":"clips/asmaa/a4ef262648b1.mp3","fp":"60bfe4ca2e","lufs":-18}
+    },
+    "مَاء": {
+      "chaouki": {"normal":"clips/chaouki/c1c03dd08876.mp3","slow":"clips/chaouki/76ac3215e353.mp3","fp":"3208d55439","lufs":-18},
+      "asmaa": {"normal":"clips/asmaa/fef4fcf5bcf6.mp3","slow":"clips/asmaa/397e6f807081.mp3","fp":"60bfe4ca2e","lufs":-18}
+    },
+    "سَمَك": {
+      "chaouki": {"normal":"clips/chaouki/210cbb8f09b7.mp3","slow":"clips/chaouki/bdf6ecd20580.mp3","fp":"3208d55439","lufs":-18},
+      "asmaa": {"normal":"clips/asmaa/f52238039b49.mp3","slow":"clips/asmaa/d2f6ade1842b.mp3","fp":"60bfe4ca2e","lufs":-18}
+    },
+    "يَوْم": {
+      "chaouki": {"normal":"clips/chaouki/93b2771b2e59.mp3","slow":"clips/chaouki/7f7bda702135.mp3","fp":"3208d55439","lufs":-18},
+      "asmaa": {"normal":"clips/asmaa/a0475035372e.mp3","slow":"clips/asmaa/5be3a769c969.mp3","fp":"60bfe4ca2e","lufs":-18}
+    },
+    "وَا": {
+      "chaouki": {"normal":"clips/chaouki/bdb443f0c240.mp3","slow":"clips/chaouki/21cd34466b36.mp3","fp":"3208d55439","lufs":-18},
+      "asmaa": {"normal":"clips/asmaa/2522840d462a.mp3","slow":"clips/asmaa/c7b68e46d83b.mp3","fp":"60bfe4ca2e","lufs":-18}
+    },
+    "وَلَد": {
+      "chaouki": {"normal":"clips/chaouki/3b2826f3c0ff.mp3","slow":"clips/chaouki/9031ebcb1389.mp3","fp":"3208d55439","lufs":-18},
+      "asmaa": {"normal":"clips/asmaa/a26defb7f5f3.mp3","slow":"clips/asmaa/62fb41eb9b38.mp3","fp":"60bfe4ca2e","lufs":-18}
+    },
+    "طَوِيل": {
+      "chaouki": {"normal":"clips/chaouki/6bbb12f7816f.mp3","slow":"clips/chaouki/0b4a9269105f.mp3","fp":"3208d55439","lufs":-18},
+      "asmaa": {"normal":"clips/asmaa/13b3ab6d1fa8.mp3","slow":"clips/asmaa/2c1af50d73de.mp3","fp":"60bfe4ca2e","lufs":-18}
+    },
+    "جَوّ": {
+      "chaouki": {"normal":"clips/chaouki/815e47afbff5.mp3","slow":"clips/chaouki/ada749828003.mp3","fp":"3208d55439","lufs":-18},
+      "asmaa": {"normal":"clips/asmaa/cd5bf692eaf9.mp3","slow":"clips/asmaa/c35aafeed281.mp3","fp":"60bfe4ca2e","lufs":-18}
+    },
+    "ثَا": {
+      "chaouki": {"normal":"clips/chaouki/30dae244293c.mp3","slow":"clips/chaouki/079b786e60f9.mp3","fp":"3208d55439","lufs":-18},
+      "asmaa": {"normal":"clips/asmaa/45ba90329202.mp3","slow":"clips/asmaa/181b3743aab6.mp3","fp":"60bfe4ca2e","lufs":-18}
+    },
+    "ثَلْج": {
+      "chaouki": {"normal":"clips/chaouki/0660004f2161.mp3","slow":"clips/chaouki/3e56a3573a13.mp3","fp":"3208d55439","lufs":-18},
+      "asmaa": {"normal":"clips/asmaa/77780e65dab9.mp3","slow":"clips/asmaa/59e12e38d215.mp3","fp":"60bfe4ca2e","lufs":-18}
+    },
+    "كَثِير": {
+      "chaouki": {"normal":"clips/chaouki/d012149eba4a.mp3","slow":"clips/chaouki/813888c699b2.mp3","fp":"3208d55439","lufs":-18},
+      "asmaa": {"normal":"clips/asmaa/97795417e1ca.mp3","slow":"clips/asmaa/fc95a7fc8a50.mp3","fp":"60bfe4ca2e","lufs":-18}
+    },
+    "حَدِيث": {
+      "chaouki": {"normal":"clips/chaouki/0232d5f16a16.mp3","slow":"clips/chaouki/41acb00676a4.mp3","fp":"3208d55439","lufs":-18},
+      "asmaa": {"normal":"clips/asmaa/280a99e6626e.mp3","slow":"clips/asmaa/eb2f6805369a.mp3","fp":"60bfe4ca2e","lufs":-18}
+    },
+    "ذَا": {
+      "chaouki": {"normal":"clips/chaouki/0f6169882b37.mp3","slow":"clips/chaouki/93f2c0dbf0f6.mp3","fp":"3208d55439","lufs":-18},
+      "asmaa": {"normal":"clips/asmaa/23a86bc2b466.mp3","slow":"clips/asmaa/cf51370f9b7d.mp3","fp":"60bfe4ca2e","lufs":-18}
+    },
+    "ذَهَب": {
+      "chaouki": {"normal":"clips/chaouki/7a7de10b4d2c.mp3","slow":"clips/chaouki/c8aa8fdf1285.mp3","fp":"3208d55439","lufs":-18},
+      "asmaa": {"normal":"clips/asmaa/229a92172283.mp3","slow":"clips/asmaa/d4d2186df3e4.mp3","fp":"60bfe4ca2e","lufs":-18}
+    },
+    "أُذُن": {
+      "chaouki": {"normal":"clips/chaouki/42d754f02e41.mp3","slow":"clips/chaouki/560390bfc354.mp3","fp":"3208d55439","lufs":-18},
+      "asmaa": {"normal":"clips/asmaa/c4fbc3b257d5.mp3","slow":"clips/asmaa/7b0cd4dcc071.mp3","fp":"60bfe4ca2e","lufs":-18}
+    },
+    "تِلْمِيذ": {
+      "chaouki": {"normal":"clips/chaouki/55b8e0f8aa10.mp3","slow":"clips/chaouki/9e6433b740be.mp3","fp":"3208d55439","lufs":-18},
+      "asmaa": {"normal":"clips/asmaa/d62f20e90df9.mp3","slow":"clips/asmaa/d1d29a203ddc.mp3","fp":"60bfe4ca2e","lufs":-18}
+    },
+    "ظَا": {
+      "chaouki": {"normal":"clips/chaouki/f0cb340c3368.mp3","slow":"clips/chaouki/c8f9b6d953cb.mp3","fp":"3208d55439","lufs":-18},
+      "asmaa": {"normal":"clips/asmaa/c5f9eb2bd619.mp3","slow":"clips/asmaa/3c7bbabd14db.mp3","fp":"60bfe4ca2e","lufs":-18}
+    },
+    "ظُهْر": {
+      "chaouki": {"normal":"clips/chaouki/02705735c6cf.mp3","slow":"clips/chaouki/e0ccca583ca9.mp3","fp":"3208d55439","lufs":-18},
+      "asmaa": {"normal":"clips/asmaa/783a4d96533d.mp3","slow":"clips/asmaa/b6e6fbf047a9.mp3","fp":"faff2ed121","lufs":-18}
+    },
+    "نَظِيف": {
+      "chaouki": {"normal":"clips/chaouki/e2a368507d47.mp3","slow":"clips/chaouki/2c5c9b1fae40.mp3","fp":"3208d55439","lufs":-18},
+      "asmaa": {"normal":"clips/asmaa/ff7bb0137165.mp3","slow":"clips/asmaa/b7ed7ced2230.mp3","fp":"60bfe4ca2e","lufs":-18}
+    },
+    "حَظّ": {
+      "chaouki": {"normal":"clips/chaouki/84c13f4cc0c4.mp3","slow":"clips/chaouki/8efc335fe8a9.mp3","fp":"32a058dcc5","lufs":-18},
+      "asmaa": {"normal":"clips/asmaa/325fcc768b4b.mp3","slow":"clips/asmaa/771c64e7caeb.mp3","fp":"60bfe4ca2e","lufs":-18}
+    },
+    "تَا": {
+      "chaouki": {"normal":"clips/chaouki/09ec356cddaf.mp3","slow":"clips/chaouki/3e6aa3b56af5.mp3","fp":"3208d55439","lufs":-18},
+      "asmaa": {"normal":"clips/asmaa/4c7468427741.mp3","slow":"clips/asmaa/f0a3bf537e3d.mp3","fp":"60bfe4ca2e","lufs":-18}
+    },
+    "تِين": {
+      "chaouki": {"normal":"clips/chaouki/28b65a880cb7.mp3","slow":"clips/chaouki/79d37e7e6944.mp3","fp":"3208d55439","lufs":-18},
+      "asmaa": {"normal":"clips/asmaa/f0139ff6c67c.mp3","slow":"clips/asmaa/4710fd3299aa.mp3","fp":"60bfe4ca2e","lufs":-18}
+    },
+    "مِفْتَاح": {
+      "chaouki": {"normal":"clips/chaouki/afe3244b224a.mp3","slow":"clips/chaouki/69132bfa9723.mp3","fp":"3208d55439","lufs":-18},
+      "asmaa": {"normal":"clips/asmaa/52ac00099f7a.mp3","slow":"clips/asmaa/94935719a551.mp3","fp":"60bfe4ca2e","lufs":-18}
+    },
+    "بَيْت": {
+      "chaouki": {"normal":"clips/chaouki/43106ccece5c.mp3","slow":"clips/chaouki/974101e2a88f.mp3","fp":"3208d55439","lufs":-18},
+      "asmaa": {"normal":"clips/asmaa/5c25e826594f.mp3","slow":"clips/asmaa/301cd3100db7.mp3","fp":"60bfe4ca2e","lufs":-18}
+    },
+    "دَا": {
+      "chaouki": {"normal":"clips/chaouki/ff4062aff7f5.mp3","slow":"clips/chaouki/92f7fb187cef.mp3","fp":"3208d55439","lufs":-18},
+      "asmaa": {"normal":"clips/asmaa/efb0a16a5275.mp3","slow":"clips/asmaa/44acf98106ff.mp3","fp":"60bfe4ca2e","lufs":-18}
+    },
+    "دَرْس": {
+      "chaouki": {"normal":"clips/chaouki/d304e930415a.mp3","slow":"clips/chaouki/87131a96df47.mp3","fp":"3208d55439","lufs":-18},
+      "asmaa": {"normal":"clips/asmaa/4193f6925eba.mp3","slow":"clips/asmaa/432de43b8077.mp3","fp":"60bfe4ca2e","lufs":-18}
+    },
+    "قَدَم": {
+      "chaouki": {"normal":"clips/chaouki/ea7d4e8e0f7a.mp3","slow":"clips/chaouki/343fb1f96d52.mp3","fp":"3208d55439","lufs":-18},
+      "asmaa": {"normal":"clips/asmaa/cbaa0d68b3e8.mp3","slow":"clips/asmaa/b489e17f2762.mp3","fp":"60bfe4ca2e","lufs":-18}
+    },
+    "بَلَد": {
+      "chaouki": {"normal":"clips/chaouki/67834b421497.mp3","slow":"clips/chaouki/efb3338d3971.mp3","fp":"3208d55439","lufs":-18},
+      "asmaa": {"normal":"clips/asmaa/1237b09e0b20.mp3","slow":"clips/asmaa/98253289137f.mp3","fp":"faff2ed121","lufs":-18}
+    },
+    "طَا": {
+      "chaouki": {"normal":"clips/chaouki/ad792fcc33ff.mp3","slow":"clips/chaouki/bf453031d90f.mp3","fp":"3208d55439","lufs":-18},
+      "asmaa": {"normal":"clips/asmaa/2bb3ef35be33.mp3","slow":"clips/asmaa/884cb9a54df9.mp3","fp":"60bfe4ca2e","lufs":-18}
+    },
+    "طَبِيب": {
+      "chaouki": {"normal":"clips/chaouki/ab7204f9e1f7.mp3","slow":"clips/chaouki/d32220c797c8.mp3","fp":"3208d55439","lufs":-18},
+      "asmaa": {"normal":"clips/asmaa/69cc06f93275.mp3","slow":"clips/asmaa/b3e3621850ad.mp3","fp":"60bfe4ca2e","lufs":-18}
+    },
+    "مَطَر": {
+      "chaouki": {"normal":"clips/chaouki/432d4c962d6e.mp3","slow":"clips/chaouki/e604ec802651.mp3","fp":"3208d55439","lufs":-18},
+      "asmaa": {"normal":"clips/asmaa/929ba07e9bef.mp3","slow":"clips/asmaa/bb161018a137.mp3","fp":"60bfe4ca2e","lufs":-18}
+    },
+    "وَسَط": {
+      "chaouki": {"normal":"clips/chaouki/2c4afcb397c2.mp3","slow":"clips/chaouki/01dc192d8bd3.mp3","fp":"3208d55439","lufs":-18},
+      "asmaa": {"normal":"clips/asmaa/4fbcb49168b1.mp3","slow":"clips/asmaa/060c6e49060b.mp3","fp":"60bfe4ca2e","lufs":-18}
+    },
+    "ضَا": {
+      "chaouki": {"normal":"clips/chaouki/df8e4e09ada0.mp3","slow":"clips/chaouki/b59c0f3486ed.mp3","fp":"3208d55439","lufs":-18},
+      "asmaa": {"normal":"clips/asmaa/4c5e58fe2e5a.mp3","slow":"clips/asmaa/63db01e0a096.mp3","fp":"60bfe4ca2e","lufs":-18}
+    },
+    "ضَيْف": {
+      "chaouki": {"normal":"clips/chaouki/76a2dde97092.mp3","slow":"clips/chaouki/c77b8374e035.mp3","fp":"3208d55439","lufs":-18},
+      "asmaa": {"normal":"clips/asmaa/7ff5a5d99b3a.mp3","slow":"clips/asmaa/b99c86778d3d.mp3","fp":"60bfe4ca2e","lufs":-18}
+    },
+    "رَمَضَان": {
+      "chaouki": {"normal":"clips/chaouki/dad6df99267d.mp3","slow":"clips/chaouki/efc0cf45454e.mp3","fp":"3208d55439","lufs":-18},
+      "asmaa": {"normal":"clips/asmaa/8fbe98e06749.mp3","slow":"clips/asmaa/e6da11ff88c2.mp3","fp":"60bfe4ca2e","lufs":-18}
+    },
+    "أَرْض": {
+      "chaouki": {"normal":"clips/chaouki/c09b1fbbf5d7.mp3","slow":"clips/chaouki/9cce3485be9f.mp3","fp":"3208d55439","lufs":-18},
+      "asmaa": {"normal":"clips/asmaa/e783e498a2ac.mp3","slow":"clips/asmaa/af0d6b6c1569.mp3","fp":"60bfe4ca2e","lufs":-18}
+    },
+    "سَا": {
+      "chaouki": {"normal":"clips/chaouki/71f0904ebf87.mp3","slow":"clips/chaouki/7dd50ac22107.mp3","fp":"3208d55439","lufs":-18},
+      "asmaa": {"normal":"clips/asmaa/cad858fa49e4.mp3","slow":"clips/asmaa/d9c15468de59.mp3","fp":"60bfe4ca2e","lufs":-18}
+    },
+    "سَيْف": {
+      "chaouki": {"normal":"clips/chaouki/ef07515f75f3.mp3","slow":"clips/chaouki/5c61735043a6.mp3","fp":"3208d55439","lufs":-18},
+      "asmaa": {"normal":"clips/asmaa/fe3e0d0994ee.mp3","slow":"clips/asmaa/39f687d3901d.mp3","fp":"60bfe4ca2e","lufs":-18}
+    },
+    "مَسَاء": {
+      "chaouki": {"normal":"clips/chaouki/89257ab4e72c.mp3","slow":"clips/chaouki/dff392e51019.mp3","fp":"3208d55439","lufs":-18},
+      "asmaa": {"normal":"clips/asmaa/18898fa45e9e.mp3","slow":"clips/asmaa/cd7a905555e3.mp3","fp":"60bfe4ca2e","lufs":-18}
+    },
+    "شَمْس": {
+      "chaouki": {"normal":"clips/chaouki/8c4b8899b851.mp3","slow":"clips/chaouki/ca3a1ecc3853.mp3","fp":"3208d55439","lufs":-18},
+      "asmaa": {"normal":"clips/asmaa/f8d1f4f9749c.mp3","slow":"clips/asmaa/82d3379aa8f9.mp3","fp":"60bfe4ca2e","lufs":-18}
+    },
+    "زَا": {
+      "chaouki": {"normal":"clips/chaouki/fe89e0e68e1a.mp3","slow":"clips/chaouki/05790a97584d.mp3","fp":"3208d55439","lufs":-18},
+      "asmaa": {"normal":"clips/asmaa/b950792cb683.mp3","slow":"clips/asmaa/9c651e60b9de.mp3","fp":"60bfe4ca2e","lufs":-18}
+    },
+    "زَيْت": {
+      "chaouki": {"normal":"clips/chaouki/1f78851a1d16.mp3","slow":"clips/chaouki/506209647576.mp3","fp":"3208d55439","lufs":-18},
+      "asmaa": {"normal":"clips/asmaa/72f9ba2de5cd.mp3","slow":"clips/asmaa/8611b1665fdd.mp3","fp":"60bfe4ca2e","lufs":-18}
+    },
+    "مَنْزِل": {
+      "chaouki": {"normal":"clips/chaouki/660f4c0d63f7.mp3","slow":"clips/chaouki/ae139e8264dd.mp3","fp":"3208d55439","lufs":-18},
+      "asmaa": {"normal":"clips/asmaa/e339732e9b49.mp3","slow":"clips/asmaa/b6b947de0ca1.mp3","fp":"60bfe4ca2e","lufs":-18}
+    },
+    "مَوْز": {
+      "chaouki": {"normal":"clips/chaouki/6472079219aa.mp3","slow":"clips/chaouki/8a029246646c.mp3","fp":"3208d55439","lufs":-18},
+      "asmaa": {"normal":"clips/asmaa/cdf04ad00075.mp3","slow":"clips/asmaa/8c86877ad365.mp3","fp":"60bfe4ca2e","lufs":-18}
+    },
+    "صَا": {
+      "chaouki": {"normal":"clips/chaouki/9c15de2b905c.mp3","slow":"clips/chaouki/7bb8cdddf6a5.mp3","fp":"3208d55439","lufs":-18},
+      "asmaa": {"normal":"clips/asmaa/a4114bbf419e.mp3","slow":"clips/asmaa/4962a5b9450c.mp3","fp":"60bfe4ca2e","lufs":-18}
+    },
+    "صَيْف": {
+      "chaouki": {"normal":"clips/chaouki/5fde90a7c5f1.mp3","slow":"clips/chaouki/135ee15b3c57.mp3","fp":"421850c928","lufs":-18},
+      "asmaa": {"normal":"clips/asmaa/b5df857706ce.mp3","slow":"clips/asmaa/617817622cc5.mp3","fp":"60bfe4ca2e","lufs":-18}
+    },
+    "بَصَل": {
+      "chaouki": {"normal":"clips/chaouki/f380fa57c7ce.mp3","slow":"clips/chaouki/fa740dc340f9.mp3","fp":"3208d55439","lufs":-18},
+      "asmaa": {"normal":"clips/asmaa/23cf4988c3af.mp3","slow":"clips/asmaa/4b0d454a60c0.mp3","fp":"60bfe4ca2e","lufs":-18}
+    },
+    "قَمِيص": {
+      "chaouki": {"normal":"clips/chaouki/9f70922a16a3.mp3","slow":"clips/chaouki/a4fa3b52404b.mp3","fp":"421850c928","lufs":-18},
+      "asmaa": {"normal":"clips/asmaa/fba9b5a43487.mp3","slow":"clips/asmaa/9dc55e1d2907.mp3","fp":"60bfe4ca2e","lufs":-18}
+    },
+    "نَا": {
+      "chaouki": {"normal":"clips/chaouki/c15373c2a0ab.mp3","slow":"clips/chaouki/2fe87cfe193c.mp3","fp":"3208d55439","lufs":-18},
+      "asmaa": {"normal":"clips/asmaa/17b0c761045a.mp3","slow":"clips/asmaa/de10f9fc634d.mp3","fp":"60bfe4ca2e","lufs":-18}
+    },
+    "نُور": {
+      "chaouki": {"normal":"clips/chaouki/4cb0f4ed1e44.mp3","slow":"clips/chaouki/8a905613d12c.mp3","fp":"3208d55439","lufs":-18},
+      "asmaa": {"normal":"clips/asmaa/42b707816a8a.mp3","slow":"clips/asmaa/8034ed72538c.mp3","fp":"60bfe4ca2e","lufs":-18}
+    },
+    "عِنَب": {
+      "chaouki": {"normal":"clips/chaouki/6671bfe64079.mp3","slow":"clips/chaouki/96df9856692e.mp3","fp":"3208d55439","lufs":-18},
+      "asmaa": {"normal":"clips/asmaa/f4a88912fef4.mp3","slow":"clips/asmaa/fb0e9a9a976b.mp3","fp":"60bfe4ca2e","lufs":-18}
+    },
+    "لِسَان": {
+      "chaouki": {"normal":"clips/chaouki/5f4f606466c3.mp3","slow":"clips/chaouki/e5bde78197ae.mp3","fp":"3208d55439","lufs":-18},
+      "asmaa": {"normal":"clips/asmaa/080549981e01.mp3","slow":"clips/asmaa/69ddd58e631d.mp3","fp":"60bfe4ca2e","lufs":-18}
+    },
+    "لَا": {
+      "chaouki": {"normal":"clips/chaouki/21078fa40262.mp3","slow":"clips/chaouki/6ee10abb797d.mp3","fp":"3208d55439","lufs":-18},
+      "asmaa": {"normal":"clips/asmaa/54c71c21c433.mp3","slow":"clips/asmaa/49e523978452.mp3","fp":"60bfe4ca2e","lufs":-18}
+    },
+    "لَوْن": {
+      "chaouki": {"normal":"clips/chaouki/3a6039d2d797.mp3","slow":"clips/chaouki/86c8efb16aea.mp3","fp":"3208d55439","lufs":-18},
+      "asmaa": {"normal":"clips/asmaa/ffa705cd5875.mp3","slow":"clips/asmaa/785c5a71f0af.mp3","fp":"60bfe4ca2e","lufs":-18}
+    },
+    "قَلَم": {
+      "chaouki": {"normal":"clips/chaouki/d2066b9cd170.mp3","slow":"clips/chaouki/42fda0395cb5.mp3","fp":"3208d55439","lufs":-18},
+      "asmaa": {"normal":"clips/asmaa/83fa39b7b6cf.mp3","slow":"clips/asmaa/6673d5c8a29d.mp3","fp":"60bfe4ca2e","lufs":-18}
+    },
+    "جَبَل": {
+      "chaouki": {"normal":"clips/chaouki/7c964e490c95.mp3","slow":"clips/chaouki/b44b1617a657.mp3","fp":"3208d55439","lufs":-18},
+      "asmaa": {"normal":"clips/asmaa/c53c5d4a0863.mp3","slow":"clips/asmaa/358899abf02e.mp3","fp":"60bfe4ca2e","lufs":-18}
+    },
+    "رَا": {
+      "chaouki": {"normal":"clips/chaouki/a9972d5c0496.mp3","slow":"clips/chaouki/1d8629ed65f2.mp3","fp":"3208d55439","lufs":-18},
+      "asmaa": {"normal":"clips/asmaa/e01398cf4fb9.mp3","slow":"clips/asmaa/3cfabbca94dd.mp3","fp":"60bfe4ca2e","lufs":-18}
+    },
+    "رَمْل": {
+      "chaouki": {"normal":"clips/chaouki/19e2e948758c.mp3","slow":"clips/chaouki/723363627a30.mp3","fp":"3208d55439","lufs":-18},
+      "asmaa": {"normal":"clips/asmaa/d46e4e65a186.mp3","slow":"clips/asmaa/a48cfdc8cddc.mp3","fp":"60bfe4ca2e","lufs":-18}
+    },
+    "مَرِيض": {
+      "chaouki": {"normal":"clips/chaouki/667a009bca83.mp3","slow":"clips/chaouki/53bfe8ef7430.mp3","fp":"32a058dcc5","lufs":-18},
+      "asmaa": {"normal":"clips/asmaa/7f0786e470c0.mp3","slow":"clips/asmaa/bc3e2a01d19e.mp3","fp":"60bfe4ca2e","lufs":-18}
+    },
+    "قَمَر": {
+      "chaouki": {"normal":"clips/chaouki/bd0a2931e977.mp3","slow":"clips/chaouki/5750fe2ab89d.mp3","fp":"3208d55439","lufs":-18},
+      "asmaa": {"normal":"clips/asmaa/70a4062a5063.mp3","slow":"clips/asmaa/a80ef6df5714.mp3","fp":"60bfe4ca2e","lufs":-18}
+    },
+    "جَا": {
+      "chaouki": {"normal":"clips/chaouki/d036ecd7cd80.mp3","slow":"clips/chaouki/0067c8a31c6e.mp3","fp":"3208d55439","lufs":-18},
+      "asmaa": {"normal":"clips/asmaa/bd8f54423d94.mp3","slow":"clips/asmaa/677e2a8bc506.mp3","fp":"60bfe4ca2e","lufs":-18}
+    },
+    "جَمَل": {
+      "chaouki": {"normal":"clips/chaouki/19de35f1f514.mp3","slow":"clips/chaouki/0ffb36f612f4.mp3","fp":"3208d55439","lufs":-18},
+      "asmaa": {"normal":"clips/asmaa/02f55ad10974.mp3","slow":"clips/asmaa/cc7c582b235a.mp3","fp":"60bfe4ca2e","lufs":-18}
+    },
+    "رَجُل": {
+      "chaouki": {"normal":"clips/chaouki/19b19cdc75c5.mp3","slow":"clips/chaouki/f8db9c6cb11d.mp3","fp":"3208d55439","lufs":-18},
+      "asmaa": {"normal":"clips/asmaa/ee646d59cc5b.mp3","slow":"clips/asmaa/0aca9b6ae4a2.mp3","fp":"60bfe4ca2e","lufs":-18}
+    },
+    "زَوْج": {
+      "chaouki": {"normal":"clips/chaouki/ecc0ece8b4d0.mp3","slow":"clips/chaouki/f9221ff1a90d.mp3","fp":"3208d55439","lufs":-18},
+      "asmaa": {"normal":"clips/asmaa/14b2ca035a78.mp3","slow":"clips/asmaa/225707eb02d1.mp3","fp":"60bfe4ca2e","lufs":-18}
+    },
+    "شَا": {
+      "chaouki": {"normal":"clips/chaouki/effa22f609f2.mp3","slow":"clips/chaouki/480d2dc8d963.mp3","fp":"3208d55439","lufs":-18},
+      "asmaa": {"normal":"clips/asmaa/9c9c5d5b0fae.mp3","slow":"clips/asmaa/62e0a3c24651.mp3","fp":"60bfe4ca2e","lufs":-18}
+    },
+    "عَشَاء": {
+      "chaouki": {"normal":"clips/chaouki/e87112887cdd.mp3","slow":"clips/chaouki/7fef5870fe7e.mp3","fp":"3208d55439","lufs":-18},
+      "asmaa": {"normal":"clips/asmaa/0950955f208a.mp3","slow":"clips/asmaa/87f6e9b49fc0.mp3","fp":"60bfe4ca2e","lufs":-18}
+    },
+    "جَيْش": {
+      "chaouki": {"normal":"clips/chaouki/ad4c6abb73ed.mp3","slow":"clips/chaouki/abf8db316179.mp3","fp":"3208d55439","lufs":-18},
+      "asmaa": {"normal":"clips/asmaa/984fc74da10c.mp3","slow":"clips/asmaa/72d33b204d02.mp3","fp":"60bfe4ca2e","lufs":-18}
+    },
+    "يَا": {
+      "chaouki": {"normal":"clips/chaouki/d666bd4299cb.mp3","slow":"clips/chaouki/92d56e5123c8.mp3","fp":"3208d55439","lufs":-18},
+      "asmaa": {"normal":"clips/asmaa/865aa6af37b9.mp3","slow":"clips/asmaa/58c728d46c24.mp3","fp":"60bfe4ca2e","lufs":-18}
+    },
+    "يَد": {
+      "chaouki": {"normal":"clips/chaouki/1a331542b805.mp3","slow":"clips/chaouki/c4c2fd45b9eb.mp3","fp":"3208d55439","lufs":-18},
+      "asmaa": {"normal":"clips/asmaa/815376dbd7ff.mp3","slow":"clips/asmaa/28fabe21aa8e.mp3","fp":"60bfe4ca2e","lufs":-18}
+    },
+    "حَيَوَان": {
+      "chaouki": {"normal":"clips/chaouki/d04658f13264.mp3","slow":"clips/chaouki/978cf7adeae7.mp3","fp":"3208d55439","lufs":-18},
+      "asmaa": {"normal":"clips/asmaa/a803e17ffae2.mp3","slow":"clips/asmaa/0d00b15375da.mp3","fp":"60bfe4ca2e","lufs":-18}
+    },
+    "شَاي": {
+      "chaouki": {"normal":"clips/chaouki/842ff3716c04.mp3","slow":"clips/chaouki/924f03eda9cb.mp3","fp":"3208d55439","lufs":-18},
+      "asmaa": {"normal":"clips/asmaa/ee8e1e40dae3.mp3","slow":"clips/asmaa/9c36ab00f6e4.mp3","fp":"54f8bbd24e","lufs":-18}
+    },
+    "كَا": {
+      "chaouki": {"normal":"clips/chaouki/b7e3b5f60190.mp3","slow":"clips/chaouki/9218f9e45765.mp3","fp":"3208d55439","lufs":-18},
+      "asmaa": {"normal":"clips/asmaa/c47c70fdc648.mp3","slow":"clips/asmaa/1f3871d40a0c.mp3","fp":"60bfe4ca2e","lufs":-18}
+    },
+    "كَلْب": {
+      "chaouki": {"normal":"clips/chaouki/0d47e986a0e1.mp3","slow":"clips/chaouki/b125fafb736c.mp3","fp":"3208d55439","lufs":-18},
+      "asmaa": {"normal":"clips/asmaa/9f852eb4095f.mp3","slow":"clips/asmaa/ae4fde769c4e.mp3","fp":"60bfe4ca2e","lufs":-18}
+    },
+    "مَكَان": {
+      "chaouki": {"normal":"clips/chaouki/1b39f9fa95a6.mp3","slow":"clips/chaouki/e98c4a1cfd04.mp3","fp":"3208d55439","lufs":-18},
+      "asmaa": {"normal":"clips/asmaa/71eda0f09349.mp3","slow":"clips/asmaa/2570904b90e0.mp3","fp":"60bfe4ca2e","lufs":-18}
+    },
+    "قَا": {
+      "chaouki": {"normal":"clips/chaouki/715c78338969.mp3","slow":"clips/chaouki/398ed83d50f2.mp3","fp":"3208d55439","lufs":-18},
+      "asmaa": {"normal":"clips/asmaa/524d662a191c.mp3","slow":"clips/asmaa/e87da8ee5524.mp3","fp":"60bfe4ca2e","lufs":-18}
+    },
+    "قَلْب": {
+      "chaouki": {"normal":"clips/chaouki/61d2877a868d.mp3","slow":"clips/chaouki/893120d406d5.mp3","fp":"3208d55439","lufs":-18},
+      "asmaa": {"normal":"clips/asmaa/8362f3f7bd41.mp3","slow":"clips/asmaa/4880e98ce31a.mp3","fp":"60bfe4ca2e","lufs":-18}
+    },
+    "فَقِير": {
+      "chaouki": {"normal":"clips/chaouki/278183350c26.mp3","slow":"clips/chaouki/e4808b6e7958.mp3","fp":"3208d55439","lufs":-18},
+      "asmaa": {"normal":"clips/asmaa/af7df953949f.mp3","slow":"clips/asmaa/bd69c3d2c948.mp3","fp":"60bfe4ca2e","lufs":-18}
+    },
+    "سُوق": {
+      "chaouki": {"normal":"clips/chaouki/89b934cdf6f9.mp3","slow":"clips/chaouki/1d77216ac2cd.mp3","fp":"3208d55439","lufs":-18},
+      "asmaa": {"normal":"clips/asmaa/b6d6e274ae27.mp3","slow":"clips/asmaa/76699ab5e20b.mp3","fp":"60bfe4ca2e","lufs":-18}
+    },
+    "خَا": {
+      "chaouki": {"normal":"clips/chaouki/64b77a0e5741.mp3","slow":"clips/chaouki/8b6b0ed947b0.mp3","fp":"3208d55439","lufs":-18},
+      "asmaa": {"normal":"clips/asmaa/13020ed397c4.mp3","slow":"clips/asmaa/501d08ab6a08.mp3","fp":"60bfe4ca2e","lufs":-18}
+    },
+    "أُخْت": {
+      "chaouki": {"normal":"clips/chaouki/267815ed81de.mp3","slow":"clips/chaouki/f8afa263cb3c.mp3","fp":"3208d55439","lufs":-18},
+      "asmaa": {"normal":"clips/asmaa/819448684278.mp3","slow":"clips/asmaa/6e3607fb69de.mp3","fp":"60bfe4ca2e","lufs":-18}
+    },
+    "مَطْبَخ": {
+      "chaouki": {"normal":"clips/chaouki/c8a76236a1f4.mp3","slow":"clips/chaouki/9e733d713d61.mp3","fp":"3208d55439","lufs":-18},
+      "asmaa": {"normal":"clips/asmaa/3860165041a6.mp3","slow":"clips/asmaa/a23d7c45464b.mp3","fp":"60bfe4ca2e","lufs":-18}
+    },
+    "غَا": {
+      "chaouki": {"normal":"clips/chaouki/c409b254743d.mp3","slow":"clips/chaouki/67ac5e5179b6.mp3","fp":"3208d55439","lufs":-18},
+      "asmaa": {"normal":"clips/asmaa/8677e22664e9.mp3","slow":"clips/asmaa/c0fccdadbd59.mp3","fp":"60bfe4ca2e","lufs":-18}
+    },
+    "غَرْب": {
+      "chaouki": {"normal":"clips/chaouki/1d211fa2496c.mp3","slow":"clips/chaouki/36965937aa4e.mp3","fp":"421850c928","lufs":-18},
+      "asmaa": {"normal":"clips/asmaa/6dd67a395b75.mp3","slow":"clips/asmaa/66b31fb12b12.mp3","fp":"60bfe4ca2e","lufs":-18}
+    },
+    "صَغِير": {
+      "chaouki": {"normal":"clips/chaouki/6e49fc312c8f.mp3","slow":"clips/chaouki/cfe8a101f714.mp3","fp":"3208d55439","lufs":-18},
+      "asmaa": {"normal":"clips/asmaa/85bd9cf5fbc8.mp3","slow":"clips/asmaa/3180f09e895f.mp3","fp":"60bfe4ca2e","lufs":-18}
+    },
+    "دِمَاغ": {
+      "chaouki": {"normal":"clips/chaouki/70ea0505be2d.mp3","slow":"clips/chaouki/3e0666f91eb4.mp3","fp":"421850c928","lufs":-18},
+      "asmaa": {"normal":"clips/asmaa/b7ff4a1d4971.mp3","slow":"clips/asmaa/fccc83e4ecb1.mp3","fp":"60bfe4ca2e","lufs":-18}
+    },
+    "حَا": {
+      "chaouki": {"normal":"clips/chaouki/719de011c577.mp3","slow":"clips/chaouki/bdb0d44a0709.mp3","fp":"3208d55439","lufs":-18},
+      "asmaa": {"normal":"clips/asmaa/bbadd27709d2.mp3","slow":"clips/asmaa/25642f15026d.mp3","fp":"60bfe4ca2e","lufs":-18}
+    },
+    "حَلِيب": {
+      "chaouki": {"normal":"clips/chaouki/238b9c11fbf7.mp3","slow":"clips/chaouki/0916d9d091d7.mp3","fp":"3208d55439","lufs":-18},
+      "asmaa": {"normal":"clips/asmaa/d4e81c6e407d.mp3","slow":"clips/asmaa/96ce163eb9f7.mp3","fp":"60bfe4ca2e","lufs":-18}
+    },
+    "لَحْم": {
+      "chaouki": {"normal":"clips/chaouki/428b8a9c4f5d.mp3","slow":"clips/chaouki/d09745b6c5a0.mp3","fp":"3208d55439","lufs":-18},
+      "asmaa": {"normal":"clips/asmaa/326334239aa3.mp3","slow":"clips/asmaa/8f8cb603ee6c.mp3","fp":"60bfe4ca2e","lufs":-18}
+    },
+    "رِيح": {
+      "chaouki": {"normal":"clips/chaouki/7ede4442f301.mp3","slow":"clips/chaouki/cc9df401022d.mp3","fp":"3208d55439","lufs":-18},
+      "asmaa": {"normal":"clips/asmaa/c1795764f651.mp3","slow":"clips/asmaa/9bb045da2a37.mp3","fp":"60bfe4ca2e","lufs":-18}
+    },
+    "عَا": {
+      "chaouki": {"normal":"clips/chaouki/02bc5916f621.mp3","slow":"clips/chaouki/60371cffdd88.mp3","fp":"3208d55439","lufs":-18},
+      "asmaa": {"normal":"clips/asmaa/365c8f8230f4.mp3","slow":"clips/asmaa/0c76d9e49cc3.mp3","fp":"60bfe4ca2e","lufs":-18}
+    },
+    "عَيْن": {
+      "chaouki": {"normal":"clips/chaouki/db92cb00911d.mp3","slow":"clips/chaouki/a6b2e66169e2.mp3","fp":"3208d55439","lufs":-18},
+      "asmaa": {"normal":"clips/asmaa/cc55dc61ff1b.mp3","slow":"clips/asmaa/53f0625fadd7.mp3","fp":"60bfe4ca2e","lufs":-18}
+    },
+    "سَعِيد": {
+      "chaouki": {"normal":"clips/chaouki/e86119bcc44a.mp3","slow":"clips/chaouki/9df372cb862a.mp3","fp":"3208d55439","lufs":-18},
+      "asmaa": {"normal":"clips/asmaa/67c68219c3c8.mp3","slow":"clips/asmaa/461999b766e1.mp3","fp":"60bfe4ca2e","lufs":-18}
+    },
+    "شَارِع": {
+      "chaouki": {"normal":"clips/chaouki/9719f08de238.mp3","slow":"clips/chaouki/993aa8053b1f.mp3","fp":"3208d55439","lufs":-18},
+      "asmaa": {"normal":"clips/asmaa/93ed7cbe901f.mp3","slow":"clips/asmaa/5f4463a991b5.mp3","fp":"60bfe4ca2e","lufs":-18}
+    },
+    "آ": {
+      "chaouki": {"normal":"clips/chaouki/b8bd40b2f2b9.mp3","slow":"clips/chaouki/420bcebaf3d8.mp3","fp":"3208d55439","lufs":-18},
+      "asmaa": {"normal":"clips/asmaa/9fddb7e70afa.mp3","slow":"clips/asmaa/612fa9d7ca0e.mp3","fp":"60bfe4ca2e","lufs":-18}
+    },
+    "أَسَد": {
+      "chaouki": {"normal":"clips/chaouki/0435a7a5badd.mp3","slow":"clips/chaouki/fb71b0b3cb01.mp3","fp":"3208d55439","lufs":-18},
+      "asmaa": {"normal":"clips/asmaa/93d6bc99f4cf.mp3","slow":"clips/asmaa/56e5a6ddd53c.mp3","fp":"60bfe4ca2e","lufs":-18}
+    },
+    "سُؤَال": {
+      "chaouki": {"normal":"clips/chaouki/dda7cef3bf9a.mp3","slow":"clips/chaouki/b92e5ca5bdad.mp3","fp":"3208d55439","lufs":-18},
+      "asmaa": {"normal":"clips/asmaa/63cb476ec366.mp3","slow":"clips/asmaa/bc74888a5fe4.mp3","fp":"60bfe4ca2e","lufs":-18}
+    },
+    "شَيْء": {
+      "chaouki": {"normal":"clips/chaouki/24618b1d8d26.mp3","slow":"clips/chaouki/6af7dd13b519.mp3","fp":"3208d55439","lufs":-18},
+      "asmaa": {"normal":"clips/asmaa/b923e44ff5dd.mp3","slow":"clips/asmaa/fe42732af9ac.mp3","fp":"60bfe4ca2e","lufs":-18}
+    },
+    "هَا": {
+      "chaouki": {"normal":"clips/chaouki/fbd9733d478b.mp3","slow":"clips/chaouki/301223336e5f.mp3","fp":"3208d55439","lufs":-18},
+      "asmaa": {"normal":"clips/asmaa/8c7178e1893a.mp3","slow":"clips/asmaa/d0f7477dc87a.mp3","fp":"60bfe4ca2e","lufs":-18}
+    },
+    "هَوَاء": {
+      "chaouki": {"normal":"clips/chaouki/6b4dd0c5582b.mp3","slow":"clips/chaouki/667441a42fec.mp3","fp":"3208d55439","lufs":-18},
+      "asmaa": {"normal":"clips/asmaa/0675d524f55c.mp3","slow":"clips/asmaa/f64ef826f413.mp3","fp":"60bfe4ca2e","lufs":-18}
+    },
+    "نَهَار": {
+      "chaouki": {"normal":"clips/chaouki/ccf914267908.mp3","slow":"clips/chaouki/f21fbe04ff01.mp3","fp":"3208d55439","lufs":-18},
+      "asmaa": {"normal":"clips/asmaa/0a7c4391b589.mp3","slow":"clips/asmaa/6f659ef695c8.mp3","fp":"60bfe4ca2e","lufs":-18}
+    },
+    "وَجْه": {
+      "chaouki": {"normal":"clips/chaouki/171dc932b05a.mp3","slow":"clips/chaouki/28ce76dc8824.mp3","fp":"421850c928","lufs":-18},
+      "asmaa": {"normal":"clips/asmaa/fedda8bcae1c.mp3","slow":"clips/asmaa/1acf9e89665c.mp3","fp":"d8fb7eb7d8","lufs":-18}
+    },
+    "طِين": {
+      "chaouki": {"normal":"clips/chaouki/81f9250fb1ac.mp3","slow":"clips/chaouki/c07594323a6e.mp3","fp":"3208d55439","lufs":-18},
+      "asmaa": {"normal":"clips/asmaa/b9afcbc45f95.mp3","slow":"clips/asmaa/f901933b8f46.mp3","fp":"60bfe4ca2e","lufs":-18}
+    },
+    "دَلَّ": {
+      "chaouki": {"normal":"clips/chaouki/68f7f58a34a6.mp3","slow":"clips/chaouki/52995e499b1e.mp3","fp":"3208d55439","lufs":-18},
+      "asmaa": {"normal":"clips/asmaa/0585d19e955e.mp3","slow":"clips/asmaa/bfe7f6b5be6e.mp3","fp":"60bfe4ca2e","lufs":-18}
+    },
+    "ضَلَّ": {
+      "chaouki": {"normal":"clips/chaouki/1b4b44e1c43d.mp3","slow":"clips/chaouki/50d7b84aa08d.mp3","fp":"3208d55439","lufs":-18},
+      "asmaa": {"normal":"clips/asmaa/80efbfc3ab29.mp3","slow":"clips/asmaa/dc72b424bb92.mp3","fp":"faff2ed121","lufs":-18}
+    },
+    "ذَلَّ": {
+      "chaouki": {"normal":"clips/chaouki/65883c6b9293.mp3","slow":"clips/chaouki/8ddc691f213d.mp3","fp":"3208d55439","lufs":-18},
+      "asmaa": {"normal":"clips/asmaa/f9006e796696.mp3","slow":"clips/asmaa/357ae0589ccd.mp3","fp":"faff2ed121","lufs":-18}
+    },
+    "ظَلَّ": {
+      "chaouki": {"normal":"clips/chaouki/5fd81d983b5c.mp3","slow":"clips/chaouki/7475ef31fd56.mp3","fp":"32a058dcc5","lufs":-18},
+      "asmaa": {"normal":"clips/asmaa/edfdc845be7d.mp3","slow":"clips/asmaa/90542d0e4121.mp3","fp":"60bfe4ca2e","lufs":-18}
+    },
+    "سَارَ": {
+      "chaouki": {"normal":"clips/chaouki/50638a8096a0.mp3","slow":"clips/chaouki/1e31ef8faac2.mp3","fp":"3208d55439","lufs":-18},
+      "asmaa": {"normal":"clips/asmaa/ded4d50ae876.mp3","slow":"clips/asmaa/81a96a8c6fb2.mp3","fp":"60bfe4ca2e","lufs":-18}
+    },
+    "ثَارَ": {
+      "chaouki": {"normal":"clips/chaouki/e863ab512778.mp3","slow":"clips/chaouki/3ce1aea2cdd0.mp3","fp":"3208d55439","lufs":-18},
+      "asmaa": {"normal":"clips/asmaa/fd7f46b64dec.mp3","slow":"clips/asmaa/5fbf616840ac.mp3","fp":"60bfe4ca2e","lufs":-18}
+    },
+    "زَلَّ": {
+      "chaouki": {"normal":"clips/chaouki/5a93ab037dc1.mp3","slow":"clips/chaouki/8d1e068d2181.mp3","fp":"3208d55439","lufs":-18},
+      "asmaa": {"normal":"clips/asmaa/24a2b0cdf8f6.mp3","slow":"clips/asmaa/1933e9f52fcf.mp3","fp":"60bfe4ca2e","lufs":-18}
+    },
+    "كَبِير": {
+      "chaouki": {"normal":"clips/chaouki/1bb2a69f33b8.mp3","slow":"clips/chaouki/a87f035bcfcc.mp3","fp":"3208d55439","lufs":-18},
+      "asmaa": {"normal":"clips/asmaa/57d045118fe8.mp3","slow":"clips/asmaa/0bfc13a9ec9d.mp3","fp":"60bfe4ca2e","lufs":-18}
+    },
+    "خَبِير": {
+      "chaouki": {"normal":"clips/chaouki/813a4110938e.mp3","slow":"clips/chaouki/89d7aa2571c7.mp3","fp":"3208d55439","lufs":-18},
+      "asmaa": {"normal":"clips/asmaa/c37f0f7ad18c.mp3","slow":"clips/asmaa/2de8f645b2a9.mp3","fp":"60bfe4ca2e","lufs":-18}
+    },
+    "حَال": {
+      "chaouki": {"normal":"clips/chaouki/05c655171a7b.mp3","slow":"clips/chaouki/e144fc0c757d.mp3","fp":"3208d55439","lufs":-18},
+      "asmaa": {"normal":"clips/asmaa/d38bb3bf25ed.mp3","slow":"clips/asmaa/3084368f7ced.mp3","fp":"60bfe4ca2e","lufs":-18}
+    },
+    "خَال": {
+      "chaouki": {"normal":"clips/chaouki/43d9765dffb6.mp3","slow":"clips/chaouki/7728b3c5c76b.mp3","fp":"3208d55439","lufs":-18},
+      "asmaa": {"normal":"clips/asmaa/e3afa05383bd.mp3","slow":"clips/asmaa/29f8acb8d16a.mp3","fp":"faff2ed121","lufs":-18}
+    },
+    "هَزَمَ": {
+      "chaouki": {"normal":"clips/chaouki/e2fb99dbce68.mp3","slow":"clips/chaouki/e42722177534.mp3","fp":"3208d55439","lufs":-18},
+      "asmaa": {"normal":"clips/asmaa/ae100ba2bfa7.mp3","slow":"clips/asmaa/0d28b104ab91.mp3","fp":"60bfe4ca2e","lufs":-18}
+    },
+    "حَزَمَ": {
+      "chaouki": {"normal":"clips/chaouki/2d8e3b8a8c90.mp3","slow":"clips/chaouki/542171b2c5ce.mp3","fp":"3208d55439","lufs":-18},
+      "asmaa": {"normal":"clips/asmaa/d730fcebca98.mp3","slow":"clips/asmaa/fb0c7824bbe2.mp3","fp":"60bfe4ca2e","lufs":-18}
+    },
+    "حَمَل": {
+      "chaouki": {"normal":"clips/chaouki/9b93df450d1f.mp3","slow":"clips/chaouki/15177f9d504e.mp3","fp":"3208d55439","lufs":-18},
+      "asmaa": {"normal":"clips/asmaa/3b6e442627f7.mp3","slow":"clips/asmaa/97ba0bb1634f.mp3","fp":"60bfe4ca2e","lufs":-18}
+    },
+    "عَمَل": {
+      "chaouki": {"normal":"clips/chaouki/df7bfe305724.mp3","slow":"clips/chaouki/a934a8435081.mp3","fp":"3208d55439","lufs":-18},
+      "asmaa": {"normal":"clips/asmaa/e630ce6ae69a.mp3","slow":"clips/asmaa/62ac40e1581c.mp3","fp":"60bfe4ca2e","lufs":-18}
+    },
+    "أَلَم": {
+      "chaouki": {"normal":"clips/chaouki/d95693a58da0.mp3","slow":"clips/chaouki/3c7c1668948a.mp3","fp":"3208d55439","lufs":-18},
+      "asmaa": {"normal":"clips/asmaa/b67318e3fd2a.mp3","slow":"clips/asmaa/e817a18aea46.mp3","fp":"60bfe4ca2e","lufs":-18}
+    },
+    "عَلَم": {
+      "chaouki": {"normal":"clips/chaouki/459541ce345c.mp3","slow":"clips/chaouki/45b48a3ebbc9.mp3","fp":"3208d55439","lufs":-18},
+      "asmaa": {"normal":"clips/asmaa/60a44f8c7efa.mp3","slow":"clips/asmaa/0fbfb255922b.mp3","fp":"60bfe4ca2e","lufs":-18}
+    },
+    "عَار": {
+      "chaouki": {"normal":"clips/chaouki/9d8a2bce722c.mp3","slow":"clips/chaouki/ddcd1a1d085e.mp3","fp":"3208d55439","lufs":-18},
+      "asmaa": {"normal":"clips/asmaa/7af494575f70.mp3","slow":"clips/asmaa/1f393810b590.mp3","fp":"60bfe4ca2e","lufs":-18}
+    },
+    "غَار": {
+      "chaouki": {"normal":"clips/chaouki/3293dcad1544.mp3","slow":"clips/chaouki/d6859aeaf3bc.mp3","fp":"3208d55439","lufs":-18},
+      "asmaa": {"normal":"clips/asmaa/050388e73cda.mp3","slow":"clips/asmaa/d3c734e5d71c.mp3","fp":"60bfe4ca2e","lufs":-18}
+    },
+    "رَيْب": {
+      "chaouki": {"normal":"clips/chaouki/f200778c9229.mp3","slow":"clips/chaouki/93763dadd6fd.mp3","fp":"3208d55439","lufs":-18},
+      "asmaa": {"normal":"clips/asmaa/3e951a7a343d.mp3","slow":"clips/asmaa/aff188454c6c.mp3","fp":"60bfe4ca2e","lufs":-18}
+    },
+    "غَيْب": {
+      "chaouki": {"normal":"clips/chaouki/66da92e077f4.mp3","slow":"clips/chaouki/6c888846fdd4.mp3","fp":"421850c928","lufs":-18},
+      "asmaa": {"normal":"clips/asmaa/0065c2160dae.mp3","slow":"clips/asmaa/97ac9f53e3a0.mp3","fp":"60bfe4ca2e","lufs":-18}
+    },
+    "كَتَبَ": {
+      "chaouki": {"normal":"clips/chaouki/21629e4adabf.mp3","slow":"clips/chaouki/0e0da088398e.mp3","fp":"3208d55439","lufs":-18},
+      "asmaa": {"normal":"clips/asmaa/040222c4613c.mp3","slow":"clips/asmaa/ceec126c28a1.mp3","fp":"60bfe4ca2e","lufs":-18}
+    },
+    "كَاتَبَ": {
+      "chaouki": {"normal":"clips/chaouki/4e80fcf8014e.mp3","slow":"clips/chaouki/dea8113a1c9c.mp3","fp":"3208d55439","lufs":-18},
+      "asmaa": {"normal":"clips/asmaa/c29ab831a733.mp3","slow":"clips/asmaa/5c60dc784c32.mp3","fp":"60bfe4ca2e","lufs":-18}
+    },
+    "جَمَال": {
+      "chaouki": {"normal":"clips/chaouki/bc923c5f24ea.mp3","slow":"clips/chaouki/01bf16a67d9d.mp3","fp":"3208d55439","lufs":-18},
+      "asmaa": {"normal":"clips/asmaa/c1bd59c50830.mp3","slow":"clips/asmaa/95d344a38c4b.mp3","fp":"60bfe4ca2e","lufs":-18}
+    },
+    "رَحِم": {
+      "chaouki": {"normal":"clips/chaouki/d93cd58d4970.mp3","slow":"clips/chaouki/fbb2d7b9fa12.mp3","fp":"3208d55439","lufs":-18},
+      "asmaa": {"normal":"clips/asmaa/641273602d0a.mp3","slow":"clips/asmaa/ce443ecb589e.mp3","fp":"60bfe4ca2e","lufs":-18}
+    },
+    "رَحِيم": {
+      "chaouki": {"normal":"clips/chaouki/97b8e4575773.mp3","slow":"clips/chaouki/815f9996d857.mp3","fp":"3208d55439","lufs":-18},
+      "asmaa": {"normal":"clips/asmaa/ac492bdb3cb9.mp3","slow":"clips/asmaa/bdf2d22e6149.mp3","fp":"60bfe4ca2e","lufs":-18}
+    },
+    "عُدْ": {
+      "chaouki": {"normal":"clips/chaouki/0ba2d725eb99.mp3","slow":"clips/chaouki/8a2917ac1ae7.mp3","fp":"3208d55439","lufs":-18},
+      "asmaa": {"normal":"clips/asmaa/bf1807172c5e.mp3","slow":"clips/asmaa/a078712e4bda.mp3","fp":"60bfe4ca2e","lufs":-18}
+    },
+    "عُود": {
+      "chaouki": {"normal":"clips/chaouki/41615672cd41.mp3","slow":"clips/chaouki/c2cab6d181a0.mp3","fp":"3208d55439","lufs":-18},
+      "asmaa": {"normal":"clips/asmaa/26e4102e5caa.mp3","slow":"clips/asmaa/efa42f35eb80.mp3","fp":"60bfe4ca2e","lufs":-18}
+    },
+    "دَرَسَ": {
+      "chaouki": {"normal":"clips/chaouki/14cba5f66ddf.mp3","slow":"clips/chaouki/22b9966bd2dc.mp3","fp":"3208d55439","lufs":-18},
+      "asmaa": {"normal":"clips/asmaa/dd245671c0d4.mp3","slow":"clips/asmaa/635d093a1c57.mp3","fp":"60bfe4ca2e","lufs":-18}
+    },
+    "دَرَّسَ": {
+      "chaouki": {"normal":"clips/chaouki/1db1ed8dd088.mp3","slow":"clips/chaouki/60be3eb4f9b8.mp3","fp":"3208d55439","lufs":-18},
+      "asmaa": {"normal":"clips/asmaa/bfdb94fc54f2.mp3","slow":"clips/asmaa/bea839effb74.mp3","fp":"60bfe4ca2e","lufs":-18}
+    },
+    "حَمَام": {
+      "chaouki": {"normal":"clips/chaouki/67f0573f0d45.mp3","slow":"clips/chaouki/5e7b0c0d1d29.mp3","fp":"3208d55439","lufs":-18},
+      "asmaa": {"normal":"clips/asmaa/ab8c98a7c183.mp3","slow":"clips/asmaa/51e3c353787b.mp3","fp":"60bfe4ca2e","lufs":-18}
+    },
+    "حَمَّام": {
+      "chaouki": {"normal":"clips/chaouki/394b02fe79e2.mp3","slow":"clips/chaouki/bb064dc8326e.mp3","fp":"3208d55439","lufs":-18},
+      "asmaa": {"normal":"clips/asmaa/b03474c9281f.mp3","slow":"clips/asmaa/38fb6d1f0026.mp3","fp":"60bfe4ca2e","lufs":-18}
+    },
+    "كَسَرَ": {
+      "chaouki": {"normal":"clips/chaouki/cd047f4b7778.mp3","slow":"clips/chaouki/3b9cb7fbe07a.mp3","fp":"3208d55439","lufs":-18},
+      "asmaa": {"normal":"clips/asmaa/a099654c33f6.mp3","slow":"clips/asmaa/2281d080edd8.mp3","fp":"60bfe4ca2e","lufs":-18}
+    },
+    "كَسَّرَ": {
+      "chaouki": {"normal":"clips/chaouki/b85dcbee4816.mp3","slow":"clips/chaouki/90265750d414.mp3","fp":"3208d55439","lufs":-18},
+      "asmaa": {"normal":"clips/asmaa/74606ef87599.mp3","slow":"clips/asmaa/340f62cc302c.mp3","fp":"60bfe4ca2e","lufs":-18}
+    },
+    "بَاب": {
+      "chaouki": {"normal":"clips/chaouki/f3cbfcc96129.mp3","slow":"clips/chaouki/fbf019ddfeed.mp3","fp":"3208d55439","lufs":-18},
+      "asmaa": {"normal":"clips/asmaa/9ce485b49d30.mp3","slow":"clips/asmaa/525d3564fede.mp3","fp":"60bfe4ca2e","lufs":-18}
+    },
+    "بِنْت": {
+      "chaouki": {"normal":"clips/chaouki/0daab21d8504.mp3","slow":"clips/chaouki/c8978f7f2120.mp3","fp":"3208d55439","lufs":-18},
+      "asmaa": {"normal":"clips/asmaa/04ee1c4c06ce.mp3","slow":"clips/asmaa/b10521a516ef.mp3","fp":"60bfe4ca2e","lufs":-18}
+    },
+    "كُتُب": {
+      "chaouki": {"normal":"clips/chaouki/2c34f6b7192f.mp3","slow":"clips/chaouki/df02fb63e2b6.mp3","fp":"3208d55439","lufs":-18},
+      "asmaa": {"normal":"clips/asmaa/cd53da3a700d.mp3","slow":"clips/asmaa/ba1745b8dac2.mp3","fp":"60bfe4ca2e","lufs":-18}
+    },
+    "صَارَ": {
+      "chaouki": {"normal":"clips/chaouki/cf0d531218bf.mp3","slow":"clips/chaouki/79f93607819a.mp3","fp":"3208d55439","lufs":-18},
+      "asmaa": {"normal":"clips/asmaa/d565ced9107a.mp3","slow":"clips/asmaa/5ab20dcdf4c8.mp3","fp":"60bfe4ca2e","lufs":-18}
+    },
+    "تَابَ": {
+      "chaouki": {"normal":"clips/chaouki/11f828650fa2.mp3","slow":"clips/chaouki/e1310dd0e574.mp3","fp":"3208d55439","lufs":-18},
+      "asmaa": {"normal":"clips/asmaa/5b9f38d532af.mp3","slow":"clips/asmaa/568f96860e1e.mp3","fp":"60bfe4ca2e","lufs":-18}
+    },
+    "طَابَ": {
+      "chaouki": {"normal":"clips/chaouki/ee13cd4a01f7.mp3","slow":"clips/chaouki/612bce46ab5a.mp3","fp":"3208d55439","lufs":-18},
+      "asmaa": {"normal":"clips/asmaa/1562ba57cdf6.mp3","slow":"clips/asmaa/46e061fd675f.mp3","fp":"60bfe4ca2e","lufs":-18}
+    },
+    "كِتَابٌ": {
+      "chaouki": {"normal":"clips/chaouki/3503f61a5651.mp3","slow":"clips/chaouki/8bcd07e4fe66.mp3","fp":"3208d55439","lufs":-18},
+      "asmaa": {"normal":"clips/asmaa/fbede6440d8e.mp3","slow":"clips/asmaa/067e93297ad3.mp3","fp":"60bfe4ca2e","lufs":-18}
+    },
+    "آخِر": {
+      "chaouki": {"normal":"clips/chaouki/42d20a496be4.mp3","slow":"clips/chaouki/7c01672f7042.mp3","fp":"3208d55439","lufs":-18},
+      "asmaa": {"normal":"clips/asmaa/f9c7ad0af3c4.mp3","slow":"clips/asmaa/51fe9ca78864.mp3","fp":"60bfe4ca2e","lufs":-18}
+    },
+    "رَئِيس": {
+      "chaouki": {"normal":"clips/chaouki/3cca0694ebea.mp3","slow":"clips/chaouki/b77ee0f0f3b6.mp3","fp":"3208d55439","lufs":-18},
+      "asmaa": {"normal":"clips/asmaa/1cfc39272116.mp3","slow":"clips/asmaa/bed01df71386.mp3","fp":"60bfe4ca2e","lufs":-18}
+    },
+    "الشَّمْس": {
+      "chaouki": {"normal":"clips/chaouki/6501b91b7c18.mp3","slow":"clips/chaouki/a823c30ba52a.mp3","fp":"3208d55439","lufs":-18},
+      "asmaa": {"normal":"clips/asmaa/daa24d18907a.mp3","slow":"clips/asmaa/0b7b6703f59c.mp3","fp":"60bfe4ca2e","lufs":-18}
+    },
+    "الْقَمَر": {
+      "chaouki": {"normal":"clips/chaouki/fefdddc56ea0.mp3","slow":"clips/chaouki/d47b1c081635.mp3","fp":"3208d55439","lufs":-18},
+      "asmaa": {"normal":"clips/asmaa/00b21f141cd5.mp3","slow":"clips/asmaa/2c7bad91680c.mp3","fp":"60bfe4ca2e","lufs":-18}
+    },
+    "النُّور": {
+      "chaouki": {"normal":"clips/chaouki/0acc20813dd9.mp3","slow":"clips/chaouki/4cfd0fa61da7.mp3","fp":"3208d55439","lufs":-18},
+      "asmaa": {"normal":"clips/asmaa/8c4b48c433eb.mp3","slow":"clips/asmaa/ebf64e0237ca.mp3","fp":"60bfe4ca2e","lufs":-18}
+    },
+    "الْبَيْت": {
+      "chaouki": {"normal":"clips/chaouki/9883dc2b915d.mp3","slow":"clips/chaouki/8443989d8523.mp3","fp":"3208d55439","lufs":-18},
+      "asmaa": {"normal":"clips/asmaa/37538f6b3a0e.mp3","slow":"clips/asmaa/cea30f1ec3dc.mp3","fp":"60bfe4ca2e","lufs":-18}
+    },
+    "الدَّار": {
+      "chaouki": {"normal":"clips/chaouki/1dc2541d7d92.mp3","slow":"clips/chaouki/48e61d734489.mp3","fp":"3208d55439","lufs":-18},
+      "asmaa": {"normal":"clips/asmaa/1c8baadb4195.mp3","slow":"clips/asmaa/a0cfda477eb6.mp3","fp":"60bfe4ca2e","lufs":-18}
+    },
+    "الْكَلْب": {
+      "chaouki": {"normal":"clips/chaouki/24ec6deafa7f.mp3","slow":"clips/chaouki/42b0c157811d.mp3","fp":"3208d55439","lufs":-18},
+      "asmaa": {"normal":"clips/asmaa/273b6037ed4e.mp3","slow":"clips/asmaa/f6a39ed39b8f.mp3","fp":"60bfe4ca2e","lufs":-18}
+    },
+    "الرَّجُل": {
+      "chaouki": {"normal":"clips/chaouki/2aa490015090.mp3","slow":"clips/chaouki/7a2bd831449e.mp3","fp":"3208d55439","lufs":-18},
+      "asmaa": {"normal":"clips/asmaa/1b512e39dba9.mp3","slow":"clips/asmaa/5dc4cbd698cb.mp3","fp":"60bfe4ca2e","lufs":-18}
+    },
+    "الْجَمَل": {
+      "chaouki": {"normal":"clips/chaouki/cbc064effe8c.mp3","slow":"clips/chaouki/a1ca6691c2d9.mp3","fp":"3208d55439","lufs":-18},
+      "asmaa": {"normal":"clips/asmaa/e643d16e41a7.mp3","slow":"clips/asmaa/7efa7d8a9f4f.mp3","fp":"60bfe4ca2e","lufs":-18}
+    },
+    "قَهْوَة": {
+      "chaouki": {"normal":"clips/chaouki/ca69f4c3ead6.mp3","slow":"clips/chaouki/f9164d53e767.mp3","fp":"3208d55439","lufs":-18},
+      "asmaa": {"normal":"clips/asmaa/43a87b362b05.mp3","slow":"clips/asmaa/7eae688fca71.mp3","fp":"60bfe4ca2e","lufs":-18}
+    },
+    "جَار": {
+      "chaouki": {"normal":"clips/chaouki/37da145fcf8d.mp3","slow":"clips/chaouki/4d77405a8a61.mp3","fp":"3208d55439","lufs":-18},
+      "asmaa": {"normal":"clips/asmaa/a24c81ece0b4.mp3","slow":"clips/asmaa/03a5d6438390.mp3","fp":"60bfe4ca2e","lufs":-18}
+    },
+    "ثَقِيل": {
+      "chaouki": {"normal":"clips/chaouki/dc11978b9f88.mp3","slow":"clips/chaouki/3cc29e259139.mp3","fp":"3208d55439","lufs":-18},
+      "asmaa": {"normal":"clips/asmaa/049f9d19f20b.mp3","slow":"clips/asmaa/c74ee45be5cf.mp3","fp":"60bfe4ca2e","lufs":-18}
+    },
+    "ظِلّ": {
+      "chaouki": {"normal":"clips/chaouki/029f2bc35733.mp3","slow":"clips/chaouki/01957293a91f.mp3","fp":"3208d55439","lufs":-18},
+      "asmaa": {"normal":"clips/asmaa/936e7295e612.mp3","slow":"clips/asmaa/19de5c187c6b.mp3","fp":"60bfe4ca2e","lufs":-18}
+    },
+    "أَبْيَض": {
+      "chaouki": {"normal":"clips/chaouki/074b1c908eb8.mp3","slow":"clips/chaouki/7126c61a46f0.mp3","fp":"3208d55439","lufs":-18},
+      "asmaa": {"normal":"clips/asmaa/fe27664293b1.mp3","slow":"clips/asmaa/8ac5336c6c12.mp3","fp":"60bfe4ca2e","lufs":-18}
+    }
+  }
+}
