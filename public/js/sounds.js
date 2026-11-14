@@ -21,9 +21,14 @@ export const hintOf = ch => HINTS[key(ch)] || "";
 /** The one Latin symbol of a letter (ح → ḥ). */
 export const latin = ch => ROMANIZATION.letters[key(ch)] || "";
 
-// Ids of the keys in the list of sounds: letters by their character, vowels by id.
+// Ids of the keys in the list of sounds: letters by their character, vowels and marks by id.
 export const keyOfLetter = ch => `l:${key(ch)}`;
 export const keyOfVowel = id => `v:${id}`;
+export const keyOfMark = id => `m:${id}`;
+
+// The small marks that are keys of their own. The three short-vowel marks are the vowel keys a, i and u,
+// and hamza's carrier letters are in hamza's own card.
+export const MARK_KEYS = ["sukun", "shadda", "tanwin", "madda"].filter(id => markById.has(id));
 
 const MANNER_ORDER = MANNERS.map(m => m.id);
 const lettersAt = place => C.filter(c => c.place === place).sort((a, b) => MANNER_ORDER.indexOf(a.manner) - MANNER_ORDER.indexOf(b.manner));
@@ -35,11 +40,15 @@ const lettersAt = place => C.filter(c => c.place === place).sort((a, b) => MANNE
 export const LETTER_GROUPS = PLACES.flatMap(p => {
   const letters = lettersAt(p.id);
   if (letters.length <= 7) return [{ place: p, label: p.short, letters }];
-  return [{ place: p, label: p.short, letters: letters.slice(0, 7) }, { place: p, label: p.short, letters: letters.slice(7) }];
+  return [{ place: p, label: p.short, letters: letters.slice(0, 7) }, { place: p, label: `Also ${p.short.toLowerCase()}`, letters: letters.slice(7) }];
 });
 
-/** Every key, in list order: the 28 letters, then the 8 vowels. */
-export const KEY_ORDER = [...LETTER_GROUPS.flatMap(g => g.letters.map(c => keyOfLetter(c.ch))), ...VOWELS.map(v => keyOfVowel(v.id))];
+/** Every key, in list order: the 28 letters, the 8 vowels, then the marks. */
+export const KEY_ORDER = [
+  ...LETTER_GROUPS.flatMap(g => g.letters.map(c => keyOfLetter(c.ch))),
+  ...VOWELS.map(v => keyOfVowel(v.id)),
+  ...MARK_KEYS.map(keyOfMark),
+];
 
 /** What a key stands for. */
 export function soundOf(k) {
@@ -51,6 +60,10 @@ export function soundOf(k) {
   if (k.startsWith("v:")) {
     const v = vowelById.get(k.slice(2));
     return v ? { kind: "vowel", key: k, vowel: v, name: v.label, slug: null } : null;
+  }
+  if (k.startsWith("m:")) {
+    const m = markById.get(k.slice(2));
+    return m && MARK_KEYS.includes(m.id) ? { kind: "mark", key: k, mark: m, name: m.name, slug: null } : null;
   }
   return null;
 }
@@ -80,6 +93,8 @@ const PAIR_KEYS = {
 // What each side of a pair is, in a word or two, for the corner of its card.
 const LENGTH_NAMES = { len1: ["short a", "long ā"], len2: ["short a", "long ā"], "len-i": ["short i", "long ī"], "len-u": ["short u", "long ū"] };
 
+const DOUBLING = new Set(GROUPS.find(g => g.id === "doubling")?.ids || []);
+
 /** Every contrast the ear quiz can ask about: PAIRS plus the vowel-color pairs. */
 export const PAIR_LIST = [
   ...Object.entries(PAIRS).map(([id, p]) => ({ id, ...p })),
@@ -87,7 +102,8 @@ export const PAIR_LIST = [
 ].map(p => {
   const letters = (p.letters || []).map(ch => letterByChar.get(key(ch))).filter(Boolean);
   const contrast = letters.length === 2;
-  const keys = PAIR_KEYS[p.id] || letters.map(c => keyOfLetter(c.ch));
+  const keys = [...(PAIR_KEYS[p.id] || letters.map(c => keyOfLetter(c.ch)))];
+  if (DOUBLING.has(p.id)) keys.push(keyOfMark("shadda")); // the doubling pairs train what šadda writes
   // "ḥ ح vs h ه" for two letters; the two words for a difference of length.
   const title = contrast
     ? letters.map(c => `${hintOf(c.ch) || latin(c.ch)} ${c.ch}`).join(" vs ") + (VCOLOR.some(v => v.id === p.id) ? " (long ā)" : "")

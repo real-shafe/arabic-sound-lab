@@ -128,7 +128,7 @@ const fileFor = entry => (entry === "./" ? "index.html" : entry);
 // ---------- precache list ----------
 
 test("service worker cache names", () => {
-  assert.equal(SHELL_CACHE, "asl-shell-v3");
+  assert.equal(SHELL_CACHE, "asl-shell-v4");
   assert.equal(CLIPS_CACHE, "asl-clips-v2");
   const offline = read("js/offline.js");
   const m = /const CLIPS_CACHE = "([^"]+)"/.exec(offline);

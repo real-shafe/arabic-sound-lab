@@ -6,7 +6,7 @@
 import { esc } from "./ui.js";
 import { stripMarks } from "./text.js";
 import {
-  data, LETTER_GROUPS, placeById, latin, keyOfLetter, keyOfVowel, madeWhere, pairsForKey, dialectFor, afterArticle,
+  data, LETTER_GROUPS, placeById, latin, keyOfLetter, keyOfVowel, keyOfMark, MARK_KEYS, madeWhere, pairsForKey, dialectFor, afterArticle,
   markById, SETS, PAIR_LIST, hintOf,
 } from "./sounds.js";
 
@@ -62,8 +62,8 @@ export function word(w, label = "") {
 // ---------- the ear quiz ----------
 
 export function setOptionsHTML() {
-  return `<optgroup label="Sets">${SETS.map(s => `<option value="${esc(s.id)}">${esc(s.label)}</option>`).join("")}</optgroup>` +
-    `<optgroup label="One pair">${PAIR_LIST.map(p => `<option value="pair:${esc(p.id)}">${esc(p.title)}</option>`).join("")}</optgroup>`;
+  return `<optgroup label="Sets (several pairs mixed)">${SETS.map(s => `<option value="${esc(s.id)}">${esc(s.label)}</option>`).join("")}</optgroup>` +
+    `<optgroup label="One pair (the same two words)">${PAIR_LIST.map(p => `<option value="pair:${esc(p.id)}">${esc(p.title)}</option>`).join("")}</optgroup>`;
 }
 
 export function earCardHTML() {
@@ -77,7 +77,7 @@ export function earCardHTML() {
       <button type="button" class="play" data-ui="play" aria-label="Play the word" title="Play the word (R)">${PLAY_SVG}</button>
       <div class="q-text">
         <div class="q-head"><label class="field"><span>Practise</span><select id="set">${setOptionsHTML()}</select></label><span class="score" data-ui="score"></span></div>
-        <div class="q-line"><p class="status" data-ui="status"></p><span class="keys-hint" aria-hidden="true">Keys: R, 1, 2, Enter</span></div>
+        <div class="q-line"><p class="status" data-ui="status"></p><span class="keys-hint" aria-hidden="true"><span class="kh-long">R replay · 1 2 answer · Enter next</span><span class="kh-short">Keys: R, 1, 2, Enter</span></span></div>
       </div>
     </div>
     <div class="choices">${choice("a", 1)}${choice("b", 2)}</div>
@@ -134,9 +134,17 @@ export function stripsHTML(left, right) {
   return `<div class="strips" role="img" aria-label="${esc(left.tr)} and ${esc(right.tr)}: the highlighted sound is held longer in one of them">${row(L, R, 1)}${row(R, L, 2)}</div>`;
 }
 
+/**
+ * Links from a quiz to a letter's details: outlined pills with a chevron. Two letters carry the numbers
+ * of their cards (plain digits: the filled amber circles are the cards and their marks on the picture).
+ */
 export const moreLinks = letters =>
   letters.length
-    ? "<span>More about " + letters.map(c => `<a href="#${esc(c.slug)}" data-more="${esc(c.slug)}">${esc(c.name)} ${ar(c.ch)}</a>`).join(" · ") + "</span>"
+    ? `<span class="more-l${letters.length > 1 ? " two" : ""}"><span class="ml-long">More about</span><span class="ml-short">More:</span></span>` +
+      letters.map((c, i) =>
+        `<a class="pill" href="#${esc(c.slug)}" data-more="${esc(c.slug)}" aria-label="More about ${esc(c.name)}">` +
+        (letters.length > 1 ? `<span class="pn" aria-hidden="true">${i + 1}</span>${ar(c.ch)}` : `${ar(c.ch)}<span class="pname">${esc(c.name)}</span>`) +
+        `<span class="chev" aria-hidden="true">›</span></a>`).join("")
     : "";
 
 // ---------- the mouth quiz ----------
@@ -150,7 +158,7 @@ export function mouthCardHTML() {
       <div class="q-text">
         <div class="q-head"><span class="p-name" data-part="name"></span><span class="score" data-ui="score"></span></div>
         <div class="p-word" data-part="word"></div>
-        <div class="q-line"><p class="status" data-ui="status"></p><span class="keys-hint" aria-hidden="true">Keys: R, 1 to 8, Enter</span></div>
+        <div class="q-line"><p class="status" data-ui="status"></p><span class="keys-hint" aria-hidden="true"><span class="kh-long">R replay · 1–8 answer · Enter next</span><span class="kh-short">Keys: R, 1 to 8, Enter</span></span></div>
       </div>
     </div>
   </div>`;
@@ -162,17 +170,26 @@ export const wordLine = w => `${ar(w.ar)}${tr(w.tr)} · “${esc(w.g)}”`;
 
 export function pickerHTML() {
   const groups = LETTER_GROUPS.map(g =>
-    `<div class="grp" style="--n:${g.letters.length}"><span class="lab">${esc(g.label)}</span><div class="keys">` +
+    `<div class="grp${g.letters.length === 1 ? " one" : ""}" style="--n:${g.letters.length}"><span class="lab">${esc(g.label)}</span><div class="keys">` +
     g.letters.map(c =>
       `<button type="button" class="k" data-key="${esc(keyOfLetter(c.ch))}" aria-pressed="false" aria-label="${esc(c.name)}, ${esc(hintOf(c.ch))}" title="${esc(c.name)}: ${esc(hintOf(c.ch))}" tabindex="-1">` +
-      `${ar(c.ch)}<span class="t" aria-hidden="true">${esc(latin(c.ch))}</span></button>`).join("") +
+      `${ar(c.ch)}<span class="t${/^[ʿʾ]$/.test(latin(c.ch)) ? " ring" : ""}" aria-hidden="true">${esc(latin(c.ch))}</span></button>`).join("") +
     `</div></div>`).join("");
   const vowels = `<div class="grp vowels"><span class="lab">Vowels</span><div class="keys">` +
     VOWELS.map(v =>
       `<button type="button" class="k" data-key="${esc(keyOfVowel(v.id))}" aria-pressed="false" aria-label="${esc(v.label)}" tabindex="-1">` +
       `${ar(v.spell)}<span class="t" aria-hidden="true">${esc(v.label.split(" ").pop())}</span></button>`).join("") +
     `</div></div>`;
-  return groups + vowels;
+  // The marks that are not a vowel of their own: same kind of key, same kind of card.
+  const marks = MARK_KEYS.length
+    ? `<div class="grp markkeys" style="--n:${MARK_KEYS.length}"><span class="lab">Marks</span><div class="keys">` +
+      MARK_KEYS.map(id => {
+        const m = markById.get(id);
+        return `<button type="button" class="k" data-key="${esc(keyOfMark(id))}" aria-pressed="false" aria-label="${esc(m.name)}, ${esc(m.sound)}" title="${esc(m.name)}: ${esc(m.sound)}" tabindex="-1">` +
+          `${ar(m.mark)}<span class="t" aria-hidden="true">${esc(m.name)}</span></button>`;
+      }).join("") + `</div></div>`
+    : "";
+  return groups + vowels + marks;
 }
 
 // ---------- a sound's details (All sounds and the letter sheet) ----------
@@ -186,10 +203,11 @@ function chipFor(p) {
   return `<button type="button" class="chip" data-practise="${esc(p.id)}" title="Practise this pair in the ear quiz">${tr(p.a.tr)}<span class="vs">vs</span>${tr(p.b.tr)}</button>`;
 }
 
-function practiseCell(k, first) {
+/** "Practise hearing it": the way from a sound back into the drill, right under its words. */
+function practiseBlock(k) {
   const pairs = pairsForKey(k);
   if (!pairs.length) return "";
-  return `<div><div class="d-sub">Practise hearing it</div><div class="chips">${pairs.map(p => chipFor(p)).join("")}</div></div>`;
+  return `<div class="d-practise"><div class="d-sub">Practise hearing it</div><div class="chips">${pairs.map(p => chipFor(p)).join("")}</div></div>`;
 }
 
 /** A phonetic (IPA) form respelled with the page's own Latin letters, plus e, o, g, ch and zh. */
@@ -214,7 +232,7 @@ function letterDetail(c) {
   let shapes;
   if (Array.isArray(c.seats) && c.seats.length) {
     const seatWords = ["hamza-alif", "hamza-waw", "hamza-ya", "hamza-line"].map(id => markById.get(id)?.ex);
-    shapes = `<div><div class="d-sub">Written on a seat</div><div class="words">` +
+    shapes = `<div><div class="d-sub">How it is written</div>${c.seatsNote ? `<p>${prose(c.seatsNote)}</p>` : ""}<div class="words">` +
       c.seats.map((s, i) => word(seatWords[i], `${s.ar} ${s.label.toLowerCase()}`)).join("") + `</div></div>`;
   } else {
     const f = c.forms;
@@ -227,6 +245,8 @@ function letterDetail(c) {
     ? `<div><div class="d-sub">After al- (“the”)</div><p>${prose(al.text)}</p>${al.word ? `<div class="words">${word(al.word)}</div>` : ""}` +
       `${al.exception ? `<p class="d-note">${prose(al.exception)}</p>` : ""}</div>`
     : "";
+  // On a phone the picture is small and sits beside the name, so its caption joins the description there.
+  const also = "The faint line in the throat: the tongue root is pulled back too.";
   return `<div class="d" data-ui="detail">
     <div class="d-main">
       <div class="d-info">
@@ -234,11 +254,12 @@ function letterDetail(c) {
         <div class="d-head"><span class="d-glyph" lang="ar" dir="rtl">${esc(c.ch)}</span>
           <div class="d-name"><span data-ui="detail-title">${esc(c.name)}</span><span class="d-sym">${esc(hintOf(c.ch))} · written ${tr(latin(c.ch))} · /${esc(c.ipa)}/</span></div></div>
       </div>
-      <p class="d-desc">${prose(c.d)}</p>
-      <div class="d-pic"><div class="d-mouth" data-mouth="${esc(c.place)}"${c.emph ? ' data-also="pha"' : ""}></div>${c.emph ? '<p class="d-also">The faint line in the throat: the tongue root is pulled back too.</p>' : ""}</div>
+      <p class="d-desc">${prose(c.d)}${c.emph ? `<span class="d-also-in"> ${also}</span>` : ""}</p>
+      <div class="d-pic"><div class="d-mouth" data-mouth="${esc(c.place)}"${c.emph ? ' data-also="pha"' : ""}></div>${c.emph ? `<p class="d-also">${also}</p>` : ""}</div>
       <div class="words">${word(c.ex.initial, "start")}${word(c.ex.medial, "middle")}${word(c.ex.final, "end")}</div>
     </div>
-    <div class="d-more"><div class="d-col">${shapes}${article}</div><div class="d-col">${practiseCell(k, c)}${citiesCell(dialectFor(k))}</div></div>
+    ${practiseBlock(k)}
+    <div class="d-more"><div class="d-col">${shapes}${article}</div><div class="d-col">${citiesCell(dialectFor(k))}</div></div>
     ${c.note ? `<p class="d-note">${prose(c.note)}</p>` : ""}
   </div>`;
 }
@@ -247,36 +268,52 @@ function vowelDetail(v) {
   const k = keyOfVowel(v.id);
   const mark = v.mark ? markById.get(v.mark) : null;
   const colour = v.id === "a" || v.id === "aa"
-    ? `<div><div class="d-sub">Next to heavy consonants</div><div class="chips">${PAIR_LIST.filter(p => VCOLOR.some(x => x.id === p.id)).map(p => chipFor(p)).join("")}</div></div>`
+    ? `<div class="d-practise"><div class="d-sub">Next to heavy consonants</div><div class="chips">${PAIR_LIST.filter(p => VCOLOR.some(x => x.id === p.id)).map(p => chipFor(p)).join("")}</div></div>`
     : "";
-  const more = practiseCell(k, null) + colour + citiesCell(dialectFor(k));
+  const cities = citiesCell(dialectFor(k));
   return `<div class="d" data-ui="detail">
     <div class="d-main">
       <div class="d-info">
         <div class="eyebrow">Vowel</div>
-        <div class="d-head"><span class="d-glyph" lang="ar" dir="rtl">${esc(v.spell)}</span>
+        <div class="d-head"><span class="d-glyph v" lang="ar" dir="rtl">${esc(v.spell)}</span>
           <div class="d-name"><span data-ui="detail-title">${esc(v.label[0].toUpperCase() + v.label.slice(1))}</span><span class="d-sym">/${esc(v.ipa)}/ · shown on the letter ${ar("ب")}</span></div></div>
       </div>
       <p class="d-desc">${prose(v.desc)}</p>
       <div class="words">${word(v)}${mark && mark.ex.ar !== v.ar ? word(mark.ex) : ""}</div>
     </div>
-    ${more ? `<div class="d-more"><div class="d-col">${practiseCell(k, null)}${colour}</div><div class="d-col">${citiesCell(dialectFor(k))}</div></div>` : ""}
+    ${practiseBlock(k)}${colour}
+    ${cities ? `<div class="d-more"><div class="d-col">${cities}</div><div class="d-col"></div></div>` : ""}
+  </div>`;
+}
+
+/** One of the small marks that has a key of its own (sukūn, šadda, tanwīn, madda). */
+function markDetail(m) {
+  const k = keyOfMark(m.id);
+  return `<div class="d" data-ui="detail">
+    <div class="d-main">
+      <div class="d-info">
+        <div class="eyebrow">Mark</div>
+        <div class="d-head"><span class="d-glyph v" lang="ar" dir="rtl">${esc(m.mark)}</span>
+          <div class="d-name"><span data-ui="detail-title">${esc(m.name)}</span><span class="d-sym">${esc(m.sound)}${m.mark.includes("ب") ? ` · shown on the letter ${ar("ب")}` : ""}</span></div></div>
+      </div>
+      <p class="d-desc">${prose(m.desc)}</p>
+      <div class="words">${word(m.ex)}</div>
+    </div>
+    ${practiseBlock(k)}
   </div>`;
 }
 
 /** Details of a sound; `sound` comes from soundOf() in sounds.js. */
 export function detailHTML(sound) {
   if (!sound) return "";
-  return sound.kind === "letter" ? letterDetail(sound.letter) : vowelDetail(sound.vowel);
+  return sound.kind === "letter" ? letterDetail(sound.letter) : sound.kind === "vowel" ? vowelDetail(sound.vowel) : markDetail(sound.mark);
 }
 
-// ---------- footer: spelling, marks, regional speech, sources ----------
+// ---------- the reading notes (one sheet, opened from the footer) ----------
 
-let latinKey = "";
-/** The key to the unusual Latin letters, shown open under All sounds (aboutHTML() builds it). */
-export const latinKeyHTML = () => latinKey;
-
-export function aboutHTML() {
+/** A reference sheet: { title, html }, or null. "notes" is the only one. */
+export function refHTML(id) {
+  if (id !== "notes") return null;
   const cols = DIALECTS.columns;
   const table = `<div class="dscroll"><table class="dtable"><thead><tr><th>Word</th>${cols.map(c => `<th>${esc(c.name)}</th>`).join("")}</tr></thead><tbody>` +
     DIALECTS.rows.map(r => `<tr><th>${ar(r.ar)} <span class="tr">${esc(r.g)}</span></th>${cols.map(c => `<td>${esc(r.forms[c.id] || "")}</td>`).join("")}</tr>`).join("") +
@@ -288,14 +325,19 @@ export function aboutHTML() {
   const keyTable = `<div class="lkey">${odd.map(c =>
     `<span><b class="tr">${esc(latin(c.ch))}</b> ${ar(c.ch)} ${esc(hintOf(c.ch))}</span>`).join("")}` +
     `<span><b class="tr">ā ī ū</b> long vowels, held about twice as long</span></div>`;
-  latinKey = `<h3>Key to the Latin letters</h3>${keyTable}`;
-  return `<h3>The small marks</h3><p>${prose(COPY.marksIntro)}</p>${marks}
+  return {
+    title: "Reading notes",
+    html: `<div class="ref">
+    <h3>Key to the Latin letters</h3>${keyTable}
+    <h3>The small marks</h3><p>${prose(COPY.marksIntro)}</p>${marks}
     <h3>Latin spelling</h3><p>${prose(COPY.readingNote)}</p><p>${prose(ROMANIZATION.note)}</p>
     <h3>Sun and moon letters</h3><p>${prose(COPY.sunMoonIntro.replace(/ Tap a letter.*$/, ""))}</p><p>${prose(SUN_MOON.rule)}</p>
     <h3>Regional speech</h3><p>${prose(DIALECTS.note)}</p>${table}
     <h3>About the audio</h3><p>${prose(COPY.audioNote)}</p>
     <h3>Keys</h3><p>Ear quiz: R plays the word, 1 and 2 answer (and replay a word after the answer), Enter or N goes on. Mouth quiz: R plays the word, 1 to 8 pick a place, Enter or N goes on. All sounds: the arrow keys move through the list.</p>
-    <h3>Sources</h3><ul>${SOURCES.map(s => `<li>${s.url ? `<a href="${esc(s.url)}" target="_blank" rel="noopener">${esc(s.text)}</a>` : esc(s.text)}</li>`).join("")}</ul>`;
+    <h3>Sources</h3><ul>${SOURCES.map(s => `<li>${s.url ? `<a href="${esc(s.url)}" target="_blank" rel="noopener">${esc(s.text)}</a>` : esc(s.text)}</li>`).join("")}</ul>
+    </div>`,
+  };
 }
 
 export { placeById };

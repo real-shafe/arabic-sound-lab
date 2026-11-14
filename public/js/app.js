@@ -19,12 +19,11 @@ import { createAudioEngine } from "./audio.js";
 import { createMouth } from "./mouth.js";
 import { esc, announce, prefs } from "./ui.js";
 import {
-  data, PAIR_LIST, pairById, idsOfChoice, setById, letterBySlug, vowelById, KEY_ORDER, soundOf, keyOfLetter, keyOfVowel,
+  data, PAIR_LIST, pairById, idsOfChoice, setById, letterBySlug, vowelById, KEY_ORDER, soundOf, keyOfLetter, keyOfVowel, keyOfMark,
   placeById, madeWhere, placeIsRight, alsoPlace,
 } from "./sounds.js";
 import {
-  prose, earCardHTML, quizSurfaceHTML, mouthCardHTML, wordLine, diffPair, stripsHTML, moreLinks, pickerHTML, detailHTML, aboutHTML,
-  latinKeyHTML,
+  prose, earCardHTML, quizSurfaceHTML, mouthCardHTML, wordLine, diffPair, stripsHTML, moreLinks, pickerHTML, detailHTML, refHTML,
 } from "./views.js";
 
 const { C, PLACES } = data;
@@ -107,23 +106,47 @@ function takeFromBag(st, ids, misses) {
 }
 const scoreText = s => `${s.right} of ${s.total} right`;
 
+// The two scores last as long as the tab does: a reload keeps them, a new visit starts at 0.
+const SCORE_KEY = "asl:score";
+const CAME_BACK = (() => {
+  try { return ["reload", "back_forward"].includes(performance.getEntriesByType("navigation")[0]?.type); } catch { return false; }
+})();
+function keptScore(name) {
+  try {
+    if (!CAME_BACK) { sessionStorage.removeItem(SCORE_KEY); return { right: 0, total: 0 }; }
+    const s = JSON.parse(sessionStorage.getItem(SCORE_KEY) || "null")?.[name];
+    if (s && Number.isInteger(s.right) && Number.isInteger(s.total) && s.right >= 0 && s.right <= s.total && s.total < 1e6) return { right: s.right, total: s.total };
+  } catch { /* no storage, or not ours */ }
+  return { right: 0, total: 0 };
+}
+function keepScores() {
+  try { sessionStorage.setItem(SCORE_KEY, JSON.stringify({ ear: ear.score, mouth: mq.score })); } catch { /* private mode */ }
+}
+
 // =====================================================================================
 // Ear quiz
 // =====================================================================================
 
-const ear = { choice: prefs.get("set", "back"), score: { right: 0, total: 0 }, sides: new Map(), q: null, els: null };
+const ear = { choice: prefs.get("set", "back"), score: keptScore("ear"), sides: new Map(), q: null, els: null };
 if (!setById.has(ear.choice) && !(String(ear.choice).startsWith("pair:") && pairById.has(String(ear.choice).slice(5)))) ear.choice = "back";
 
 const EAR_PROMPT = "Press play, then pick the word.";
 const EAR_PROMPT_PLAYED = "Pick the word you heard.";
+// A card tapped before anything was played plays the question instead of counting as a blind guess.
+const EAR_PROMPT_TAPPED = "That was the word. Pick it."; // short: one line on a 360 px phone
+// A finger on a number in the picture, before the answer (see earBadge).
+const EAR_PROMPT_CARDS = "Tap card 1 or 2 to answer.";
 const EAR_LEGEND = {
   place: "1 and 2 mark where each word’s sound is made.",
   heavy: "1 and 2 mark where each word’s sound is made. The hollow mark means the tongue root is pulled back as well.",
   length: "1 and 2 differ only in how long one sound is held.",
 };
 const AI_NOTE = " The voices are AI-made and have not been checked by a fluent speaker.";
-const earLegend = p =>
-  (!p.contrast ? EAR_LEGEND.length : p.letters.some(c => c.emph) ? EAR_LEGEND.heavy : EAR_LEGEND.place) + (ear.score.total === 0 ? AI_NOTE : "");
+// A drill on one pair has one pair of words; say so before it feels stuck on repeat.
+const ONE_PAIR = " This drill is just these two words, over and over.";
+const onePair = () => idsOfChoice(ear.choice).length === 1;
+const legendBase = p => (!p.contrast ? EAR_LEGEND.length : p.letters.some(c => c.emph) ? EAR_LEGEND.heavy : EAR_LEGEND.place);
+const earLegend = p => legendBase(p) + (ear.score.total === 0 ? AI_NOTE : onePair() ? ONE_PAIR : "");
 
 function earBuild() {
   const cardEl = el(earCardHTML());
@@ -151,6 +174,9 @@ function earBuild() {
     ear.choice = ear.els.set.value;
     prefs.set("set", ear.choice);
     earNewQuestion();
+    // Like Next, the voice menu and Slow: the new word is heard at once. Stepping through the menu
+    // with the arrow keys stays quiet.
+    if (!fromKeyboard() && audioStarted) earPlay(); // only once audio has worked: a menu is not a tap that may start it
     releaseFocus(ear.els.set);
   });
   earNewQuestion();
@@ -237,8 +263,8 @@ function earRender() {
 function earMeasure() {
   const { els } = ear;
   const words = PAIR_LIST.flatMap(p => [p.a, p.b]);
-  reserve(els.status, [EAR_PROMPT, EAR_PROMPT_PLAYED, ...words.map(w => `<b class="no">Not quite:</b> it was ${numTag("a")} ${tr(w.tr)}.`)]);
-  reserve(els.caption, [EAR_LEGEND.place + AI_NOTE, EAR_LEGEND.heavy + AI_NOTE, EAR_LEGEND.length + AI_NOTE, ...PAIR_LIST.map(p => prose(p.n, p.contrast ? { [p.letters[0].ch]: "1", [p.letters[1].ch]: "2" } : null))]);
+  reserve(els.status, [EAR_PROMPT, EAR_PROMPT_PLAYED, EAR_PROMPT_TAPPED, EAR_PROMPT_CARDS, ...words.map(w => `<b class="no">Not quite:</b> it was ${numTag("a")} ${tr(w.tr)}.`)]);
+  reserve(els.caption, [...Object.values(EAR_LEGEND).flatMap(t => [t + AI_NOTE, t + ONE_PAIR]), ...PAIR_LIST.map(p => prose(p.n, p.contrast ? { [p.letters[0].ch]: "1", [p.letters[1].ch]: "2" } : null))]);
   reserve(els.more, PAIR_LIST.filter(p => p.contrast).map(p => moreLinks(p.letters)));
   const subs = PAIR_LIST.flatMap(p => [[p.a, p.names[0]], [p.b, p.names[1]]]).map(([w, who]) =>
     `<span class="l1"><span class="tr"><b class="diff">${esc(w.tr)}</b></span><span class="who"> · ${esc(who)}</span></span><span class="gl">“${esc(w.g)}”</span>`);
@@ -263,6 +289,7 @@ function earAnswer(slot) {
   if (!q.played) {
     // Nothing has been heard yet: play the word rather than score a blind guess.
     earPlay();
+    els.status.textContent = EAR_PROMPT_TAPPED;
     return;
   }
   q.answered = slot;
@@ -270,10 +297,30 @@ function earAnswer(slot) {
   ear.score.total++;
   if (ok) ear.score.right++;
   record("pairs", q.pair.id, ok);
+  keepScores();
   earRender();
   const heard = earWord(q.heardSlot);
   announce(`${ok ? "Right" : "Not quite"}. It was ${heard.tr}, ${heard.g}. ${q.pair.n}`);
   els.next.focus({ preventScroll: true });
+}
+
+/**
+   The numbers on the picture are the cards' numbers. With a mouse a number does what its card does. A finger
+   gets that only after the answer (to hear a word again): two numbers can touch, and a slip of the thumb must
+   not count as a wrong answer, so before the answer the cards are pointed out instead.
+*/
+function earBadge(slot) {
+  const { q, els } = ear;
+  if (q.answered || lastPointer !== "touch") {
+    earAnswer(slot);
+    return;
+  }
+  els.status.textContent = EAR_PROMPT_CARDS;
+  for (const s of ["a", "b"]) {
+    els[s].classList.remove("nudge");
+    void els[s].offsetWidth; // restart the animation
+    els[s].classList.add("nudge");
+  }
 }
 
 function earNext() {
@@ -296,7 +343,7 @@ function earPractise(pairId) {
 // Mouth quiz
 // =====================================================================================
 
-const mq = { score: { right: 0, total: 0 }, q: null, els: null };
+const mq = { score: keptScore("mouth"), q: null, els: null };
 const MQ_PROMPT = "Hear it, then pick the place.";
 const MQ_PROMPT_PLAYED = "Pick the place.";
 const MQ_LEGEND = "Lips are on the left, the throat is on the right.";
@@ -408,6 +455,7 @@ function mqPick(placeId) {
   mq.score.total++;
   if (ok) mq.score.right++;
   record("letters", q.letter.slug, ok);
+  keepScores();
   mqRender();
   const right = placeById.get(q.letter.place);
   announce(`${ok ? "Right" : "Not quite"}. ${q.letter.name} is made ${madeWhere(q.letter.place)}. ${right.desc}.`);
@@ -470,6 +518,23 @@ function brMeasure() {
   }
   if (!br.sel) brSelect(KEY_ORDER[0]);
   else if (!detail.firstElementChild) brSelect(br.sel);
+  // The card is never shorter than the room the screen has for it. While the list is pinned this is what lets
+  // the page always scroll to the pinned position (a short card over a short footer would un-pin the list and
+  // move the key under the pointer); otherwise it keeps the footer at the fold instead of jumping about.
+  const pin = pinInfo();
+  const above = pin ? pin.top + picker.getBoundingClientRect().height + pin.gap : detail.getBoundingClientRect().top + scrollY + stageGap();
+  detail.style.minHeight = `${Math.max(0, Math.floor(innerHeight - above))}px`;
+}
+
+const stageGap = () => parseFloat(getComputedStyle(picker.parentElement).rowGap) || 0;
+/** Where the list is pinned: its offset from the top of the screen, the gap under it, and the scroll position it is pinned from. Null when it is not pinned. */
+function pinInfo() {
+  const cs = getComputedStyle(picker);
+  if (cs.position !== "sticky") return null;
+  const top = parseFloat(cs.top) || 0;
+  const gap = stageGap();
+  const natural = document.querySelector(".bar").getBoundingClientRect().bottom + scrollY + gap;
+  return { top, gap, from: natural - top };
 }
 
 /**
@@ -477,20 +542,21 @@ function brMeasure() {
    top. The list does not move (it is pinned in both positions); only the card under it does.
 */
 function brShowTop() {
-  if (getComputedStyle(picker).position !== "sticky") return;
-  const stage = picker.parentElement;
-  const natural = document.querySelector(".bar").getBoundingClientRect().bottom + scrollY + (parseFloat(getComputedStyle(stage).rowGap) || 0);
-  const pinnedFrom = natural - (parseFloat(getComputedStyle(picker).top) || 0);
-  if (scrollY > pinnedFrom + 1) scrollTo(0, pinnedFrom);
+  const pin = pinInfo();
+  if (pin && scrollY > pin.from + 1) scrollTo(0, pin.from);
 }
 
-/** Say the first example word of a sound; `button` shows the playing state. */
-function sayFirstWord(k, button) {
+/** Say the first example word of a sound. Its own button (under the list, or in the sheet) lights up while it plays, and so does `button`. */
+function sayFirstWord(k, button = null) {
   const sound = soundOf(k);
   if (!sound) return;
-  say(sound.kind === "letter" ? sound.letter.ex.initial.ar : sound.vowel.ar, button);
+  const text = sound.kind === "letter" ? sound.letter.ex.initial.ar : sound.kind === "vowel" ? sound.vowel.ar : sound.mark.ex.ar;
+  const root = sheet.open ? sheetBody : detail;
+  const wordButton = [...root.querySelectorAll(".d-main [data-say]")].find(b => b.dataset.say === text) || null;
+  engine.play({ text, el: wordButton }, { voice: plainVoice(), whole: button });
 }
 
+let arrowSay = 0;
 /** Arrow keys walk the list; on wide screens the details follow. */
 function brArrow(from, keyName) {
   const keys = [...picker.querySelectorAll(".k")];
@@ -519,6 +585,10 @@ function brArrow(from, keyName) {
   } else {
     brSelect(to.dataset.key, { focus: true });
     brShowTop();
+    // Say the sound the arrows stop on, not every one on the way there.
+    engine.unlock();
+    clearTimeout(arrowSay);
+    arrowSay = setTimeout(() => { if (mode === "browse" && br.sel === to.dataset.key) sayFirstWord(br.sel, keyButton(br.sel)); }, 180);
     history.replaceState({ m: "browse", sel: to.dataset.key }, "", hashFor({ m: "browse", sel: to.dataset.key }));
   }
 }
@@ -527,23 +597,45 @@ function brArrow(from, keyName) {
 // The letter sheet
 // =====================================================================================
 
-const sh = { key: null, opener: null };
+const sh = { key: null, opener: null, byKeyboard: false };
+
+// A sheet shows a sound ("l:ق", "v:aa", "m:sukun") or a reference text ("ref:notes").
+const REF = "ref:";
+const isRef = k => typeof k === "string" && k.startsWith(REF);
+const sheetable = k => (isRef(k) ? !!refHTML(k.slice(REF.length)) : !!soundOf(k));
 
 function sheetShow(k) {
-  const sound = soundOf(k);
-  if (!sound) return;
+  if (!sheetable(k)) return;
   sh.key = k;
-  sheetBody.innerHTML = detailHTML(sound);
-  mountMouths(sheetBody);
-  $("sheet-pos").textContent = `${KEY_ORDER.indexOf(k) + 1} of ${KEY_ORDER.length}`;
-  sheet.setAttribute("aria-label", `About ${sound.name}`);
-  sheet.dataset.from = mode === "browse" ? "list" : "quiz";
+  if (isRef(k)) {
+    const ref = refHTML(k.slice(REF.length));
+    sheetBody.innerHTML = ref.html;
+    $("sheet-pos").textContent = ref.title;
+    sheet.setAttribute("aria-label", ref.title);
+    sheet.dataset.from = "ref"; // no stepping; as tall as its text
+  } else {
+    const sound = soundOf(k);
+    sheetBody.innerHTML = detailHTML(sound);
+    mountMouths(sheetBody);
+    $("sheet-pos").textContent = `${KEY_ORDER.indexOf(k) + 1} of ${KEY_ORDER.length}`;
+    sheet.setAttribute("aria-label", `About ${sound.name}`);
+    sheet.dataset.from = mode === "browse" ? "list" : "quiz";
+  }
   if (!sheet.open) {
     document.documentElement.classList.add("sheet-open");
     sheet.showModal();
+    // A text to read: the keyboard's Space, Page Down and arrows scroll it.
+    if (isRef(k)) sheetBody.focus({ preventScroll: true });
   }
   sheetBody.scrollTop = 0;
+  sheetFade();
 }
+
+/** The fade at the sheet's bottom edge says "more below"; at the end of the text it goes. */
+function sheetFade() {
+  sheet.classList.toggle("at-end", sheetBody.scrollTop + sheetBody.clientHeight >= sheetBody.scrollHeight - 2);
+}
+sheetBody.addEventListener("scroll", sheetFade, { passive: true });
 
 function sheetHide() {
   if (!sheet.open) return;
@@ -552,7 +644,9 @@ function sheetHide() {
   sh.key = null;
   let back = sh.opener;
   sh.opener = null;
-  if (sheet.dataset.from === "quiz") {
+  // Opened with the mouse or a finger from a quiz, the keyboard goes back to Next (Enter goes on). Opened from
+  // the keyboard, it returns to the link that opened the sheet.
+  if (sheet.dataset.from === "quiz" && !(sh.byKeyboard && back && back.isConnected)) {
     const next = (mode === "place" ? mq.els : ear.els)?.next;
     if (next && !next.hasAttribute("data-off")) back = next;
   }
@@ -560,10 +654,11 @@ function sheetHide() {
 }
 
 function sheetStep(by) {
-  if (sheet.dataset.from === "quiz") return;
+  if (sheet.dataset.from !== "list") return; // only the list's sheet steps through the sounds
   const i = KEY_ORDER.indexOf(sh.key);
   const k = KEY_ORDER[(i + by + KEY_ORDER.length) % KEY_ORDER.length];
   go({ m: mode, sheet: k }, { push: false });
+  sayFirstWord(k);
 }
 
 /** Close the sheet the way Back does, so the two never disagree. */
@@ -582,17 +677,18 @@ const MODE_LABEL = { pairs: "Ear quiz", place: "Mouth quiz", browse: "All sounds
 
 const slugOfKey = k => {
   const s = soundOf(k);
-  return !s ? "" : s.kind === "letter" ? s.letter.slug : `vowel-${s.vowel.id}`;
+  return !s ? "" : s.kind === "letter" ? s.letter.slug : s.kind === "vowel" ? `vowel-${s.vowel.id}` : `mark-${s.mark.id}`;
 };
 function keyOfSlug(slug) {
   const s = String(slug || "").toLowerCase();
   if (letterBySlug.has(s)) return keyOfLetter(letterBySlug.get(s).ch);
   if (s.startsWith("vowel-") && vowelById.has(s.slice(6))) return keyOfVowel(s.slice(6));
+  if (s.startsWith("mark-") && soundOf(keyOfMark(s.slice(5)))) return keyOfMark(s.slice(5));
   const byChar = C.find(c => c.ch === String(slug).normalize("NFC"));
   return byChar ? keyOfLetter(byChar.ch) : null;
 }
 function hashFor(st) {
-  if (st.sheet) return `#${slugOfKey(st.sheet)}`;
+  if (st.sheet) return `#${isRef(st.sheet) ? st.sheet.slice(REF.length) : slugOfKey(st.sheet)}`;
   if (st.m === "browse" && st.sel) return `#${slugOfKey(st.sel)}`;
   return MODE_HASH[st.m] || location.pathname + location.search;
 }
@@ -631,18 +727,52 @@ function measure() {
   else if (mode === "browse") brMeasure();
 }
 
-/** Make the page match a history state. */
-function apply(st) {
+/**
+   Make the page match a history state. `restore` is for Back and Forward: the page returns to where it was
+   scrolled when that entry was left. Never plays anything: only a tap or a key does.
+*/
+function apply(st, { restore = false } = {}) {
+  const keyHadFocus = !!document.activeElement?.matches?.("#picker .k");
   setMode(st?.m || "pairs");
-  if (mode === "browse" && st?.sel && !narrow.matches) brSelect(st.sel);
+  if (mode === "browse" && !narrow.matches) {
+    if (st?.sel && soundOf(st.sel) && st.sel !== br.sel) brSelect(st.sel);
+    // The keyboard stays on the sound that is shown, so the next arrow key starts from it.
+    if (keyHadFocus) keyButton(br.sel)?.focus({ preventScroll: true });
+    if (restore) {
+      if (typeof st?.y === "number") scrollTo(0, st.y);
+      else brShowTop();
+    }
+  } else if (restore && typeof st?.y === "number") {
+    scrollTo(0, st.y);
+  }
   if (st?.sheet) sheetShow(st.sheet);
   else sheetHide();
+  noteSound();
+}
+
+// Every history entry says what its screen shows, so no Back or Forward press can land on an entry that looks
+// the same as the one before it. On wide screens an All sounds entry names its sound (the address may still be
+// #sounds), and an entry that is left remembers how far the page was scrolled.
+function noteSound() {
+  const st = history.state;
+  if (mode === "browse" && !narrow.matches && br.sel && st && st.m === "browse" && st.sel !== br.sel) history.replaceState({ ...st, sel: br.sel }, "");
+}
+function stampEntry() {
+  const st = history.state;
+  if (!st || !MODE_HASH[st.m]) return;
+  const now = { ...st, y: Math.round(scrollY) };
+  if (st.m === "browse" && !narrow.matches && br.sel) now.sel = br.sel;
+  history.replaceState(now, "");
 }
 
 /** Go somewhere: a new history entry (or a replaced one) and the page to match. */
 function go(st, { push = true } = {}) {
-  if (push) history.pushState(st, "", hashFor(st));
-  else history.replaceState(st, "", hashFor(st));
+  if (push) {
+    stampEntry();
+    history.pushState(st, "", hashFor(st));
+  } else {
+    history.replaceState(st, "", hashFor(st));
+  }
   apply(st);
 }
 
@@ -651,17 +781,36 @@ function stateFromHash() {
   try { h = decodeURIComponent(h); } catch { /* keep as is */ }
   const m = Object.keys(MODE_HASH).find(k => MODE_HASH[k] === `#${h}`);
   if (m) return { m };
+  if (sheetable(REF + h)) return { m: "browse", sheet: REF + h }; // #notes: a sheet at every width
   const k = keyOfSlug(h);
   if (k) return narrow.matches ? { m: "browse", sheet: k } : { m: "browse", sel: k };
   return null;
 }
 
-addEventListener("popstate", e => apply(e.state || stateFromHash() || { m: mode || "pairs" }));
+addEventListener("popstate", e => {
+  let st = e.state;
+  if (!st || !MODE_HASH[st.m]) {
+    // An entry the page did not write (an address typed or followed by hand): make it one of ours, so the
+    // address never says one thing while the screen shows another, and closing a sheet leaves the entry.
+    st = stateFromHash() || { m: mode || "pairs" };
+    history.replaceState(st, "", hashFor(st));
+  }
+  apply(st, { restore: true });
+});
 
 function openSheet(k, opener) {
-  if (!soundOf(k)) return;
+  if (!sheetable(k)) return;
   sh.opener = opener || null;
+  sh.byKeyboard = fromKeyboard();
   go({ m: mode, sheet: k });
+}
+
+/** The control the keyboard wants next in the activity on screen: Next after an answer, else play; in All sounds the chosen sound. */
+function focusActivity() {
+  const target = mode === "pairs" ? (ear.q.answered ? ear.els.next : ear.els.play)
+    : mode === "place" ? (mq.q.picked ? mq.els.next : mq.els.say)
+    : keyButton(br.sel) || picker.querySelector('.k[tabindex="0"]');
+  target?.focus({ preventScroll: true });
 }
 
 function practise(pairId) {
@@ -708,8 +857,12 @@ function initOptions() {
 // work straight away. Changed from the keyboard, the control keeps the focus.
 let lastKeyAt = -1e9;
 addEventListener("keydown", () => { lastKeyAt = performance.now(); }, true);
+const fromKeyboard = () => performance.now() - lastKeyAt <= 400;
+// What the visitor is pointing with ("mouse", "touch" or "pen"): see earBadge.
+let lastPointer = "mouse";
+addEventListener("pointerdown", e => { lastPointer = e.pointerType || "mouse"; }, true);
 function releaseFocus(control) {
-  if (performance.now() - lastKeyAt > 400) control.blur();
+  if (!fromKeyboard()) control.blur();
 }
 
 // An audio problem is told in the caption (or under the list), which has the room for it.
@@ -724,7 +877,9 @@ engine.on("error", ({ message } = {}) => {
   slot.innerHTML = esc(text) + retry;
   errorShown = true;
 });
+let audioStarted = false;
 engine.on("start", () => {
+  audioStarted = true;
   if (!errorShown) return;
   errorShown = false;
   if (mode === "pairs") earRender();
@@ -738,7 +893,10 @@ document.addEventListener("click", e => {
   const hit = sel => t.closest(sel);
   let b;
   if ((b = hit("button[data-mode]"))) {
-    if (b.dataset.mode !== mode) go({ m: b.dataset.mode });
+    if (b.dataset.mode !== mode) {
+      go({ m: b.dataset.mode });
+      if (fromKeyboard()) focusActivity();
+    }
     releaseFocus(b);
   } else if (hit("[data-retry]")) {
     engine.reload();
@@ -746,6 +904,8 @@ document.addEventListener("click", e => {
     e.preventDefault();
     const c = letterBySlug.get(b.dataset.more);
     if (c) openSheet(keyOfLetter(c.ch), b);
+  } else if ((b = hit("[data-ref]"))) {
+    openSheet(REF + b.dataset.ref, b);
   } else if ((b = hit("[data-practise]"))) {
     practise(b.dataset.practise);
   } else if (hit('[data-ui="sheet-close"]')) {
@@ -767,6 +927,8 @@ document.addEventListener("click", e => {
     mqPick(b.dataset.place);
   } else if (mode === "place" && (b = hit("#surface .mo-mk, #surface .mo-badge"))) {
     mqPick(b.dataset.place);
+  } else if (mode === "pairs" && (b = hit("#surface .mo-badge"))) {
+    earBadge(b.dataset.label === "2" ? "b" : "a");
   } else if ((b = hit(".k[data-key]"))) {
     // A tap on a sound shows it and says it (again, if it is already the one shown).
     const k = b.dataset.key;
@@ -774,9 +936,11 @@ document.addEventListener("click", e => {
       brTabStop(k);
       openSheet(k, b);
     } else if (k !== br.sel) {
+      // Another sound is another entry: Back shows the one before. (The arrow keys step without adding entries.)
+      stampEntry();
       brSelect(k);
       brShowTop();
-      history.replaceState({ m: "browse", sel: k }, "", hashFor({ m: "browse", sel: k }));
+      history.pushState({ m: "browse", sel: k }, "", hashFor({ m: "browse", sel: k }));
     }
     sayFirstWord(k, b);
   } else if ((b = hit("[data-say]"))) {
@@ -798,8 +962,10 @@ document.addEventListener("keydown", e => {
     return;
   }
   const k = e.key.length === 1 ? e.key.toLowerCase() : e.key;
-  // Enter and Space on a button or link belong to that control.
-  if ((k === "Enter" || k === " ") && t && t.closest("button, a, summary")) return;
+  // Enter and Space on a button or link belong to that control. The tab of the activity that is
+  // already showing has nothing left to do, so Enter there is the quiz's own key (play, or next).
+  const onOwnTab = !!(t && t.closest('button[data-mode][aria-pressed="true"]'));
+  if ((k === "Enter" || k === " ") && t && t.closest("button, a, summary") && !(k === "Enter" && onOwnTab)) return;
   let used = true;
   if (mode === "pairs") {
     if (k === "r") earPlay();
@@ -833,8 +999,6 @@ narrow.addEventListener("change", () => {
 
 // ---------- start ----------
 
-$("about").innerHTML = aboutHTML();
-$("latin-key").innerHTML = latinKeyHTML();
 initOptions();
 
 history.scrollRestoration = "manual";

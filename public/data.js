@@ -154,7 +154,7 @@ export const C = [
       medial: { ar: "كَثِير", tr: "kaṯīr", g: "many, a lot" },
       final: { ar: "حَدِيث", tr: "ḥadīṯ", g: "talk, conversation" }
     },
-    d: "The th of thin: the tongue tip between or just behind the front teeth, with no voice."
+    d: "The th of thin: the tongue tip between or just behind the front teeth, with breath alone."
   },
   {
     ch: "ذ", slug: "dhal", name: "ḏāl", ipa: "ð",
@@ -165,7 +165,7 @@ export const C = [
       medial: { ar: "أُذُن", tr: "ʾuḏun", g: "ear" },
       final: { ar: "تِلْمِيذ", tr: "tilmīḏ", g: "pupil" }
     },
-    d: "The th of this: the same position as ث, with the voice on."
+    d: "The th of this: the tongue where it is for ث, plus a hum."
   },
   {
     ch: "ظ", slug: "zaa", name: "ẓāʾ", ipa: "ðˤ",
@@ -176,7 +176,7 @@ export const C = [
       medial: { ar: "نَظِيف", tr: "naẓīf", g: "clean" },
       final: { ar: "حَظّ", tr: "ḥaẓẓ", g: "luck" }
     },
-    d: "The emphatic partner of ذ: the tongue tip at the teeth as for ذ, with the tongue root pulled back toward the throat. Vowels next to it sound darker.",
+    d: "The heavy version of ذ: the tongue tip at the teeth as for ذ, with the tongue root pulled back toward the throat. Vowels next to it sound darker.",
     note: "In most spoken dialects ظ and ض have merged into a single sound; see the dialect table."
   },
 
@@ -212,7 +212,7 @@ export const C = [
       medial: { ar: "مَطَر", tr: "maṭar", g: "rain" },
       final: { ar: "وَسَط", tr: "wasaṭ", g: "middle" }
     },
-    d: "Emphatic t: say t with the tongue root pulled back toward the throat. A following a moves toward the a of father."
+    d: "Heavy t: say t with the tongue root pulled back toward the throat. A following a moves toward the a of father."
   },
   {
     ch: "ض", slug: "dad", name: "ḍād", ipa: "dˤ",
@@ -223,8 +223,8 @@ export const C = [
       medial: { ar: "رَمَضَان", tr: "ramaḍān", g: "Ramadan" },
       final: { ar: "أَرْض", tr: "ʾarḍ", g: "earth, land" }
     },
-    d: "Emphatic d: say d with the tongue root pulled back toward the throat. Arabic is nicknamed luġat aḍ-ḍād, “the language of the ḍād”, because this sound was thought to be unique to it.",
-    note: "Early Arabic grammarians described ض as a different sound, probably made with air escaping past the side of the tongue. The standard pronunciation today is an emphatic d."
+    d: "Heavy d: say d with the tongue root pulled back toward the throat. Arabic is nicknamed luġat aḍ-ḍād, “the language of the ḍād”, because this sound was thought to be unique to it.",
+    note: "Early Arabic grammarians described ض as a different sound, probably made with air escaping past the side of the tongue. The standard pronunciation today is a heavy d."
   },
   {
     ch: "س", slug: "sin", name: "sīn", ipa: "s",
@@ -257,7 +257,7 @@ export const C = [
       medial: { ar: "بَصَل", tr: "baṣal", g: "onions" },
       final: { ar: "قَمِيص", tr: "qamīṣ", g: "shirt" }
     },
-    d: "Emphatic s: the hiss of س with the tongue root pulled back toward the throat. Most of the difference is heard in the darker vowels around it."
+    d: "Heavy s: the hiss of س with the tongue root pulled back toward the throat. Most of the difference is heard in the darker vowels around it."
   },
   {
     ch: "ن", slug: "nun", name: "nūn", ipa: "n",
@@ -290,7 +290,7 @@ export const C = [
       medial: { ar: "مَرِيض", tr: "marīḍ", g: "sick" },
       final: { ar: "قَمَر", tr: "qamar", g: "moon" }
     },
-    d: "A tapped r, like the r of Spanish pero: one quick flick of the tongue tip. Doubled, as in darrasa, it becomes a trill, like Spanish perro. It is never the English r."
+    d: "A tapped r, like the r of Spanish pero: one quick flick of the tongue tip. Doubled, as in darrasa, it becomes a rolled r, like Spanish perro. It is never the English r."
   },
 
   // Hard palate
@@ -364,8 +364,8 @@ export const C = [
       medial: { ar: "أُخْت", tr: "ʾuḫt", g: "sister" },
       final: { ar: "مَطْبَخ", tr: "maṭbaḫ", g: "kitchen" }
     },
-    d: "The ch of Scottish loch or German Bach: a rough, scraping sound at the back of the mouth, with no voice.",
-    note: "Books describe خ either as velar, written /x/, or as uvular, written /χ/, and speakers vary. It is grouped here with ق at the uvula."
+    d: "The ch of Scottish loch or German Bach: a rough, scraping sound at the back of the mouth, made with breath alone.",
+    note: "Books place خ either at the soft palate, written /x/, or at the uvula, written /χ/, and speakers vary. It is grouped here with ق at the uvula."
   },
   {
     ch: "غ", slug: "ghayn", name: "ġayn", ipa: "ʁ",
@@ -376,8 +376,8 @@ export const C = [
       medial: { ar: "صَغِير", tr: "ṣaġīr", g: "small" },
       final: { ar: "دِمَاغ", tr: "dimāġ", g: "brain" }
     },
-    d: "The voiced partner of خ: a soft gargle, close to the r of French or German.",
-    note: "Like خ, غ is described either as velar, written /ɣ/, or as uvular, written /ʁ/, and speakers vary. It is grouped here with ق at the uvula."
+    d: "خ with a hum added: a soft gargle, close to the r of French or German.",
+    note: "Like خ, غ is placed either at the soft palate, written /ɣ/, or at the uvula, written /ʁ/, and speakers vary. It is grouped here with ق at the uvula."
   },
 
   // Pharynx
@@ -390,7 +390,7 @@ export const C = [
       medial: { ar: "لَحْم", tr: "laḥm", g: "meat" },
       final: { ar: "رِيح", tr: "rīḥ", g: "wind" }
     },
-    d: "A strong, breathy h made by narrowing the throat. It has no scrape, which sets it apart from خ, and no voice, which sets it apart from ع."
+    d: "A strong, breathy h made by narrowing the throat. It has no scrape, which sets it apart from خ, and no hum, which sets it apart from ع."
   },
   {
     ch: "ع", slug: "ayn", name: "ʿayn", ipa: "ʕ",
@@ -401,7 +401,7 @@ export const C = [
       medial: { ar: "سَعِيد", tr: "saʿīd", g: "happy" },
       final: { ar: "شَارِع", tr: "šāriʿ", g: "street" }
     },
-    d: "The voiced partner of ح: the throat is narrowed with the voice on. It often has little or no friction and can sound like a tight, strained vowel."
+    d: "Narrow the throat as for ح, but hum as you do it. It is usually smooth, with no scrape, and can sound like a tight, strained vowel."
   },
 
   // Glottis
@@ -419,8 +419,9 @@ export const C = [
       medial: { ar: "سُؤَال", tr: "suʾāl", g: "question" },
       final: { ar: "شَيْء", tr: "šayʾ", g: "thing" }
     },
-    d: "A glottal stop: the vocal folds close and then let go, like the catch in the middle of English uh-oh. In Arabic it is a full consonant that can begin, sit inside or end a word.",
-    note: "Hamza has no start, middle and end shapes; instead it sits on a seat, shown above. At the start of a word it always sits on alif (أ إ), and inside a word it usually sits on a seat letter (أ ؤ ئ), which is not pronounced. " +
+    d: "The catch in the middle of English uh-oh: the voice box shuts for an instant, then lets go. In Arabic it is a full consonant that can begin, sit inside or end a word.",
+    seatsNote: "Hamza rides on ا, و or ي, or stands alone on the line; the vowels around it decide which.",
+    note: "At the start of a word hamza always rides on alif (أ إ). Inside a word it usually rides on one of أ ؤ ئ, and that carrier letter is not pronounced. " +
       "It stands on its own (ء) mostly at the end of a word, as in šayʾ. Its syllable is spelled آ, hamza followed by a long ā."
   },
   {
@@ -479,13 +480,13 @@ export const PAIRS = {
     label: "ك vs ق", letters: ["ك", "ق"],
     a: { ar: "كَلْب", tr: "kalb", g: "dog" },
     b: { ar: "قَلْب", tr: "qalb", g: "heart" },
-    n: "ق is made at the uvula, further back than any English stop, and pulls the a after it back."
+    n: "ق is made at the uvula, further back than English k, and the a after it sounds darker."
   },
   "k-kh": {
     label: "ك vs خ", letters: ["ك", "خ"],
     a: { ar: "كَبِير", tr: "kabīr", g: "big" },
     b: { ar: "خَبِير", tr: "ḫabīr", g: "expert" },
-    n: "ك is a clean stop. خ never closes: air scrapes through a narrow gap further back."
+    n: "ك blocks the air. خ never closes: air scrapes through a narrow gap further back."
   },
   "hh-kh": {
     label: "ح vs خ", letters: ["ح", "خ"],
@@ -503,7 +504,7 @@ export const PAIRS = {
     label: "ح vs ع", letters: ["ح", "ع"],
     a: { ar: "حَمَل", tr: "ḥamal", g: "lamb" },
     b: { ar: "عَمَل", tr: "ʿamal", g: "work" },
-    n: "Both are made in the throat. ح is breathed with no voice; ع has the voice on."
+    n: "Both are made in the throat. ح is breath alone; ع has a hum in it."
   },
   "a-ain": {
     label: "ء vs ع", letters: ["ء", "ع"],
@@ -515,7 +516,7 @@ export const PAIRS = {
     label: "ع vs غ", letters: ["ع", "غ"],
     a: { ar: "عَار", tr: "ʿār", g: "shame" },
     b: { ar: "غَار", tr: "ġār", g: "cave" },
-    n: "ع is made low in the throat, with little or no friction. غ is a gargle further up, at the back of the mouth."
+    n: "ع is made low in the throat, smooth, with little or no scrape. غ is a gargle further up, at the back of the mouth."
   },
   "r-gh": {
     label: "ر vs غ", letters: ["ر", "غ"],
@@ -551,7 +552,7 @@ export const PAIRS = {
     label: "Single vs doubled r", letters: ["ر"],
     a: { ar: "دَرَسَ", tr: "darasa", g: "he studied" },
     b: { ar: "دَرَّسَ", tr: "darrasa", g: "he taught" },
-    n: "A doubled consonant is held longer, and a doubled r is trilled. Here it turns “study” into “teach”."
+    n: "A doubled consonant is held longer, and a doubled r is rolled. Here it turns “study” into “teach”."
   },
   "gem2": {
     label: "Single vs doubled m", letters: ["م"],
@@ -622,7 +623,7 @@ export const VCOLOR = [
     id: "vc-t", label: "ā after ت and ط", letters: ["ت", "ط"],
     a: { ar: "تَابَ", tr: "tāba", g: "he repented" },
     b: { ar: "طَابَ", tr: "ṭāba", g: "it was pleasant" },
-    n: "The consonants differ only in emphasis, and most of what you hear is the change in the vowel."
+    n: "ط is the heavy version of ت, and most of what you hear is the change in the vowel."
   }
 ];
 

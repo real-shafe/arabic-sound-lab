@@ -25,7 +25,7 @@ const COPY_KEYS = [
 // Element ids on the page; a letter slug used as #slug must not collide with them.
 const PAGE_IDS = [
   "card", "surface", "picker", "tip", "detail", "sheet", "sheet-body", "sheet-pos", "set", "voice", "slow", "announcer",
-  "about", "offline-root", "off-size", "ear", "mouth", "sounds",
+  "offline-root", "off-size", "ear", "mouth", "sounds", "notes",
 ];
 // The one romanization system (F17): ROMANIZATION symbols, a i u ā ī ū, the
 // article's hyphen, spaces between words.

@@ -4,9 +4,9 @@ Ear training for the sounds of Modern Standard Arabic that English doesn't have,
 
 - **Ear quiz.** Hear one word of a pair (حَمَل ḥamal / عَمَل ʿamal) and pick which it was. The mouth under the question marks, as 1 and 2, where each word's contrasted sound is made; pairs that differ only in length show two timelines instead. After the answer the two words become replay buttons and one sentence says what tells them apart. Pick a set (throat and back of the mouth, plain vs emphatic, between the teeth, vowel length, doubling) or a single pair.
 - **Mouth quiz.** See a letter, hear it in a word, and pick where in the mouth it is made, from eight numbered places.
-- **All sounds.** The 28 consonants from the lips to the voice box and the 8 vowels. Tap one to hear it and see how it is made, its shapes, words with it at the start, middle and end, the pairs that train it, what happens to it after al-, and how cities say it. On phones the details open in a sheet over the list; "More about …" in either quiz opens the same sheet over the quiz.
+- **All sounds.** The 28 consonants from the lips to the voice box, the 8 vowels, and the 4 small marks that are not a vowel themselves (sukūn, šadda, tanwīn, madda). Tap one to hear it and see how it is made, its shapes, words with it at the start, middle and end, the pairs that train it, what happens to it after al-, and how cities say it. On wide screens the chosen sound is right under the list, and Back shows the sound before it; on phones the details open in a sheet over the list. "More about" in either quiz opens the same sheet over the quiz.
 
-Each quiz is exactly one screen (nothing to scroll to), nothing moves when an answer is shown, and Back steps back inside the site. Every word shows a two-word hint for its sound ("throaty h", "plain h") next to its Latin spelling. The notes (a key to the Latin letters, the marks, the regional table, sources, saving the audio for offline use) are at the bottom of All sounds. Misses are remembered in the browser and asked more often.
+Each quiz is exactly one screen (nothing to scroll to), nothing moves when an answer is shown, and Back steps back inside the site. Every word shows a two-word hint for its sound ("throaty h", "plain h") next to its Latin spelling. The reading notes (a key to the Latin letters, every mark, spelling, the regional table, sources) open in a sheet from the bottom of All sounds, next to saving the audio for offline use. Misses are remembered in the browser and asked more often.
 
 Live at **https://arabic-sound-lab.shafe.dev**
 
@@ -37,7 +37,7 @@ This runs Node's built-in test runner over `tests/`:
 | `tests/text.test.mjs` | The NFC lookup keys shared by the page, the generator and the tests |
 | `tests/pipeline.test.mjs` | The audio pipeline: trimming, loudness, peak limiting, time-stretching, MP3 encoding, fingerprints and manifest helpers, on synthesized signals with no network |
 
-| `tests/ui.test.mjs` | The UI contract, in a real headless Chrome at six screen sizes (360x640 to 1366x650): each quiz fits one screen; nothing a tap changes is off-screen; the page never scrolls by itself; no control moves or resizes when an answer is shown, on the next question, or for another sound; no dead, tiny, overlapping or cut-off controls and no clipped text; keyboard shortcuts; Back; deep links; the letter sheet. Skipped when `playwright-core` or Chrome is missing |
+| `tests/ui.test.mjs` | The UI contract, in a real headless Chrome at six screen sizes (360x640 to 1366x650): each quiz fits one screen; nothing a tap changes is off-screen; the page never scrolls by itself; no control moves or resizes when an answer is shown, on the next question, or for another sound; no dead, tiny, overlapping or cut-off controls and no clipped text; the list pinned at every pinned window size; keyboard shortcuts; Back and Forward through activities, sounds and sheets (every press must change the screen); deep links; the letter sheet and the reading notes; vowel marks inside their cards. Skipped when `playwright-core` or Chrome is missing |
 
 GitHub Actions runs the same tests on every push and pull request (`.github/workflows/test.yml`).
 
@@ -63,7 +63,7 @@ It is meant to be operated by an agent playing a persona (a first-timer on a pho
 | `public/data.js` | Every letter, word, pair, note and line of prose the page teaches, in one place so it can be fact-checked; shared with the audio generator |
 | `public/js/app.js` | The three modes (built once, updated in place), reserved heights, questions and scoring, remembered misses, options, keys, history (`#ear`, `#mouth`, `#sounds`, `#ayn`) |
 | `public/js/sounds.js` | The page's view of `data.js`: the order and grouping of the sounds, the pair sets, and lookups from a sound to its pairs, regional forms and what happens after al- |
-| `public/js/views.js` | HTML for the quiz frames, the list of sounds, a sound's details and the footer notes |
+| `public/js/views.js` | HTML for the quiz frames, the list of sounds, a sound's details and the reading notes |
 | `public/js/audio.js` | Audio engine: loads `audio.json`, decodes clips with the Web Audio API and plays sequences back to back |
 | `public/js/mouth.js` | The side-view mouth diagram: one lit place with its name (`setPlace`), or numbered marks joined to their places (`setMarks`) |
 | `public/js/text.js` | NFC lookup keys and diacritic stripping |

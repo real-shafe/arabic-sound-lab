@@ -19,7 +19,7 @@
 
 "use strict";
 
-const SHELL_CACHE = "asl-shell-v3";
+const SHELL_CACHE = "asl-shell-v4";
 const CLIPS_CACHE = "asl-clips-v2"; // js/offline.js reads this cache by name
 const CACHE_PREFIX = "asl-";
 

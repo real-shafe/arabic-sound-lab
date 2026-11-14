@@ -61,23 +61,20 @@
   <p class="tip" id="tip"></p>
   <section class="detail" id="detail" aria-label="The chosen sound"></section>
 
-  <!-- Last in the page for the keyboard, drawn in the title row: the quiz comes first. -->
+  <!-- After the activities for the keyboard, drawn in the title row: the quiz comes first. -->
   <div class="prefs">
-    <label title="Synthetic speech made with ElevenLabs; not checked by a fluent speaker"><span class="pref-label">AI voice</span> <select id="voice" aria-label="AI voice"><option value="mix">Both AI voices</option><option value="chaouki">Male AI voice</option><option value="asmaa">Female AI voice</option></select></label>
+    <label title="Synthetic speech made with ElevenLabs; not checked by a fluent speaker"><span class="pref-label">AI voice</span> <select id="voice" aria-label="AI voice"><option value="mix">Both voices</option><option value="chaouki">Male voice</option><option value="asmaa">Female voice</option></select></label>
     <label><input type="checkbox" id="slow"> Slow</label>
   </div>
-</div>
 
-<footer>
-  <p>The audio is synthetic speech made with ElevenLabs in two voices, Chaouki and Asmaa. It has not been checked by a fluent Arabic speaker; recordings of real people, such as those on <a href="https://forvo.com/languages/ar/" target="_blank" rel="noopener">Forvo</a>, remain the best reference.</p>
-  <div id="latin-key"></div>
-  <details>
-    <summary>Marks, spelling and sources</summary>
-    <div id="about"></div>
-  </details>
-  <div id="offline-root"></div>
-  <p><a href="https://github.com/real-shafe/arabic-sound-lab" target="_blank" rel="noopener">Source code</a> · <a href="https://shafe.dev">shafe.dev</a></p>
-</footer>
+  <!-- Shown under All sounds only. It is inside the stage so that the pinned list stays pinned to the end of the page. -->
+  <footer>
+    <p>The audio is synthetic speech made with ElevenLabs in two voices, Chaouki and Asmaa. It has not been checked by a fluent Arabic speaker; recordings of real people, such as those on <a href="https://forvo.com/languages/ar/" target="_blank" rel="noopener">Forvo</a>, remain the best reference.</p>
+    <p><button type="button" class="linkish" data-ref="notes">Reading notes: the small marks, spelling, regional speech and sources</button></p>
+    <div id="offline-root"></div>
+    <p><a href="https://github.com/real-shafe/arabic-sound-lab" target="_blank" rel="noopener">Source code</a> · <a href="https://shafe.dev">shafe.dev</a></p>
+  </footer>
+</div>
 
 <dialog class="sheet" id="sheet" data-ui="sheet" aria-label="About this sound">
   <div class="sheet-head">
@@ -86,7 +83,7 @@
     <span class="grow" id="sheet-pos"></span>
     <button type="button" class="sheet-btn" data-ui="sheet-close" aria-label="Close" title="Close (Esc)">✕</button>
   </div>
-  <div class="sheet-body" id="sheet-body"></div>
+  <div class="sheet-body" id="sheet-body" tabindex="-1"></div>
 </dialog>
 
 <div id="announcer" class="visually-hidden" aria-live="polite" aria-atomic="true"></div>

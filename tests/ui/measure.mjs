@@ -50,6 +50,20 @@ export function pageInit() {
     return false;
   };
 
+  // The part of a box that its scrolling or clipping ancestors let through (content scrolled under a
+  // sheet's head is not "overlapping" the buttons in that head).
+  const clipped = (el, r) => {
+    let x0 = r.x, y0 = r.y, x1 = r.x + r.w, y1 = r.y + r.h;
+    for (let n = el.parentElement; n && n !== document.documentElement; n = n.parentElement) {
+      const s = getComputedStyle(n);
+      if (/auto|scroll|hidden|clip/.test(s.overflowX + " " + s.overflowY)) {
+        const b = n.getBoundingClientRect();
+        x0 = Math.max(x0, b.left); y0 = Math.max(y0, b.top); x1 = Math.min(x1, b.right); y1 = Math.min(y1, b.bottom);
+      }
+    }
+    return { x: x0, y: y0, w: Math.max(0, x1 - x0), h: Math.max(0, y1 - y0) };
+  };
+
   // The area a tap on this control really has: a checkbox inside a label is as big as the label.
   const effective = el => {
     if (el instanceof HTMLInputElement || el instanceof HTMLSelectElement) {
@@ -148,8 +162,9 @@ export function pageInit() {
         if (a.el.contains(b.el) || b.el.contains(a.el)) continue;
         if (a.pinned !== b.pinned) continue; // one of them scrolls under a pinned bar
         if (effective(a.el) === effective(b.el)) continue;
-        const ix = Math.min(a.r.x + a.r.w, b.r.x + b.r.w) - Math.max(a.r.x, b.r.x);
-        const iy = Math.min(a.r.y + a.r.h, b.r.y + b.r.h) - Math.max(a.r.y, b.r.y);
+        const ra = clipped(a.el, a.r), rb = clipped(b.el, b.r);
+        const ix = Math.min(ra.x + ra.w, rb.x + rb.w) - Math.max(ra.x, rb.x);
+        const iy = Math.min(ra.y + ra.h, rb.y + rb.h) - Math.max(ra.y, rb.y);
         if (ix > 2 && iy > 2 && ix * iy > 0.2 * Math.min(area(a.r), area(b.r))) {
           faults.push({ code: "OVERLAP", sev: 2, sig: `${a.sig}&${b.sig}`, msg: `"${a.text}" and "${b.text}" overlap.` });
         }
